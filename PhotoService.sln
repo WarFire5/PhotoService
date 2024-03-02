@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoService.Console", "PhotoService.Console\PhotoService.Console.csproj", "{9064C90B-0818-4010-B2AD-51A1694D9BF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoService.DAL", "PhotoService.DAL\PhotoService.DAL.csproj", "{2F1470B3-5772-4E4C-8700-232901DED44E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoService.BLL", "PhotoService.BLL\PhotoService.BLL.csproj", "{8224D3CB-33E7-45A6-AB82-BC9073DE5B2F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9064C90B-0818-4010-B2AD-51A1694D9BF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9064C90B-0818-4010-B2AD-51A1694D9BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9064C90B-0818-4010-B2AD-51A1694D9BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9064C90B-0818-4010-B2AD-51A1694D9BF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F1470B3-5772-4E4C-8700-232901DED44E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F1470B3-5772-4E4C-8700-232901DED44E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F1470B3-5772-4E4C-8700-232901DED44E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F1470B3-5772-4E4C-8700-232901DED44E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8224D3CB-33E7-45A6-AB82-BC9073DE5B2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8224D3CB-33E7-45A6-AB82-BC9073DE5B2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8224D3CB-33E7-45A6-AB82-BC9073DE5B2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8224D3CB-33E7-45A6-AB82-BC9073DE5B2F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
