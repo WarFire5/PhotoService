@@ -8,6 +8,8 @@
 
     <ItemGroup>
       <Folder Include="Components\Layout\image\" />
+      <Folder Include="Components\Pages\ExecutorPages\" />
+      <Folder Include="Components\Pages\ManagerPages\" />
     </ItemGroup>
 
     <ItemGroup>
