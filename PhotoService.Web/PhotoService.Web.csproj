@@ -7,10 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Components\Pages\Customer\" />
-      <Folder Include="Components\Pages\Executor\" />
-      <Folder Include="Components\Pages\Manager\" />
-      <Folder Include="wwwroot\Resources\" />
+      <Folder Include="Components\Layout\image\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="wwwroot\logo.svg" />
     </ItemGroup>
 
 </Project>
