@@ -1,0 +1,37 @@
+﻿@page "/registration"
+<div>
+    <div class="registration-logo-container">
+        <img class="registration-logo" src="Resources/registration-logo.png"/>
+    </div>
+    <div class="container-md container-for-registration-page">
+        <h2 class="registration-title">Регистрация</h2>
+        <div class="btn-group registration-tabs">
+            <a href="#" class="btn btn-primary active сustomer-tab" aria-current="page">Заказчик</a>
+            <a href="#" class="btn btn-primary executor-tab">Исполнитель</a>
+        </div>
+        <form class="row g-3">
+            <div class="col-12">
+                <label for="inputName" class="form-label">ФИО</label>
+                <input type="text" class="form-control" id="inputName" placeholder="Введите ФИО">
+            </div>
+            <div class="col-md-12">
+                <label for="inputEmail" class="form-label">Эл. адрес</label>
+                <input type="email" class="form-control" id="inputEmail" placeholder="Введите электронный адресс">
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword" class="form-label">Пароль</label>
+                <input type="text" class="form-control" id="inputPassword" placeholder="Задайте пароль">
+            </div>
+            <div class="col-md-6">
+                <label for="inputPasswordCheck" class="form-label">Проверка пароля</label>
+                <input type="text" class="form-control" id="inputPasswordCheck" placeholder="Повторите пароль">
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg registration-button">Зарегистрироваться</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@code {
+}
