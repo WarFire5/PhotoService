@@ -6,4 +6,11 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Components\Pages\Customer\" />
+      <Folder Include="Components\Pages\Executor\" />
+      <Folder Include="Components\Pages\Manager\" />
+      <Folder Include="wwwroot\Resources\" />
+    </ItemGroup>
+
 </Project>
