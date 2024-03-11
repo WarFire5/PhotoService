@@ -1,0 +1,58 @@
+﻿.authorization-logo-container {
+    position: relative;
+    height: 10vh;
+}
+
+.authorization-logo {
+    position: absolute;
+    top: 35%;
+    left: 49%;
+    transform: translate(-50%, -50%);
+}
+
+.authorization-title {
+    padding-top: 5px;
+    font-size: 30px;
+    /*font-family: auto;*/
+    font-weight: bold;
+    color: #000000;
+    text-shadow: -2px -2px 55px #e600ff;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(255 255 255 / 50%);
+    /*text-align: center;*/
+}
+
+.container-for-authorization-page {
+    width: 482px;
+    height: 352px;
+    background: white;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
+    padding-left: 15px;
+    border-radius: 5px;
+}
+
+.authorization-button {
+    background: #4340D2;
+    border-color: #4340D2;
+    border-width: 1px;
+    align-items: center;
+}
+
+.authorization-button:hover {
+    background-color: white !important;
+    color: #4340D2;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.authorization-button:active {
+    background-color: white !important;
+    color: #4340D2;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.authorization-form {
+    /*padding-top: 50px;*/
+    margin-top: -5px;
+}
