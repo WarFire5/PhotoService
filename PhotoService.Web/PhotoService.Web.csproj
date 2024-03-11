@@ -6,4 +6,13 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Components\Pages\ExecutorPages\" />
+      <Folder Include="Components\Pages\ManagerPages\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="wwwroot\Resources\logo.svg" />
+    </ItemGroup>
+
 </Project>
