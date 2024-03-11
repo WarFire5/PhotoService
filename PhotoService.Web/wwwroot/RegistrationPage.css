@@ -5,49 +5,76 @@
 
 .registration-logo {
     position: absolute;
-    top: 25%;
+    top: 35%;
     left: 49%;
     transform: translate(-50%, -50%);
 }
 
 .registration-title {
     font-size: 40px;
-    text-shadow: -2px -2px 55px #e600ff;
-    text-align: center;
+    font-family: auto;
     font-weight: bold;
+    color: #000000;
+    text-shadow: -2px -2px 55px #dc35b4;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(255 255 255 / 50%);
+    text-align: center;
 }
 
 .registration-tabs {
+    text-align: center;
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border-color: #4340D2;
+    border-width: 1px;
 }
 
 .сustomer-tab {
+    width: 150px !important;
+    max-width: 150px;
     text-align: center;
-    background: #4340D2;
     color: white;
+    background-color: #4340D2 !important;
+    border-color: #4340D2;
+    border-width: 1px;
 }
 
 .сustomer-tab:hover {
-    color: white;
+    color: #4340D2 !important;
+    background-color: white !important;
+    border-color: #4340D2;
+    border-width: 1px;
 }
 
 .сustomer-tab:active {
-    color: white;
+    color: navy !important;
+    border-color: #4340D2;
+    border-width: 1px;
 }
 
 .executor-tab {
+    width: 150px !important;
+    max-width: 150px;
     text-align: center;
-    background: white;
     color: #4340D2;
+    background-color: white !important;
+    border-color: #4340D2;
+    border-width: 1px;
 }
 
 .executor-tab:hover {
-    color: #4340D2;
+    color: #ffffff !important;
+    background-color: #4340D2 !important;
+    border-color: #4340D2;
+    border-width: 1px;
 }
 
 .executor-tab:active {
-    color: #4340D2;
+    color: navy !important;
+    border-color: #4340D2;
+    border-width: 1px;
 }
 
 .registration-background {
@@ -62,8 +89,30 @@
     height: 425px;
     background: white;
     box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
+    padding-left: 15px;
+    border-radius: 5px;
 }
 
 .registration-button {
     background: #4340D2;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.registration-button:hover {
+    background-color: white !important;
+    color: #4340D2;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.registration-button:active {
+    background-color: white !important;
+    color: #4340D2;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.registration-form {
+    padding-top: 5px;
 }
