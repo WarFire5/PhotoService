@@ -1,0 +1,42 @@
+﻿@page "/authorization"
+<div>
+    <div class="authorization-logo-container">
+        <img class="authorization-logo" src="Resources/registration-logo.png"/>
+    </div>
+    <div class="container-md container-for-authorization-page">
+        <h2 class="authorization-title">Вход</h2>
+
+        @* <form class="row g-3 authorization-form"> *@
+        @*     <div class="col-12"> *@
+        @*         <label for="inputName" class="form-label">Электронная почта</label> *@
+        @*         <input type="text" class="form-mail-enter" id="inputName" placeholder="Введите электронную почту"> *@
+        @*     </div> *@
+        @*     <div class="col-md-12"> *@
+        @*         <label for="inputEmail" class="form-label">Пароль</label> *@
+        @*         <input type="email" class="form-password-enter" id="inputEmail" placeholder="Введите пароль"> *@
+        @*     </div> *@
+        @*     <div class="d-grid gap-2"> *@
+        @*         <button type="submit" class="btn btn-primary btn-lg authorization-button">Войти</button> *@
+        @*     </div> *@
+        @* </form> *@
+
+        <form class="authorization-form">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Электронная почта</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите электронную почту">
+                <div id="emailHelp" class="form-text">Мы никогда-никода никому-никому не передадим вашу электронную почту может быть, наверное, скорее всего передадим.</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Пароль</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Введите пароль">
+                <div id="emailHelp" class="form-text">Как и пароль. Наверное.</div>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg authorization-button">Войти</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@code {
+}

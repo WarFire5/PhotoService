@@ -11,17 +11,19 @@
 }
 
 .registration-title {
-    font-size: 40px;
-    font-family: auto;
+    padding-top: 5px;
+    font-size: 30px;
+    /*font-family: auto;*/
     font-weight: bold;
     color: #000000;
     text-shadow: -2px -2px 55px #dc35b4;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: rgb(255 255 255 / 50%);
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .registration-tabs {
+    padding-top: 5px;
     text-align: center;
     display: flex;
     justify-content: center;
