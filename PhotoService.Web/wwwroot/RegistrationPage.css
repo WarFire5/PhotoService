@@ -79,8 +79,8 @@
     border-width: 1px;
 }
 
-.registration-background {
-    background-image: url("Resources/registration-background.jpg");
+.general-background {
+    background-image: url("Resources/general-background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
