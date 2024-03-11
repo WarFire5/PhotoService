@@ -1,0 +1,25 @@
+﻿@page "/authentication"
+<div>
+    <div class="authentication-logo-container">
+        <img class="authentication-logo" src="Resources/authentication-logo.png"/>
+    </div>
+    <div class="container-md container-for-authentication-page">
+        <h2 class="authentication-title">Вход</h2>
+        <form class="row g-3">
+            <div class="col-md-12">
+                <label for="inputEmail" class="form-label">Электронная почта</label>
+                <input type="email" class="form-control" id="inputEmail" placeholder="Введите электронную почту">
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword" class="form-label">Пароль</label>
+                <input type="text" class="form-control" id="inputPassword" placeholder="Введите пароль">
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg authentication-button">Войти</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@code {
+}
