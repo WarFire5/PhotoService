@@ -1,20 +1,19 @@
-﻿@page "/counter"
+﻿@page "/executors"
 @rendermode InteractiveServer
 
-<PageTitle>Counter</PageTitle>
+<PageTitle>Исполнители</PageTitle>
 
-<h2>Counter</h2>
-
-<p role="status">Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
-@code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
-
-}
+<h2>Исполнители</h2>
+<div class="row g-3">
+    <div class="col-auto">
+        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
+    </div>
+    <div class="col-auto">
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Тип услуги</option>
+            <option value="1">Фотографы</option>
+            <option value="2">Видеографы</option>
+            <option value="3">Стилисты</option>
+        </select>
+    </div>
+    </div>

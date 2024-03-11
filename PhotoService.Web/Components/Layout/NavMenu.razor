@@ -1,3 +1,4 @@
+
 ﻿<div class="top-row ps-3 navbar">
     <a href="#">
         <img src="Resources/logo.svg" alt="Logo" height="32" class="d-inline-block align-text-top">
@@ -15,7 +16,7 @@
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
+            <NavLink class="nav-link" href="executors">
                 <span class="bi bi-people-fill" style="font-size: 24px" aria-hidden="true"></span> Исполнители
             </NavLink>
         </div>
@@ -26,4 +27,35 @@
             </NavLink>
         </div>
     </nav>
+    </div>
+=======
+﻿<div class="top-row ps-3 navbar">
+    <a href="#">
+        <img src="logo.svg" alt="Logo" height="32" class="d-inline-block align-text-top">
+    </a>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler"/>
+
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-ui-checks" style="font-size: 24px" aria-hidden="true"></span> Услуги
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link"  href="PageExecutors">
+                <span class="bi bi-people-fill" style="font-size: 24px" aria-hidden="true"></span> Исполнители
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="weather">
+                <span class="bi bi-cart-check-fill" style="font-size: 24px" aria-hidden="true"></span> Мои заказы
+            </NavLink>
+        </div>
+    </nav>
+
 </div>
