@@ -8,7 +8,6 @@
 
     <ItemGroup>
         <Folder Include="Components\Pages\GeneralPages\"/>
-        <Folder Include="Components\Pages\CustomerPages\"/>
         <Folder Include="Components\Pages\ExecutorPages\"/>
         <Folder Include="Components\Pages\ManagerPages\"/>
     </ItemGroup>
