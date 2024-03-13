@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
 
 <div class="page">
     <div class="sidebar">
@@ -6,17 +7,19 @@
     </div>
 
     <main>
-        @* <div class="top-row px-4"> *@
-        @*     <button type="button" class="btn btn-outline-primary">Выйти</button> *@
-        @* </div>         *@
-
-        @* <div style="display: flex; justify-content: space-between;"> *@
-        @*     <h2 style="padding-left: 30px;">Услуги</h2> *@
-        @*     <span style="padding-right: 25px;"> *@
-        @*         <TopButtonsForNonAuthorizedUsers/> *@
-        @*     </span> *@
-        @* </div> *@
-
+        @if (_currentPage.EndsWith("/registration") || _currentPage.EndsWith("/authorization"))
+        {
+            <AppBarForRegistrationPages/>
+        }
+        else if (_currentPage.EndsWith("/"))
+        {
+            <AppBarForNonAuthorizedUsers/>
+        }
+        else
+        {
+            <AppBarForAuthorizedUsers/>
+        }
+        
         <article class="content px-4">
             @Body
         </article>
@@ -28,3 +31,12 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+@code{
+    private string _currentPage;
+
+    protected override void OnInitialized()
+    {
+        _currentPage = NavigationManager.Uri;
+    }
+}
