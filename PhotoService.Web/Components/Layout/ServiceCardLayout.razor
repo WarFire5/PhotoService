@@ -1,43 +1,57 @@
+@using PhotoService.BLL.Models.OutputModels
+@using PhotoService.BLL.IRepositories
+@using PhotoService.BLL
 @* Card ---*@
-<div class="col card-col">
-    <div class="card" >
-        <div class="card-body">
-            <div class="header-card">
-                <h5 class="card-title">Съемка вашего мероприятия</h5>
-                <div class="raiting">
-                    <i class="bi bi-star-fill" style="color: #ffc107"></i>
-                    <p class="card-text">5</p>
+@foreach (var i in _service)
+{
+    <div class="col card-col">
+        <div class="card">
+            <div class="card-body">
+                <div class="header-card">
+                    <h5 class="card-title">@i.Name</h5>
+                    <div class="raiting">
+                        <i class="bi bi-star-fill" style="color: #ffc107"></i>
+                        <p class="card-text">@i.Rating</p>
+                    </div>
                 </div>
-            </div>
-            <h6 class="card-subtitle mb-2 text-secondary">Ирина Иванова</h6>
-            <p class="card-text text-hide">Во время съёмки не буду вас гонять и заставлять кривляться, только советовать как лучше встать и куда смотреть..</p>
-            <div class="footer-card">
-                <div class="row-btn">
-                    <a href="#" class="btn btn-primary btn-sm">Заказать</a>
-                    <a class="btn btn-outline-secondary btn-sm" @onclick="ToggleModal">Подробнее</a>
-                </div>
+                <h6 class="card-subtitle mb-2 text-secondary">@i.ExecutorName</h6>
+                <p class="card-text text-hide">@i.Description</p>
+                <div class="footer-card">
+                    <div class="row-btn">
+                        <a href="#" class="btn btn-primary btn-sm">Заказать</a>
+                        <a class="btn btn-outline-secondary btn-sm" @onclick="ToggleModal">Подробнее</a>
+                    </div>
 
-                <span class="badge bg-danger" style="font-size: 1rem">12000руб.</span>
+                    <span class="badge bg-danger" style="font-size: 1rem">@i.Cost руб.</span>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
+
 
 @* Modal-card ---*@
-<div class="@modalClass modal-bg" tabindex="-1" style="display: @displayMode;">
-
-    <div class="modal-dialog">
+<div class="@modalClass modal-bg " tabindex="-1" style="display: @displayMode;">
+    <div class="modal-dialog" Value>
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Информация об услуге</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="ToggleModal"></button>
             </div>
             <div class="modal-body">
-                ...
+                <div class="card">
+                    <div class="card-body">
+                        <div class="header-card">
+                            <h5 class="card-title">@_name</h5>
+                            <span class="badge bg-danger" style="font-size: 1rem">@_cost</span>
+                        </div>
+                        <h6 class="card-subtitle mb-2 text-secondary">@_executorName</h6>
+                        <p class="card-text">@_description</p>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" @onclick="ToggleModal">Close</button>
-                <button class="btn btn-primary">Save changes</button>
+                <button class="btn btn-primary">Заказать</button>
             </div>
         </div>
     </div>
@@ -45,10 +59,11 @@
 
 
 @code {
+
+    // Open modal
     bool open = false;
     string modalClass => open ? "modal fade show" : "modal fade";
     string displayMode => open ? "block" : "none";
-
 
     private void ToggleModal()
     {
@@ -56,7 +71,34 @@
         StateHasChanged();
     }
 
-    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public int Id { get; set; }
+
+    private string _name;
+    private string _description;
+    private string _executorName;
+    private int _rating;
+    private int _cost;
+
+    private List<ServiceOutputModel> _service;
+    private IServiceRepositories _serviceRepositories;
+
+    public ServiceCardLayout()
+    {
+        _serviceRepositories = new ServiceMock();
+    }
+
+    protected override void OnInitialized()
+    {
+        _service = _serviceRepositories.GetAllServices();
+
+        var s = _serviceRepositories.GetServiceById(Id);
+        _name = s.Name;
+        _description = s.Description;
+        _executorName = s.ExecutorName;
+        _rating = s.Rating;
+        _cost = s.Cost;
+    }
+
 }
 
 <style>
@@ -105,10 +147,10 @@
     }
     
     .modal-bg {
-    display: block;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(57, 57, 59, 0.5);
-    margin-top: 0;
+        display: block;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(57, 57, 59, 0.5);
+        margin-top: 0;
     }
 </style>
