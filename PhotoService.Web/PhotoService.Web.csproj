@@ -17,4 +17,8 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PhotoService.BLL\PhotoService.BLL.csproj" />
+    </ItemGroup>
+
 </Project>
