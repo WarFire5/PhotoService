@@ -81,12 +81,7 @@
     border-width: 1px;
 }
 
-.general-background {
-    background-image: url("Resources/general-background.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-}
+
 
 .container-for-registration-page {
     width: 482px;
