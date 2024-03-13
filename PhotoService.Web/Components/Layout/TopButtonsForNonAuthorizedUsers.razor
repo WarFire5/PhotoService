@@ -1,9 +1,10 @@
-﻿@* <div class="top-row px-4 container-for-top-buttons"> *@
-@*     <button type="button" class="btn btn-outline-primary">Зарегистрироваться</button> *@
-@*     <button type="button" class="btn btn-outline-primary">Войти</button> *@
-@* </div> *@
+﻿@inherits LayoutComponentBase
 
 <div class="btn-group top-buttons">
-    <a href="/registration" class="btn btn-primary active registration-tab" aria-current="page">Зарегистрироваться</a>
-    <a href="/authorization" class="btn btn-primary enter-tab">Войти</a>
+    <a href="/registration" class="btn btn-primary active registration-tab" aria-current="page">
+       <i class="bi bi-door-open"></i> Зарегистрироваться
+    </a>
+    <a href="/authorization" class="btn btn-primary enter-tab">
+        Войти <i class="bi bi-box-arrow-in-right"></i>
+    </a>
 </div>

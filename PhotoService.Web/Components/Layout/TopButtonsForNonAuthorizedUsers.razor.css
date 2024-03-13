@@ -1,4 +1,6 @@
 ﻿.top-buttons {
+    width: 300px !important;
+    max-width: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,8 +36,8 @@
 }
 
 .enter-tab {
-    width: 150px !important;
-    max-width: 150px;
+    width: 100px !important;
+    max-width: 100px;
     height: 40px;
     max-height: 40px;
     text-align: center;
