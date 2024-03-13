@@ -1,5 +1,5 @@
 @using PhotoService.BLL.Models.OutputModels
-@using PhotoService.BLL.IRepositories
+@using PhotoService.BLL.IClients
 @using PhotoService.BLL
 @* Card ---*@
 @foreach (var i in _service)
@@ -80,18 +80,18 @@
     private int _cost;
 
     private List<ServiceOutputModel> _service;
-    private IServiceRepositories _serviceRepositories;
+    private IServiceClient _serviceClient;
 
     public ServiceCardLayout()
     {
-        _serviceRepositories = new ServiceMock();
+        _serviceClient = new ServiceMock();
     }
 
     protected override void OnInitialized()
     {
-        _service = _serviceRepositories.GetAllServices();
+        _service = _serviceClient.GetAllServices();
 
-        var s = _serviceRepositories.GetServiceById(Id);
+        var s = _serviceClient.GetServiceById(Id);
         _name = s.Name;
         _description = s.Description;
         _executorName = s.ExecutorName;

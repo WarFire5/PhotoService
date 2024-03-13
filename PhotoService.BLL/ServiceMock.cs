@@ -1,10 +1,10 @@
-using PhotoService.BLL.IRepositories;
+using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
 using PhotoService.BLL.Models.OutputModels;
 
 namespace PhotoService.BLL;
 
-public class ServiceMock : IServiceRepositories
+public class ServiceMock : IServiceClient
 {
     private List<ServiceOutputModel> _serviceOutputModels;
 
