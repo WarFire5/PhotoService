@@ -3,7 +3,31 @@
 
 <div class="page">
     <div class="sidebar">
-        <NavMenu/>
+        @if (_currentPage.EndsWith("/executors")
+             || _currentPage.EndsWith("/orders")
+             || _currentPage.EndsWith("/reviews")
+             || _currentPage.EndsWith("/services"))
+        {
+            <NavMenuForCustomer/>
+        }
+        @* else if (_currentPage.EndsWith("/executors") *@
+        @*          || _currentPage.EndsWith("/orders") *@
+        @*          || _currentPage.EndsWith("/reviews") *@
+        @*          || _currentPage.EndsWith("/services")) *@
+        @* { *@
+        @*     <NavMenuForExecutor/> *@
+        @* } *@
+        @* else if (_currentPage.EndsWith("/executors") *@
+        @*          || _currentPage.EndsWith("/orders") *@
+        @*          || _currentPage.EndsWith("/reviews") *@
+        @*          || _currentPage.EndsWith("/services")) *@
+        @* { *@
+        @*     <NavMenuForManager/> *@
+        @* } *@
+        else
+        {
+            <NavMenuForNonAuthorizedUsers/>
+        }
     </div>
 
     <main>
@@ -19,7 +43,7 @@
         {
             <AppBarForAuthorizedUsers/>
         }
-        
+
         <article class="content px-4">
             @Body
         </article>
@@ -39,4 +63,5 @@
     {
         _currentPage = NavigationManager.Uri;
     }
+
 }
