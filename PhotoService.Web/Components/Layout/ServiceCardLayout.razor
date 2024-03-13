@@ -1,5 +1,6 @@
+@* Card ---*@
 <div class="col card-col">
-    <div class="card">
+    <div class="card" >
         <div class="card-body">
             <div class="header-card">
                 <h5 class="card-title">Съемка вашего мероприятия</h5>
@@ -11,15 +12,51 @@
             <h6 class="card-subtitle mb-2 text-secondary">Ирина Иванова</h6>
             <p class="card-text text-hide">Во время съёмки не буду вас гонять и заставлять кривляться, только советовать как лучше встать и куда смотреть..</p>
             <div class="footer-card">
-                <a href="#" class="btn btn-primary">Заказать</a>
+                <div class="row-btn">
+                    <a href="#" class="btn btn-primary btn-sm">Заказать</a>
+                    <a class="btn btn-outline-secondary btn-sm" @onclick="ToggleModal">Подробнее</a>
+                </div>
+
                 <span class="badge bg-danger" style="font-size: 1rem">12000руб.</span>
             </div>
         </div>
     </div>
 </div>
 
-@code {
+@* Modal-card ---*@
+<div class="@modalClass modal-bg" tabindex="-1" style="display: @displayMode;">
 
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="ToggleModal"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" @onclick="ToggleModal">Close</button>
+                <button class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    bool open = false;
+    string modalClass => open ? "modal fade show" : "modal fade";
+    string displayMode => open ? "block" : "none";
+
+
+    private void ToggleModal()
+    {
+        open = !open;
+        StateHasChanged();
+    }
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
 }
 
 <style>
@@ -28,22 +65,31 @@
         flex-direction: row;
         gap: 0.5rem;
     }
+    
     .header-card {
          display: flex;
          flex-direction: row;
          gap: 0.5rem;
          justify-content: space-between;
     }
+    
     .footer-card {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
     }
+    
     .text-hide {
-      height: 3rem; 
-      overflow: hidden;
-      text-overflow: ellipsis;
+        height: 3rem; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .row-btn {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
     }
     @@media (min-width: 768px) {
         .row-cols-md-3>* {
@@ -56,5 +102,13 @@
             flex: 0 0 auto;
             width: 33.333333%;
         }
+    }
+    
+    .modal-bg {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(57, 57, 59, 0.5);
+    margin-top: 0;
     }
 </style>
