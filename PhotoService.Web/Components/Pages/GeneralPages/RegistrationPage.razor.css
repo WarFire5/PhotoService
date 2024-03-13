@@ -1,9 +1,11 @@
 ﻿.registration-logo-container {
+    padding-top: 100px;
     position: relative;
-    height: 10vh;
+    /*height: 10vh;*/
 }
 
 .registration-logo {
+    padding-top: 10px;
     position: absolute;
     top: 35%;
     left: 49%;
