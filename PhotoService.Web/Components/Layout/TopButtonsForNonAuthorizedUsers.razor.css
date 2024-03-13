@@ -1,0 +1,59 @@
+﻿.top-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border-color: #4340D2;
+    border-width: 1px;
+    /*margin-top: 5px;*/
+}
+
+.registration-tab {
+    width: 200px !important;
+    max-width: 200px;
+    height: 40px;
+    max-height: 40px;
+    text-align: center;
+    color: white;
+    background-color: #4340D2 !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.registration-tab:hover {
+    color: #4340D2 !important;
+    background-color: white !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.registration-tab:active {
+    color: navy !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.enter-tab {
+    width: 150px !important;
+    max-width: 150px;
+    height: 40px;
+    max-height: 40px;
+    text-align: center;
+    color: #4340D2;
+    background-color: white !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.enter-tab:hover {
+    color: #ffffff !important;
+    background-color: #4340D2 !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.enter-tab:active {
+    color: navy !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}

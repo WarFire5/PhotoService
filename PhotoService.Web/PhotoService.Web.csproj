@@ -15,4 +15,11 @@
         <None Include="wwwroot\Resources\logo.svg"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Update="Components\Pages\GeneralPages\RegistrationPage.razor.css">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>
