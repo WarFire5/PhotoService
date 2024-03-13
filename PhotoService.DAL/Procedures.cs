@@ -1,5 +1,5 @@
 ﻿namespace PhotoService.DAL;
 
-public class Class1
+public class Procedures
 {
 }

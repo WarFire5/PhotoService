@@ -7,9 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="IRepositories\" />
       <Folder Include="Models\InputModels\" />
-      <Folder Include="Models\OutputModels\" />
+      <Folder Include="Models\OutoutModels\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
     </ItemGroup>
 
 </Project>
