@@ -1,5 +1,5 @@
 ﻿namespace PhotoService.BLL;
 
-public class Class1
+public class Class
 {
 }
