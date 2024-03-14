@@ -2,38 +2,46 @@
 @inject NavigationManager NavigationManager
 
 <div class="page">
-    <div class="sidebar">
-        @if (_currentPage.EndsWith("/executors")
-             || _currentPage.EndsWith("/orders")
-             || _currentPage.EndsWith("/reviews")
-             || _currentPage.EndsWith("/services"))
-        {
-            <NavMenuForCustomer/>
-        }
-        @* else if (_currentPage.EndsWith("/executors") *@
-        @*          || _currentPage.EndsWith("/orders") *@
-        @*          || _currentPage.EndsWith("/reviews") *@
-        @*          || _currentPage.EndsWith("/services")) *@
-        @* { *@
-        @*     <NavMenuForExecutor/> *@
-        @* } *@
-        @* else if (_currentPage.EndsWith("/executors") *@
-        @*          || _currentPage.EndsWith("/orders") *@
-        @*          || _currentPage.EndsWith("/reviews") *@
-        @*          || _currentPage.EndsWith("/services")) *@
-        @* { *@
-        @*     <NavMenuForManager/> *@
-        @* } *@
-        else
-        {
-            <NavMenuForNonAuthorizedUsers/>
-        }
-    </div>
+    @if (_currentPage.EndsWith("/")
+         || _currentPage.EndsWith("/registration")
+         || _currentPage.EndsWith("/authorization"))
+    {
+    }
+    else
+    {
+        <div class="sidebar">
+            @if (_currentPage.EndsWith("/executors")
+                 || _currentPage.EndsWith("/orders")
+                 || _currentPage.EndsWith("/reviews")
+                 || _currentPage.EndsWith("/services"))
+            {
+                <NavMenuForCustomer/>
+            }
+            @* else if (_currentPage.EndsWith("/executors") *@
+            @*          || _currentPage.EndsWith("/orders") *@
+            @*          || _currentPage.EndsWith("/reviews") *@
+            @*          || _currentPage.EndsWith("/services")) *@
+            @* { *@
+            @*     <NavMenuForExecutor/> *@
+            @* } *@
+            @* else if (_currentPage.EndsWith("/executors") *@
+            @*          || _currentPage.EndsWith("/orders") *@
+            @*          || _currentPage.EndsWith("/reviews") *@
+            @*          || _currentPage.EndsWith("/services")) *@
+            @* { *@
+            @*     <NavMenuForManager/> *@
+            @* } *@
+        </div>
+    }
 
     <main>
-        @if (_currentPage.EndsWith("/registration") || _currentPage.EndsWith("/authorization"))
+        @if (_currentPage.EndsWith("/registration"))
         {
-            <AppBarForRegistrationPages/>
+            <AppBarForRegistrationPage/>
+        }
+        else if (_currentPage.EndsWith("/authorization"))
+        {
+            <AppBarForAuthorizationPage/>
         }
         else if (_currentPage.EndsWith("/"))
         {
