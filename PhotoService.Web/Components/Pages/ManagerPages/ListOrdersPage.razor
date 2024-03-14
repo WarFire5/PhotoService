@@ -1,10 +1,10 @@
-﻿@page "/my-orders"
+﻿@page "/list-orders"
 @rendermode InteractiveServer
 @attribute [StreamRendering]
 
-<PageTitle>Заказы</PageTitle>
+<PageTitle>Список заказов</PageTitle>
 
-<h2>Заказы</h2>
+<h2>Список заказов</h2>
 
 <div class="row g-3">
     <div class="col-auto">
@@ -21,5 +21,8 @@
 </div>
 
 <div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
-
+    <ServiceCardLayout/>
+    <ServiceCardLayout/>
+    <ServiceCardLayout/>
+    <ServiceCardLayout/>
 </div>
