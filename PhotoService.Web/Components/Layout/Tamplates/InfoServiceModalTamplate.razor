@@ -1,12 +1,12 @@
 @using PhotoService.BLL
-@using PhotoService.BLL.IRepositories
+@using PhotoService.BLL.IClients
 
 <div class="@ModalClass modal-bg" tabindex="-1" style="display: @DisplayMode;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Информация об услуге</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="Cloce"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="card">
@@ -29,7 +29,7 @@
 
 @code {
     [Parameter]
-    public Action? Cloce  { get; set; }
+    public Action? Close  { get; set; }
     
     [Parameter]
     public string? ModalClass  { get; set; }
@@ -43,7 +43,7 @@
         get { return 0;}
         set
         {
-            IServiceRepositories serviceRepositories = new ServiceMock();
+            IServiceClient serviceRepositories = new ServiceMock();
             var s = serviceRepositories.GetServiceById(value);
             _name = s.Name;
             _description = s.Description;
@@ -52,9 +52,9 @@
             _cost = s.Cost;
         }
     }
-    private string _name;
-    private string _description;
-    private string _executorName;
+    private string? _name;
+    private string? _description;
+    private string? _executorName;
     private int _rating;
     private int _cost;
 }

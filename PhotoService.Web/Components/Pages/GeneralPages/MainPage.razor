@@ -3,12 +3,14 @@
 
 <PageTitle>MainPage</PageTitle>
 
+<h2>Услуги</h2>
+
 @* <h2>Услуги <span style="display: inline-block;"><TopButtonsForNonAuthorizedUsers/></span></h2> *@
 
-<div style="padding-top: 20px; display: flex; justify-content: space-between;">
-    <h2 style="margin-right: auto;">Услуги</h2>
-    <span style="margin-left: auto;"><TopButtonsForNonAuthorizedUsers/></span>
-</div>
+@* <div style="margin-top: -10px; display: flex; justify-content: space-between;"> *@
+@*     <h2 style="margin-right: auto;">Услуги</h2> *@
+@*     <span style="margin-left: auto;"><TopButtonsForNonAuthorizedUsers/></span> *@
+@* </div> *@
 
 <div class="row g-3">
     <div class="col-auto">
@@ -25,6 +27,9 @@
 </div>
 
 <div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
+    <ServiceCardLayout/>
+    <ServiceCardLayout/>
+    <ServiceCardLayout/>
     <ServiceCardLayout/>
 </div>
 
