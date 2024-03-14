@@ -17,8 +17,8 @@
     max-height: 40px;
     text-align: center;
     color: white;
-    background-color: #4340D2 !important;
-    border-color: #4340D2;
+    background-color: rgb(220 53 69) !important;
+    border-color: #1861ac;
     border-width: 1px;
 }
 
@@ -41,15 +41,15 @@
     height: 40px;
     max-height: 40px;
     text-align: center;
-    color: #4340D2;
-    background-color: white !important;
-    border-color: #4340D2;
+    color: white;
+    background-color: #4340D2 !important;
+    border-color: #1861ac;
     border-width: 1px;
 }
 
 .enter-tab:hover {
-    color: #ffffff !important;
-    background-color: #4340D2 !important;
+    color: #4340D2 !important;
+    background-color: white !important;
     border-color: #4340D2;
     border-width: 1px;
 }

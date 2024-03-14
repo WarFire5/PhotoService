@@ -1,25 +1,25 @@
-﻿.exit-tab {
+﻿.enter-tab-registration {
     width: 100px !important;
     max-width: 100px;
     height: 40px;
     max-height: 40px;
     text-align: center;
-    color: white;
-    background-color: #4340D2 !important;
+    color: #4340D2 !important;
+    background-color: white !important;
     border-color: #4340D2;
     border-width: 1px;
     margin-right: -25px;
     /*margin-top: 5px;*/
 }
 
-.exit-tab:hover {
-    color: #4340D2 !important;
-    background-color: rgb(220 53 69) !important;
+.enter-tab-registration:hover {
+    color: white !important;
+    background-color: #189dde !important;
     border-color: #4340D2;
     border-width: 1px;
 }
 
-.exit-tab:active {
+.enter-tab-registration:active {
     color: navy !important;
     border-color: #4340D2;
     border-width: 1px;
