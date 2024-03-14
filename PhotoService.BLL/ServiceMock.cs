@@ -69,6 +69,6 @@ public class ServiceMock : IServiceRepositories
 
     public ServiceOutputModel GetServiceById(int id)
     {
-        return _serviceOutputModels[id];
+        return _serviceOutputModels[id-1];
     }
 }

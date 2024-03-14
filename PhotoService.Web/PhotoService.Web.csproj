@@ -13,6 +13,9 @@
 
     <ItemGroup>
         <None Include="wwwroot\Resources\logo.svg"/>
+        <None Update="Components\Templates\ServiceCardTemplate.razor.css">
+          <DependentUpon>ServiceCardTemplate.razor.razor</DependentUpon>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
