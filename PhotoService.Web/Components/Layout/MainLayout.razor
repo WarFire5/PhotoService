@@ -17,20 +17,20 @@
             {
                 <NavMenuForCustomer/>
             }
+            else if (_currentPage.EndsWith("/my-orders")
+                     || _currentPage.EndsWith("/my-reviews")
+                     || _currentPage.EndsWith("/my-services"))
+            {
+                <NavMenuForExecutor/>
+            }
             @* else if (_currentPage.EndsWith("/executors") *@
             @*          || _currentPage.EndsWith("/orders") *@
             @*          || _currentPage.EndsWith("/reviews") *@
             @*          || _currentPage.EndsWith("/services")) *@
-            @* { *@
-            @*     <NavMenuForExecutor/> *@
-            @* } *@
-            @* else if (_currentPage.EndsWith("/executors") *@
-            @*          || _currentPage.EndsWith("/orders") *@
-            @*          || _currentPage.EndsWith("/reviews") *@
-            @*          || _currentPage.EndsWith("/services")) *@
-            @* { *@
-            @*     <NavMenuForManager/> *@
-            @* } *@
+            else
+            {
+                <NavMenuForManager/>
+            }
         </div>
     }
 
