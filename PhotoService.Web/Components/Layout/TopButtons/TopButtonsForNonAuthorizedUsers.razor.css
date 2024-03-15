@@ -1,4 +1,4 @@
-﻿.top-buttons {
+﻿.top-buttons-authorization {
     width: 300px !important;
     max-width: 300px;
     display: flex;
@@ -7,6 +7,7 @@
     margin: 0 auto;
     border-color: #4340D2;
     border-width: 1px;
+    margin-right: -10px;
     /*margin-top: 5px;*/
 }
 
