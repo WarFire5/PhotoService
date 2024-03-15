@@ -1,10 +1,10 @@
-﻿.registration-logo-container {
+﻿.registration-executor-logo-container {
     padding-top: 100px;
     position: relative;
     /*height: 10vh;*/
 }
 
-.registration-logo {
+.registration-executor-logo {
     padding-top: 10px;
     position: absolute;
     top: 35%;
@@ -12,7 +12,7 @@
     transform: translate(-50%, -50%);
 }
 
-.registration-title {
+.registration-executor-title {
     padding-top: 5px;
     font-size: 30px;
     /*font-family: auto;*/
@@ -24,7 +24,7 @@
     /*text-align: center;*/
 }
 
-.registration-tabs {
+.registration-executor-tabs {
     padding-top: 5px;
     text-align: center;
     display: flex;
@@ -35,7 +35,30 @@
     border-width: 1px;
 }
 
-.сustomer-tab {
+.сustomer-executor-tab {
+    width: 150px !important;
+    max-width: 150px;
+    text-align: center;
+    color: #4340D2;
+    background-color: white !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.сustomer-executor-tab:hover {
+    color: white !important;
+    background-color: #4340D2 !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.сustomer-executor-tab:active {
+    color: navy !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.executor-executor-tab {
     width: 150px !important;
     max-width: 150px;
     text-align: center;
@@ -45,65 +68,43 @@
     border-width: 1px;
 }
 
-.сustomer-tab:hover {
+.executor-executor-tab:hover {
     color: #4340D2 !important;
     background-color: white !important;
     border-color: #4340D2;
     border-width: 1px;
 }
 
-.сustomer-tab:active {
+.executor-executor-tab:active {
     color: navy !important;
     border-color: #4340D2;
     border-width: 1px;
 }
 
-.executor-tab {
-    width: 150px !important;
-    max-width: 150px;
-    text-align: center;
-    color: #4340D2;
-    background-color: white !important;
-    border-color: #4340D2;
-    border-width: 1px;
-}
-
-.executor-tab:hover {
-    color: white !important;
-    background-color: #4340D2 !important;
-    border-color: #4340D2;
-    border-width: 1px;
-}
-
-.executor-tab:active {
-    color: navy !important;
-    border-color: #4340D2;
-    border-width: 1px;
-}
-
-.container-for-registration-page {
-    width: 482px;
-    height: 425px;
+.container-for-registration-executor-page {
+    width: 800px;
+    height: 770px;
     background: white;
     box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
     padding-left: 15px;
     border-radius: 5px;
+    margin-bottom: 150px;
 }
 
-.registration-button {
+.registration-executor-button {
     background: #4340D2;
     border-color: #4340D2;
     border-width: 1px;
 }
 
-.registration-button:hover {
+.registration-executor-button:hover {
     background-color: white !important;
     color: #4340D2;
     border-color: #4340D2;
     border-width: 1px;
 }
 
-.registration-button:active {
+.registration-executor-button:active {
     background-color: white !important;
     color: #4340D2;
     border-color: #4340D2;
