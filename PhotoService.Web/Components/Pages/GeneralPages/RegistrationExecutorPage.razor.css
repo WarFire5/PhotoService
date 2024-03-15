@@ -1,7 +1,6 @@
 ﻿.registration-executor-logo-container {
     padding-top: 100px;
     position: relative;
-    /*height: 10vh;*/
 }
 
 .registration-executor-logo {
@@ -15,13 +14,11 @@
 .registration-executor-title {
     padding-top: 5px;
     font-size: 30px;
-    /*font-family: auto;*/
     font-weight: bold;
     color: #000000;
     text-shadow: -2px -2px 55px #dc35b4;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: rgb(255 255 255 / 50%);
-    /*text-align: center;*/
 }
 
 .registration-executor-tabs {
@@ -30,7 +27,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /*margin: 0 auto;*/
     border-color: #4340D2;
     border-width: 1px;
 }
@@ -83,12 +79,12 @@
 
 .container-for-registration-executor-page {
     width: 800px;
-    height: 770px;
+    height: 900px;
     background: white;
     box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
     padding-left: 15px;
     border-radius: 5px;
-    margin-bottom: 150px;
+    margin-bottom: 250px;
 }
 
 .registration-executor-button {
@@ -113,4 +109,8 @@
 
 .registration-form {
     padding-top: 5px;
+}
+
+.footnote{
+    font-style: italic;
 }
