@@ -1,0 +1,77 @@
+﻿@page "/registration-executor"
+<div>
+    <div class="registration-executor-logo-container">
+        <img class="registration-executor-logo" src="Resources/logo-photoservice.png"/>
+    </div>
+    <div class="container-md container-for-registration-executor-page">
+        <h2 class="registration-executor-title">Регистрация</h2>
+        <div class="btn-group registration-executor-tabs">
+            <a href="registration" class="btn btn-primary сustomer-executor-tab" aria-current="page">Заказчик</a>
+            <a href="registration-executor" class="btn btn-primary active executor-executor-tab">Исполнитель</a>
+        </div>
+        <form class="row g-3 registration-form">
+            <div class="col-12">
+                <label for="inputName" class="form-label">ФИО*</label>
+                <input type="text" class="form-control" id="inputName" placeholder="Введите ФИО">
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputEmail" class="form-label">Эл. адрес*</label>
+                <input type="email" class="form-control" id="inputEmail" placeholder="Введите электронный адрес">
+            </div>
+            <div class="col-md-6">
+                <label for="inputPhone" class="form-label">Контактный телефон*</label>
+                <input type="number" class="form-control" id="inputPhone" placeholder="Введите актуальный номер телефона">
+            </div>
+            
+            <div class="col-md-12">
+                <label for="inputURL" class="form-label">Ссылка на портфолио*</label>
+                <input type="url" class="form-control" id="inputURL" placeholder="URL">
+            </div>
+            <div class="col-md-12">
+                <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label>
+                <input type="text" class="form-control" id="inputTitle" placeholder="Введите название">
+            </div>
+
+            <div class="col-md-12">
+                <label for="inputTitle" class="form-label">Выберите Ваш основной вид деятельности*</label>
+                <select class="form-select" aria-label="Связанные виды деятельности">
+                    @* <option selected>Выберите основной вид деятельности*</option> *@
+                    <option value="1">Фотограф</option>
+                    <option value="2">Видеограф</option>
+                    <option value="3">Дизайнер</option>
+                    <option value="4">Модель</option>
+                    <option value="5">Визажист</option>
+                    <option value="6">Стилист</option>
+                    <option value="7">Предоставление красивых мест для съёмки</option>
+                    <option value="8">Предоставление специально оборудованных помещений для проведения съёмки</option>
+                    <option value="9">Организация съёмочного процесса</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputINN" class="form-label">ИНН</label>
+                <input type="number" class="form-control" id="inputINN" placeholder="Введите ИНН">
+            </div>
+            <div class="col-md-6">
+                <label for="inputOGRN" class="form-label">ОГРН</label>
+                <input type="number" class="form-control" id="inputOGRN" placeholder="Введите ОГРН">
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword" class="form-label">Пароль</label>
+                <input type="text" class="form-control" id="inputPassword" placeholder="Введите пароль">
+            </div>
+            <div class="col-md-6">
+                <label for="inputPasswordCheck" class="form-label">Проверка пароля</label>
+                <input type="text" class="form-control" id="inputPasswordCheck" placeholder="Повторите пароль">
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg registration-executor-button">Зарегистрироваться</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@code {
+}

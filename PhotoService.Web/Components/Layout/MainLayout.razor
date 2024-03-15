@@ -4,6 +4,7 @@
 <div class="page">
     @if (_currentPage.EndsWith("/")
          || _currentPage.EndsWith("/registration")
+         || _currentPage.EndsWith("/registration-executor")
          || _currentPage.EndsWith("/authorization"))
     {
     }
@@ -35,9 +36,10 @@
     }
 
     <main>
-        @if (_currentPage.EndsWith("/registration"))
+        @if (_currentPage.EndsWith("/registration")
+             || _currentPage.EndsWith("/registration-executor"))
         {
-            <AppBarForRegistrationPage/>
+            <AppBarForRegistrationPages/>
         }
         else if (_currentPage.EndsWith("/authorization"))
         {
