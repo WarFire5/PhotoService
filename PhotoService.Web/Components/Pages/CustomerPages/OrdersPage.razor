@@ -12,17 +12,26 @@
     </div>
     <div class="col-auto">
         <select class="form-select" aria-label="Default select example">
-            <option selected>Все</option>
-            <option value="1">Фотографы</option>
-            <option value="2">Видеографы</option>
-            <option value="3">Стилисты</option>
+            <option selected>Тип заказа</option>
+            <option value="1">Новый</option>
+            <option value="2">В процессе</option>
+            <option value="3">Завершён</option>
+            <option value="4">Отменён</option>
         </select>
+    </div>
+    <div class="col-auto">
+        <!-- Применяем классы стиля для календаря -->
+        <InputDate class="form-control me-2" @bind-Value="@selectedDate" />
     </div>
 </div>
 
-<div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
-    <ServiceCardsForPage/>
-    <ServiceCardsForPage/>
-    <ServiceCardsForPage/>
-    <ServiceCardsForPage/>
+<div class="mt-4">
+    <OrderCardNew/>
+    <OrderCardInprogress/>
+    <OrderCardCompleted/>
+    <OrderCardCanceled/>
 </div>
+
+@code {
+    DateTime? selectedDate { get; set; }
+}

@@ -1,0 +1,43 @@
+﻿<div class="card order-card" @onclick="OpenModal" style="cursor: pointer;">
+    <div class="card-header d-flex justify-content-between align-items-center order-header">
+        <div class="order-date">
+            2024.04.01
+        </div>
+        <div class="order-status-completed">
+            <span class="badge text-bg-light">Завершён</span>
+        </div>
+    </div>
+    <div class="card-body">
+        <div style="margin-bottom: -5px">
+            <h5 class="card-title mb-3">
+                <a href="services" class="order-service">Свадебный фотограф</a>
+            </h5>
+        </div>
+        <div>
+            <p class="card-text mb-3">
+                <a href="executors" class="order-executor">Иванов Иван Иванович</a>
+            </p>
+        </div>
+        <div class="order-buttons">
+            <button type="button" class="btn btn-primary order-button-cansel" disabled>
+                <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+            </button>
+            <button type="button" class="btn btn-primary order-button-edit" disabled>
+                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+            </button>
+            <button type="button" class="btn btn-primary order-button-complete" disabled>
+                <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+            </button>
+            <button type="button" class="btn btn-primary order-button-leavefeedback">
+                <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+            </button>
+        </div>
+    </div>
+</div>
+
+@code {
+    private void OpenModal()
+    {
+        throw new NotImplementedException();
+    }
+}
