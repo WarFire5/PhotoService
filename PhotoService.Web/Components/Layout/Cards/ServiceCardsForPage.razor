@@ -1,12 +1,8 @@
-@using PhotoService.BLL.Models.OutputModels
-@using PhotoService.BLL.IClients
-@using PhotoService.BLL
-
 @foreach (var i in _service)
 {
-    <ServiceCardTemplate Id="@i.Id" Close="@ToggleModal2"></ServiceCardTemplate>
+    <ServiceCard Id="@i.Id" Close="@ToggleModal2"></ServiceCard>
 }
-<InfoServiceModalTamplate Id="@Id" modalClass="@_modalClass" Close="@ToggleModal" displayMode="@_displayMode"></InfoServiceModalTamplate>
+<InfoServiceModal Id="@Id" modalClass="@_modalClass" Close="@ToggleModal" displayMode="@_displayMode"></InfoServiceModal>
 
 @code {
 
@@ -37,7 +33,7 @@
     private List<ServiceOutputModel> _service = null!;
     private IServiceClient _serviceClient;
 
-    public ServiceCardLayout()
+    public ServiceCardsForPage()
     {
         _serviceClient = new ServiceMock();
     }
@@ -45,7 +41,6 @@
     protected override void OnInitialized()
     {
         _service = _serviceClient.GetAllServices();
-
     }
 
 }
