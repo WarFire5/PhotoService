@@ -27,9 +27,17 @@
     text-decoration: none;
 }
 
+.order-price{
+    color: white !important;
+    background-color: rgb(220 53 69) !important;
+    border-color: #4340D2;
+    border-width: 1px;
+    border-radius: 15px;
+}
+
 .order-buttons a {
-    color: white; /* Установка белого цвета текста */
-    text-decoration: none; /* Удаление подчеркивания */
+    color: white;
+    text-decoration: none;
 }
 
 .order-button-cansel {
