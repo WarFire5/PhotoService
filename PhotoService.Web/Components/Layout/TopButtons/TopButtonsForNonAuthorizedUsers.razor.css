@@ -11,9 +11,11 @@
     /*margin-top: 5px;*/
 }
 
-.registration-tab {
-    width: 200px !important;
-    max-width: 200px;
+.tab {
+    display: flex;
+    flex-direction: row;
+    gap: 0.6rem;
+    padding-inline: 1rem;
     height: 40px;
     max-height: 40px;
     text-align: center;
@@ -38,8 +40,10 @@
 }
 
 .enter-tab {
-    width: 100px !important;
-    max-width: 100px;
+    display: flex;
+    flex-direction: row;
+    gap: 0.6rem;
+    padding-inline: 1rem;
     height: 40px;
     max-height: 40px;
     text-align: center;
@@ -47,6 +51,7 @@
     background-color: #4340D2 !important;
     border-color: #1861ac;
     border-width: 1px;
+    flex-wrap: nowrap;
 }
 
 .enter-tab:hover {

@@ -1,6 +1,3 @@
-@using PhotoService.BLL
-@using PhotoService.BLL.IClients
-
 <div class="@ModalClass modal-bg" tabindex="-1" style="display: @DisplayMode;">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -28,19 +25,16 @@
 </div>
 
 @code {
-    [Parameter]
-    public Action? Close  { get; set; }
-    
-    [Parameter]
-    public string? ModalClass  { get; set; }
-    
-    [Parameter]
-    public string? DisplayMode { get; set; }
+    [Parameter] public Action? Close { get; set; }
+
+    [Parameter] public string? ModalClass { get; set; }
+
+    [Parameter] public string? DisplayMode { get; set; }
 
     [Parameter]
     public int Id
     {
-        get { return 0;}
+        get { return 0; }
         set
         {
             IServiceClient serviceRepositories = new ServiceMock();
@@ -52,6 +46,7 @@
             _cost = s.Cost;
         }
     }
+
     private string? _name;
     private string? _description;
     private string? _executorName;

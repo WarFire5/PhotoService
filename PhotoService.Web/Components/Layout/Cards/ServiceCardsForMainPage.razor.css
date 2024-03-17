@@ -1,4 +1,4 @@
-﻿.raiting {
+.raiting {
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
@@ -29,13 +29,13 @@
     flex-wrap: wrap;
     gap: 0.3rem;
 }
-@@media (min-width: 768px) {
+@media (min-width: 768px) {
     .row-cols-md-3>* {
         flex: 0 0 auto;
         width: 49.333333%;
     }
 }
-@@media (min-width: 1024px) {
+@media (min-width: 1024px) {
     .row-cols-md-3>* {
         flex: 0 0 auto;
         width: 33.333333%;

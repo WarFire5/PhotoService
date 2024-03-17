@@ -6,12 +6,21 @@
 @using static Microsoft.AspNetCore.Components.Web.RenderMode
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @using Microsoft.JSInterop
+@using System.Diagnostics
+
+@* Components *@
 @using PhotoService.Web
 @using PhotoService.Web.Components
 @using PhotoService.Web.Components.Layout
-@using PhotoService.Web.Components.Layout.Tamplates
+@using PhotoService.Web.Components.Layout.Modals
 @using PhotoService.Web.Components.Layout.TopButtons
 @using PhotoService.Web.Components.Layout.Appbars
 @using PhotoService.Web.Components.Layout.NavMenu
 @using PhotoService.Web.Components.Layout.Cards
+
+@* Bll *@
+@using PhotoService.BLL
+@using PhotoService.BLL.IClients
+@using PhotoService.BLL.Models.OutputModels
+@using PhotoService.BLL.Models.InputModels
 
