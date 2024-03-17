@@ -24,4 +24,8 @@
       <ProjectReference Include="..\PhotoService.BLL\PhotoService.BLL.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Radzen.Blazor" Version="4.27.1" />
+    </ItemGroup>
+
 </Project>
