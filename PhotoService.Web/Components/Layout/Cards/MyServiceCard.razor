@@ -1,35 +1,21 @@
-@* Card component *@
 <div class="col card-col">
     <div class="card">
         <div class="card-body">
             <div class="header-card">
                 <h5 class="card-title">@_name</h5>
-                <div class="raiting">
-                    <i class="bi bi-star-fill" style="color: #ffc107"></i>
-                    <p class="card-text">@_rating</p>
-                </div>
             </div>
-            <h6 class="card-subtitle mb-2 text-secondary">@_executorName</h6>
+            <h6 class="card-subtitle mb-2 text-secondary">@_serviceType</h6>
             <p class="card-text text-hide">@_description</p>
             <div class="footer-card">
-                <div class="row-btn">
-                    <a href="#" class="btn btn-primary btn-sm">Заказать</a>
-                    <a class="btn btn-outline-secondary btn-sm" @onclick="OpenModal">Подробнее</a>
-                </div>
-
-                <span class="badge bg-danger" style="font-size: 1rem">@_cost руб.</span>
+                <a href="#" class="btn btn-outline-primary">Удалить</a>
+                <a class="btn btn-outline-secondary">Редактировать</a>
             </div>
         </div>
     </div>
 </div>
 
-@code {
-    [Parameter] public Action<int>? Close { get; set; }
 
-    public void OpenModal()
-    {
-        Close(Id);
-    }
+@code {
 
     [Parameter]
     public int Id
@@ -42,6 +28,7 @@
             var s = serviceRepositories.GetServiceById(value);
             _name = s.Name;
             _description = s.Description;
+            _serviceType = s.ServiceType;
             _executorName = s.ExecutorName;
             _rating = s.Rating;
             _cost = s.Cost;
@@ -51,6 +38,7 @@
     private int _id;
     private string? _name;
     private string? _description;
+    private string? _serviceType;
     private string? _executorName;
     private int _rating;
     private int _cost;
