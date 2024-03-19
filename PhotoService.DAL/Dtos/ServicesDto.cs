@@ -11,7 +11,7 @@ namespace PhotoService.DAL.Dtos
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public decimal Price { get; set; }
+        public string Price { get; set; }
         public bool IsDelete { get; set; }
         public OrdersDto Orders { get; set; }
         public UsersDto Users { get; set; }
