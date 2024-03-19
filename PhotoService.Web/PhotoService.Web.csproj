@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="wwwroot\Resources\logo.svg"/>
+        <None Include="wwwroot\Resources\logo.svg" />
         <None Update="Components\Templates\ServiceCardTemplate.razor.css">
           <DependentUpon>ServiceCardTemplate.razor.razor</DependentUpon>
         </None>
@@ -22,6 +22,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\PhotoService.BLL\PhotoService.BLL.csproj" />
+      <ProjectReference Include="..\PhotoService.DAL\PhotoService.DAL.csproj" />
     </ItemGroup>
 
     <ItemGroup>

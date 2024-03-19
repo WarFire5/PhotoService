@@ -1,3 +1,5 @@
+using PhotoService.DAL.Dtos;
+using PhotoService.DAL;
 using PhotoService.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);
