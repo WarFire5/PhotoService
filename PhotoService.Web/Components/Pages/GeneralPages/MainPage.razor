@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Security.Claims
+@using PhotoService.BLL
 
 @* <AuthorizeView Roles="Manager"> *@
 @*     <Authorized> *@
@@ -71,10 +72,16 @@
     @* <ServiceCardsForMainPage/> *@
 </div>
 
-@* @code{ *@
-@*     [CascadingParameter] *@
-@*     public class Authen *@
-@*     { *@
-@*          *@
-@*     } *@
-@* } *@
+@code{
+    // [CascadingParameter]
+    // public class 
+    // {
+    //
+    // }
+    
+    public MainPage()
+    {
+        DataBaseControl _control = new DataBaseControl();
+        _control.GetDataBase();
+    }
+}
