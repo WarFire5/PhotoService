@@ -1,0 +1,46 @@
+@foreach (var i in _service)
+{
+    <ServiceCardForMainPage Id="@i.Id" Close="@ToggleModal2"></ServiceCardForMainPage>
+}
+<InfoServiceModal Id="@Id" modalClass="@_modalClass" Close="@ToggleModal" displayMode="@_displayMode"></InfoServiceModal>
+
+@code {
+
+    // Open modal
+    bool _open = false;
+    string _modalClass = "modal fade";
+    string _displayMode = "none";
+
+    private void ToggleModal2(int id)
+    {
+        Id = id;
+        _open = !_open;
+        _modalClass = _open ? "modal fade show" : "modal fade";
+        _displayMode = _open ? "block" : "none";
+        StateHasChanged();
+    }
+
+    private void ToggleModal()
+    {
+        _open = !_open;
+        _modalClass = _open ? "modal fade show" : "modal fade";
+        _displayMode = _open ? "block" : "none";
+        StateHasChanged();
+    }
+
+    [Parameter] public int Id { get; set; } = 1;
+
+    private List<ServiceOutputModel> _service = null!;
+    private IServiceClient _serviceClient;
+
+    public ServiceCardsForMainPage()
+    {
+        _serviceClient = new ServiceMock();
+    }
+
+    protected override void OnInitialized()
+    {
+        _service = _serviceClient.GetAllServices();
+    }
+
+}
