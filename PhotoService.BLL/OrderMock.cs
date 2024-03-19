@@ -16,7 +16,7 @@ public class OrderMock : IOrderClient
             {
                 Id = 1,
                 CustomerId = 1,
-                СreationDate = "23.01.2023",
+                СreationDate = new DateTime(2023,01,23),
                 Comment = "Какой-то комментарий",
                 ServiceId = 1,
                 Status = "Активный"
@@ -25,7 +25,7 @@ public class OrderMock : IOrderClient
             {
                 Id = 2,
                 CustomerId = 2,
-                СreationDate = "12.03.2023",
+                СreationDate = new DateTime(2023,03,12),
                 Comment = "Какой-то комментарий",
                 ServiceId = 2,
                 Status = "В работе"
@@ -34,7 +34,7 @@ public class OrderMock : IOrderClient
             {
                 Id = 2,
                 CustomerId = 2,
-                СreationDate = "1.03.2023",
+                СreationDate = new DateTime (2023,03,1),
                 Comment = "Прежде всего, граница обучения кадров играет определяющее значение для новых предложений. Являясь всего лишь частью общей картины, активно развивающие",
                 ServiceId = 3,
                 Status = "Завершен"

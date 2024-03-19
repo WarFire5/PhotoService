@@ -1,4 +1,38 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+
+@* <AuthorizeView Roles="Manager"> *@
+@*     <Authorized> *@
+@*         Авторизован! *@
+@*         <p></p> *@
+@*         "/customers" *@
+@*     </Authorized> *@
+@*     <NotAuthorized> *@
+@*         Неавторизован! *@
+@*     </NotAuthorized> *@
+@* </AuthorizeView> *@
+@* *@
+@* <AuthorizeView Roles="Executor"> *@
+@*     <Authorized> *@
+@*         Авторизован! *@
+@*         "/my-services" *@
+@*     </Authorized> *@
+@*     <NotAuthorized> *@
+@*         Неавторизован! *@
+@*     </NotAuthorized> *@
+@* </AuthorizeView> *@
+@* *@
+@* <AuthorizeView Roles="Customer"> *@
+@*     <Authorized> *@
+@*         Авторизован!] *@
+@*         "/services" *@
+@*     </Authorized> *@
+@*     <NotAuthorized> *@
+@*         Неавторизован! *@
+@*     </NotAuthorized> *@
+@* </AuthorizeView> *@
+
 @rendermode InteractiveServer
 
 <PageTitle>MainPage</PageTitle>
@@ -36,3 +70,11 @@
     @* <ServiceCardsForMainPage/> *@
     @* <ServiceCardsForMainPage/> *@
 </div>
+
+@* @code{ *@
+@*     [CascadingParameter] *@
+@*     public class Authen *@
+@*     { *@
+@*          *@
+@*     } *@
+@* } *@

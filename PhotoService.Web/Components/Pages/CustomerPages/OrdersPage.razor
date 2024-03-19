@@ -14,22 +14,18 @@
         <select class="form-select" aria-label="Default select example">
             <option selected>Статус заказа</option>
             <option value="1">Новый</option>
-            <option value="2">В процессе</option>
+            <option value="2">В работе</option>
             <option value="3">Завершён</option>
             <option value="4">Отменён</option>
         </select>
     </div>
     <div class="col-auto">
-        <!-- Применяем классы стиля для календаря -->
-        <InputDate class="form-control me-2" @bind-Value="@selectedDate" />
+        <InputDate class="form-control me-2" @bind-Value="@selectedDate"/>
     </div>
 </div>
 
 <div class="mt-4">
-    <OrderCardNew/>
-    <OrderCardInprogress/>
-    <OrderCardCompleted/>
-    <OrderCardCanceled/>
+    <OrderCardGeneral SelectedDate="@selectedDate"/>
 </div>
 
 @code {
