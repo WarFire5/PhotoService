@@ -23,6 +23,10 @@ namespace PhotoService.DAL
         public DbSet<TypesDto> Types { get; set; }
 
         public DbSet<UsersDto> Users { get; set; }
+        public Context()
+        {
+            Database.EnsureCreated();
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             
