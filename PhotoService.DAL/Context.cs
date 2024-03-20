@@ -16,7 +16,8 @@ namespace PhotoService
 
         public Context()
         {
-            // Database.EnsureCreated();
+            // Database.EnsureDeletedAsync();
+            // Database.EnsureCreatedAsync();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
