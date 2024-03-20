@@ -1,3 +1,5 @@
+ALTER DATABASE PhotoService COLLATE Cyrillic_General_CI_AS;
+
 insert into Roles (Title) values('Менеджер'), ('Исполнитель'), ('Заказчик')
 
 insert into Types (Title, IsDeleted) values('Фотограф', 0),
