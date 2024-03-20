@@ -81,7 +81,6 @@ public class OrderForCustomerMock : IOrderClient
         }
         else
         {
-            // Обработка ситуации, когда индекс находится вне допустимого диапазона
             throw new ArgumentOutOfRangeException(nameof(id), "Index is out of range");
         }
     }
