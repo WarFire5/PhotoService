@@ -1,0 +1,48 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Новая услуга</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div>
+                <EditForm Model="_myService">
+                    <div class="form-group">
+                        <label>Заголовок</label>
+                        <InputText class="form-control" @bind-Value="_myService.Name"></InputText>
+                    </div>
+                    <div class="form-group">
+                        <label>Цена(в руб.)</label>
+                        <InputNumber class="form-control" @bind-Value="_myService.Cost"></InputNumber>
+                    </div>
+                    <div class="form-group">
+                        <label>Описание</label>
+                        <InputTextArea class="form-control" @bind-Value="_myService.ServiceType"> </InputTextArea>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+            <button onclick="AddService" type="button" class="btn btn-primary">Добавить</button>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    private ServiceInputModel _myService;
+    private List<ServiceOutputModel> _service;
+    private IServiceClient _serviceClient;
+
+    public AddServiceModal()
+    {
+        _myService = new ServiceInputModel();
+    }
+    
+    public void AddService()
+    {
+        _service.Add(_serviceClient.AddService(_myService));
+    }
+    
+}

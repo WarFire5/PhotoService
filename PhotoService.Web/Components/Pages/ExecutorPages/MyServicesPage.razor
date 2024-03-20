@@ -2,34 +2,42 @@
 @rendermode InteractiveServer
 
 <PageTitle>Мои услуги</PageTitle>
-<div class="row g-3">
+<div class="g-3">
     <h2>Мои услуги</h2>
-    <button type="button" class="btn"><i class="bi bi-plus"></i> Добавить услугу</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <i class="bi bi-plus"></i>
+        Добавить услугу
+    </button>
 </div>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <AddServiceModal></AddServiceModal>
+    </div>
+
 
 
 <div class="mt-4">
+
     @foreach (var service in _service)
     {
         <MyServiceCard Id="@service.Id"></MyServiceCard>
     }
-
 </div>
 
 @code
 {
+    [Parameter] public ServiceOutputModel service1 { get; set; }
+
     [Parameter] public int Id { get; set; } = 1;
 
-    private List<ServiceOutputModel> _service = null!;
+    private List<ServiceOutputModel> _service;
     private IServiceClient _serviceClient;
 
     public MyServicesPage()
     {
         _serviceClient = new ServiceMock();
-    }
-
-    protected override void OnInitialized()
-    {
         _service = _serviceClient.GetAllServices();
     }
+
 }
+
+;
