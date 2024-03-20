@@ -28,6 +28,7 @@
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
+      <PackageReference Include="Oracle.EntityFrameworkCore" Version="8.21.121" />
       <PackageReference Include="Radzen.Blazor" Version="4.27.1" />
     </ItemGroup>
 

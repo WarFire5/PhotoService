@@ -13,8 +13,8 @@ public class UsersDto
     public int? Rating { get; set; }
     public bool IsBlocked { get; set; }
     public bool IsDeleted { get; set; }    
-    public string URL { get; set; }
-    public string ExecutorType { get; set; }
+    public string? URL { get; set; }
+    public string? ExecutorType { get; set; }
     public string? CompanyTitle { get; set; }
     public int? INN { get; set; }
     public int? OGRN { get; set; }
