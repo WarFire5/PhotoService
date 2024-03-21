@@ -6,11 +6,11 @@ namespace PhotoService.BLL;
 
 public class OrderMock : IOrderClient
 {
-    private List<OrderOutputModelForMock> _orderOutputModel;
+    private List<OrderOutputModelForMock> _orderOutputModelForMock;
 
     public OrderMock()
     {
-        _orderOutputModel = new List<OrderOutputModelForMock>()
+        _orderOutputModelForMock = new List<OrderOutputModelForMock>()
         {
             new OrderOutputModelForMock()
             {
@@ -57,19 +57,24 @@ public class OrderMock : IOrderClient
 
     public List<OrderOutputModelForMock> GetAllOrders()
     {
-        return _orderOutputModel;
+        return _orderOutputModelForMock;
     }
 
     public OrderOutputModelForMock GetOrderById(int id)
     {
-        if (id >= 0 && id <= _orderOutputModel.Count)
+        if (id >= 0 && id <= _orderOutputModelForMock.Count)
         {
-            return _orderOutputModel[id];
+            return _orderOutputModelForMock[id];
         }
         else
         {
             // Обработка ситуации, когда индекс находится вне допустимого диапазона
             throw new ArgumentOutOfRangeException(nameof(id), "Index is out of range");
         }
+    }
+
+    public List<OrderOutputModel> GetOrders()
+    {
+        throw new NotImplementedException();
     }
 }

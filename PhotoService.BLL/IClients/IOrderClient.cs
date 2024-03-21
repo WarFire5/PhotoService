@@ -10,5 +10,5 @@ public interface IOrderClient
     public List<OrderOutputModelForMock> GetAllOrders();
 
     public OrderOutputModelForMock GetOrderById(int id);
-    public List<OrderOutputModel> GetOrders();
+    // public List<OrderOutputModel> GetOrders();
 }

@@ -20,12 +20,11 @@ public class OrderClient
     // {
     //     using (var context = new Context())
     //     {
-    //         var dto = _mapper.Map<UsersDto>(model);
-    //         context.Users.Add(dto);
+    //         var dto = _mapper.Map<OrdersDto>(model);
+    //         context.Orders.Add(dto);
     //         context.SaveChanges();
     //     }
     // }
-
 
     public List<OrderOutputModel> GetOrders()
     {
