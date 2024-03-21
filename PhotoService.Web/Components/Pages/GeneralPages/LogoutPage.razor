@@ -9,7 +9,8 @@
 <h3>Logout</h3>
 
 @code {
-    [CascadingParameter] public HttpContext httpContext { get; set; }
+    [CascadingParameter] 
+    public HttpContext httpContext { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
