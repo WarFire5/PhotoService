@@ -1,0 +1,49 @@
+
+@rendermode InteractiveServer
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Добавление услуги</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+ 
+            <div class="form-group">
+                <label>Заголовок</label>
+                <input class="form-control" @bind="_inputService.Name"/>
+            </div>
+            <div class="form-group">
+                <label>Цена(в руб.)</label>
+                <input class="form-control" @bind="_inputService.Cost"/>
+            </div>
+            <div class="form-group">
+                <label>Описание</label>
+                <input class="form-control" @bind="_inputService.Description"/> 
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+            <button @onclick="Add" class="btn btn-primary">Добавить услугу</button>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    [Parameter] public ServiceOutputModel Service { get; set; }
+    private ServiceInputModel _inputService;
+    
+    [Parameter] public Action <ServiceInputModel> AddService { get; set; }
+
+    public AddServiceModal()
+    {
+        _inputService = new ServiceInputModel();
+        
+    }
+
+    public void Add()
+    {
+        AddService(_inputService);
+    }
+}
