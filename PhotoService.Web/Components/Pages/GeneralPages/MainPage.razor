@@ -4,50 +4,6 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @rendermode InteractiveServer
 
-@* <button @onclick="GetClaimsPrincipalData">Get ClaimsPrincipal Data</button> *@
-<AuthorizeView Roles="Manager">
-    <Authorized>
-        <ListCustomerspage/>
-        Вы авторизовались как менеджер.
-        @* <p> Привет, @claims.Where(c=>c.Type == nameof(LoginModel))</p> *@
-        @* @if (claims.Count() > 0) *@
-        @* { *@
-        @*     <ul> *@
-        @*         @foreach (var claim in claims) *@
-        @*         { *@
-        @*             <li>@claim.Type: @claim.Value</li> *@
-        @*         } *@
-        @*     </ul> *@
-        @* } *@
-    </Authorized>
-    @* <NotAuthorized> *@
-    @*     <MainPage/> *@
-    @*     Ошибка. Проверьте актуальность вводимых данных. *@
-    @* </NotAuthorized> *@
-</AuthorizeView>
-
-@* <AuthorizeView Roles="Executor"> *@
-@*     <Authorized> *@
-@*         <MyServicesPage/> *@
-@*         Вы авторизовались как исполнитель. *@
-@*     </Authorized> *@
-@*     <NotAuthorized> *@
-@*         <MainPage/> *@
-@*         Ошибка. Проверьте актуальность вводимых данных. *@
-@*     </NotAuthorized> *@
-@* </AuthorizeView> *@
-@* *@
-@* <AuthorizeView Roles="Customer"> *@
-@*     <Authorized> *@
-@*         <ServicesPage/> *@
-@*         Вы авторизовались как заказчик. *@
-@*     </Authorized> *@
-@*     <NotAuthorized> *@
-@*         <MainPage/> *@
-@*         Ошибка. Проверьте актуальность вводимых данных. *@
-@*     </NotAuthorized> *@
-@* </AuthorizeView> *@
-
 <PageTitle>MainPage</PageTitle>
 
 <h2>Услуги</h2>
@@ -80,20 +36,21 @@
     <ServiceCardsForMainPage/>
 </div>
 
-@code {
-    [CascadingParameter] public Task<AuthenticationState> State { get; set; }
 
-    private List<Claim> claims = new List<Claim>();
-
-    private async Task GetClaimsPrincipalData()
-    {
-        var authState = await State;
-        var user = authState.User;
-
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims.ToList();
-        }
-    }
-
-}
+@* @code { *@
+@*     [CascadingParameter]  *@
+@*     public Task<AuthenticationState> State { get; set; } *@
+@* *@
+@*     private List<Claim> claims = new List<Claim>(); *@
+@* *@
+@*     private async Task GetClaimsPrincipalData() *@
+@*     { *@
+@*         var authState = await State; *@
+@*         var user = authState.User; *@
+@* *@
+@*         if (user.Identity is not null && user.Identity.IsAuthenticated) *@
+@*         { *@
+@*             claims = user.Claims.ToList(); *@
+@*         } *@
+@*     } *@
+@* } *@

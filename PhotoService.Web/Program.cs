@@ -13,7 +13,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         {
             options.Cookie.Name = "auth_token";
             options.LoginPath = "/authorization";
-            options.Cookie.MaxAge = TimeSpan.FromDays(1);
+            options.Cookie.MaxAge = TimeSpan.FromMinutes(1);
         });
 
 builder.Services.AddAuthorization();

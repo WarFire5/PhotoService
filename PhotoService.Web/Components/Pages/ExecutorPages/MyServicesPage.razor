@@ -1,5 +1,22 @@
 ﻿@page "/my-services"
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @rendermode InteractiveServer
+@attribute [StreamRendering]
+
+@* <button @onclick="GetClaimsPrincipalData">Get ClaimsPrincipal Data</button> *@
+<AuthorizeView Roles="Executor">
+    <Authorized>
+        <MyServicesPage/>
+        Вы авторизовались как исполнитель.
+    </Authorized>
+    <NotAuthorized>
+        <MainPage/>
+        Ошибка. Проверьте актуальность вводимых данных.
+    </NotAuthorized>
+</AuthorizeView>
+
 
 <PageTitle>Мои услуги</PageTitle>
 
@@ -22,3 +39,22 @@
 <div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
 
 </div>
+
+
+@code {
+    [CascadingParameter] 
+    public Task<AuthenticationState> State { get; set; }
+
+    private List<Claim> claims = new List<Claim>();
+
+    private async Task GetClaimsPrincipalData()
+    {
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims.ToList();
+        }
+    }
+}

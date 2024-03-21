@@ -338,7 +338,7 @@
 @*     public string? _сancellationReason { get; set; } *@
 @* *@
 @*     private List<OrderOutputModel>? _orders; *@
-@*     private OrderClient _orderClient; *@
+@*     private IOrderClient _orderClient; *@
 @* *@
 @*     public OrderCardGeneral() *@
 @*     { *@
@@ -352,11 +352,11 @@
 @*         var o = _orderClient.GetOrderById(Id); *@
 @*         _creationDate = o.СreationDate; *@
 @*         _comment = o.Comment; *@
-@*          *@
+@* *@
 @*         _serviceTitle = o.ServiceTitle; *@
 @*         _executorName = o.ExecutorName; *@
 @*         _servicePrice = o.ServicePrice; *@
-@*          *@
+@* *@
 @*         _сancellationReason = o.CancellationReason; *@
 @*         _status = o.Status; *@
 @*     } *@

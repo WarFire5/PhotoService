@@ -4,8 +4,6 @@
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Authentication.Cookies
 @inject NavigationManager navManager
-@inject NavigationManager navExecutor
-@inject NavigationManager navCustomer
 
 <div>
     <div class="authorization-logo-container">
@@ -13,7 +11,7 @@
     </div>
     <div class="container-md container-for-authorization-page">
         <h2 class="authorization-title">Вход</h2>
-        <form class="authorization-form">
+        @* <form class="authorization-form"> *@
             <EditForm Model="LoginInputModel" OnSubmit="StartLogin" FormName="Authentication">
                 @* OnValidSubmit OnInValidSubmit  *@
                 <div class="mb-3">
@@ -34,7 +32,7 @@
                     <button type="submit" class="btn btn-primary btn-lg authorization-button">Войти</button>
                 </div>
             </EditForm>
-        </form>
+        @* </form> *@
     </div>
 </div>
 
@@ -78,9 +76,9 @@
 
         await httpContext.SignInAsync(pr);
 
-        navManager.NavigateTo("/customers");
-        navExecutor.NavigateTo("/my-services");
-        navCustomer.NavigateTo("/services");
+        navManager.NavigateTo("./customers");
+        navManager.NavigateTo("./my-services");
+        navManager.NavigateTo("./services");
     }
 
 }

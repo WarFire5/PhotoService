@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.Identity.Client;
 using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
 using PhotoService.BLL.Models.OutputModels;
 using PhotoService.DAL.DTO;
 
-namespace PhotoService.BLL;
+namespace PhotoService.BLL.Clients;
 
-public class UserClient: IUserClient
+public class UserClient : IUserClient
 {
     private readonly SingletoneStorage _storage;
     private readonly IMapper _mapper;
@@ -22,7 +23,15 @@ public class UserClient: IUserClient
     {
         using (var context = new Context())
         {
-            List<UsersOutputModel> usersList = new List<UsersOutputModel>();
+            List<UsersOutputModel> usersList = new List<UsersOutputModel>()
+            {
+                new UsersOutputModel()
+                {
+                    Mail = "111",
+                    Password = "1123"
+                }
+            };
+
             foreach (var user in usersList)
             {
                 if (loginInputModel.Mail == user.Mail && loginInputModel.Password == user.Password)
@@ -34,5 +43,4 @@ public class UserClient: IUserClient
             return false;
         }
     }
-
 }
