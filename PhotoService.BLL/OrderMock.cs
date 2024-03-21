@@ -6,13 +6,13 @@ namespace PhotoService.BLL;
 
 public class OrderMock : IOrderClient
 {
-    private List<OrderOutputModel> _orderOutputModel;
+    private List<OrderOutputModelForMock> _orderOutputModelForMock;
 
     public OrderMock()
     {
-        _orderOutputModel = new List<OrderOutputModel>()
+        _orderOutputModelForMock = new List<OrderOutputModelForMock>()
         {
-            new OrderOutputModel()
+            new OrderOutputModelForMock()
             {
                 Id = 1,
                 CustomerId = 1,
@@ -21,7 +21,7 @@ public class OrderMock : IOrderClient
                 ServiceId = 1,
                 Status = "Активный"
             },
-            new OrderOutputModel()
+            new OrderOutputModelForMock()
             {
                 Id = 2,
                 CustomerId = 2,
@@ -30,7 +30,7 @@ public class OrderMock : IOrderClient
                 ServiceId = 2,
                 Status = "В работе"
             },
-            new OrderOutputModel()
+            new OrderOutputModelForMock()
             {
                 Id = 2,
                 CustomerId = 2,
@@ -42,9 +42,9 @@ public class OrderMock : IOrderClient
         };
     }
 
-    public OrderOutputModel AddOrder(OrderInputModel order)
+    public OrderOutputModelForMock AddOrder(OrderInputModel order)
     {
-        return new OrderOutputModel()
+        return new OrderOutputModelForMock()
         {
             Id = 1,
             CustomerId = order.CustomerId,
@@ -55,21 +55,26 @@ public class OrderMock : IOrderClient
         };
     }
 
-    public List<OrderOutputModel> GetAllOrders()
+    public List<OrderOutputModelForMock> GetAllOrders()
     {
-        return _orderOutputModel;
+        return _orderOutputModelForMock;
     }
 
-    public OrderOutputModel GetOrderById(int id)
+    public OrderOutputModelForMock GetOrderById(int id)
     {
-        if (id >= 0 && id <= _orderOutputModel.Count)
+        if (id >= 0 && id <= _orderOutputModelForMock.Count)
         {
-            return _orderOutputModel[id];
+            return _orderOutputModelForMock[id];
         }
         else
         {
             // Обработка ситуации, когда индекс находится вне допустимого диапазона
             throw new ArgumentOutOfRangeException(nameof(id), "Index is out of range");
         }
+    }
+
+    public List<OrderOutputModel> GetOrders()
+    {
+        throw new NotImplementedException();
     }
 }

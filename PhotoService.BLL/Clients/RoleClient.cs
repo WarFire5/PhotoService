@@ -1,5 +1,6 @@
 ﻿namespace PhotoService.BLL;
 
-public class Class
+public class RoleClient
 {
+    
 }

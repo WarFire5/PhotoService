@@ -5,9 +5,10 @@ namespace PhotoService.BLL.IClients;
 
 public interface IOrderClient
 {
-    public OrderOutputModel AddOrder(OrderInputModel order);
+    public OrderOutputModelForMock AddOrder(OrderInputModel order);
 
-    public List<OrderOutputModel> GetAllOrders();
+    public List<OrderOutputModelForMock> GetAllOrders();
 
-    public OrderOutputModel GetOrderById(int id);
+    public OrderOutputModelForMock GetOrderById(int id);
+    // public List<OrderOutputModel> GetOrders();
 }
