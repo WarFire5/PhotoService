@@ -337,28 +337,26 @@ else
     public string? _servicePrice { get; set; }
     public string? _сancellationReason { get; set; }
 
-    private List<OrderOutputModel>? _orders;
+    private List<OrderOutputModelForMock>? _orders;
     private IOrderClient _orderClient;
 
-    public OrderCardGeneral()
+    public OrderCardGeneralForMock()
     {
-        _orderClient = new OrderClient();
+        _orderClient = new OrderForCustomerMock();
     }
 
     protected override void OnInitialized()
     {
-        _orders = _orderClient.GetOrders();
+        _orders = _orderClient.GetAllOrders();
 
         var o = _orderClient.GetOrderById(Id);
-        _creationDate = o.СreationDate;
         _comment = o.Comment;
-        
+        _creationDate = o.СreationDate;
+        _status = o.Status;
         _serviceTitle = o.ServiceTitle;
         _executorName = o.ExecutorName;
         _servicePrice = o.ServicePrice;
-        
         _сancellationReason = o.CancellationReason;
-        _status = o.Status;
     }
 
 }
