@@ -1,40 +1,52 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Security.Claims
-@using PhotoService.BLL
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@rendermode InteractiveServer
 
-@* <AuthorizeView Roles="Manager"> *@
-@*     <Authorized> *@
-@*         Авторизован! *@
-@*         <p></p> *@
-@*         "/customers" *@
-@*     </Authorized> *@
-@*     <NotAuthorized> *@
-@*         Неавторизован! *@
-@*     </NotAuthorized> *@
-@* </AuthorizeView> *@
-@* *@
+@* <button @onclick="GetClaimsPrincipalData">Get ClaimsPrincipal Data</button> *@
+<AuthorizeView Roles="Manager">
+    <Authorized>
+        <ListCustomerspage/>
+        Вы авторизовались как менеджер.
+        @* <p> Привет, @claims.Where(c=>c.Type == nameof(LoginModel))</p> *@
+        @* @if (claims.Count() > 0) *@
+        @* { *@
+        @*     <ul> *@
+        @*         @foreach (var claim in claims) *@
+        @*         { *@
+        @*             <li>@claim.Type: @claim.Value</li> *@
+        @*         } *@
+        @*     </ul> *@
+        @* } *@
+    </Authorized>
+    @* <NotAuthorized> *@
+    @*     <MainPage/> *@
+    @*     Ошибка. Проверьте актуальность вводимых данных. *@
+    @* </NotAuthorized> *@
+</AuthorizeView>
+
 @* <AuthorizeView Roles="Executor"> *@
 @*     <Authorized> *@
-@*         Авторизован! *@
-@*         "/my-services" *@
+@*         <MyServicesPage/> *@
+@*         Вы авторизовались как исполнитель. *@
 @*     </Authorized> *@
 @*     <NotAuthorized> *@
-@*         Неавторизован! *@
+@*         <MainPage/> *@
+@*         Ошибка. Проверьте актуальность вводимых данных. *@
 @*     </NotAuthorized> *@
 @* </AuthorizeView> *@
 @* *@
 @* <AuthorizeView Roles="Customer"> *@
 @*     <Authorized> *@
-@*         Авторизован!] *@
-@*         "/services" *@
+@*         <ServicesPage/> *@
+@*         Вы авторизовались как заказчик. *@
 @*     </Authorized> *@
 @*     <NotAuthorized> *@
-@*         Неавторизован! *@
+@*         <MainPage/> *@
+@*         Ошибка. Проверьте актуальность вводимых данных. *@
 @*     </NotAuthorized> *@
 @* </AuthorizeView> *@
-
-@rendermode InteractiveServer
 
 <PageTitle>MainPage</PageTitle>
 
@@ -68,17 +80,20 @@
     <ServiceCardsForMainPage/>
 </div>
 
-@code{
-    // [CascadingParameter]
-    // public class 
-    // {
-    //
-    // }
+@code {
+    [CascadingParameter] public Task<AuthenticationState> State { get; set; }
 
-    public MainPage()
+    private List<Claim> claims = new List<Claim>();
+
+    private async Task GetClaimsPrincipalData()
     {
-        DataBaseControl _control = new DataBaseControl();
-        _control.GetDataBase();
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims.ToList();
+        }
     }
 
 }

@@ -1,0 +1,86 @@
+﻿@page "/authorization"
+@using PhotoService.BLL.Models.InputModels
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@inject NavigationManager navManager
+@inject NavigationManager navExecutor
+@inject NavigationManager navCustomer
+
+<div>
+    <div class="authorization-logo-container">
+        <img class="authorization-logo" src="Resources/logo-photoservice.png"/>
+    </div>
+    <div class="container-md container-for-authorization-page">
+        <h2 class="authorization-title">Вход</h2>
+        <form class="authorization-form">
+            <EditForm Model="LoginInputModel" OnSubmit="StartLogin" FormName="Authentication">
+                @* OnValidSubmit OnInValidSubmit  *@
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Электронная почта</label>
+                    <InputText class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите электронную почту" @bind-Value="LoginInputModel.Mail">
+                        @* <ValidationMessage></ValidationMessage> *@
+                    </InputText>
+                    <div id="emailHelp" class="form-text">Мы никогда-никода никому-никому не передадим вашу электронную почту может быть, наверное, скорее всего передадим.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Пароль</label>
+                    <InputText class="form-control" id="exampleInputPassword1" placeholder="Введите пароль" @bind-Value="LoginInputModel.Password">
+                        @* <ValidationSummary></ValidationSummary> *@
+                    </InputText>
+                    <div id="emailHelp" class="form-text">Как и пароль. Наверное.</div>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg authorization-button">Войти</button>
+                </div>
+            </EditForm>
+        </form>
+    </div>
+</div>
+
+
+@code {
+
+    // private string _mail;
+    // private string _password;
+    
+    [SupplyParameterFromForm]
+    public LoginInputModel LoginInputModel { get; set; } = new LoginInputModel();
+
+    [CascadingParameter]
+    public HttpContext httpContext { get; set; }
+
+    private void AddMail()
+    {
+        
+    }
+
+    public async Task StartLogin()
+    {
+        //Идум в базку и достаем инфу по логину и паролю (из loginModel)
+
+        // _mail = LoginInputModel.Mail;
+        // _password = LoginInputModel.Password;
+        IUserClient userClient = new UserClient();
+        bool check = userClient.CheckAuthentication(LoginInputModel);
+
+        var claims = new List<Claim>()
+        {
+            new Claim(ClaimTypes.Email, LoginInputModel.Mail),
+            new Claim(ClaimTypes.Role, "Manager"),
+            // new Claim(ClaimTypes.Role, "Executor"),
+            // new Claim(ClaimTypes.Role, "Customer"),
+            // new Claim(ClaimTypes.Password, loginModel.Password)
+        };
+
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var pr = new ClaimsPrincipal(identity);
+
+        await httpContext.SignInAsync(pr);
+
+        navManager.NavigateTo("/customers");
+        navExecutor.NavigateTo("/my-services");
+        navCustomer.NavigateTo("/services");
+    }
+
+}

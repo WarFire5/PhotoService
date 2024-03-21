@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using PhotoService.BLL.Models.OutputModels;
 using PhotoService.DAL.DTO;
 
