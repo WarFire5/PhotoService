@@ -1,12 +1,13 @@
 using AutoMapper;
 using PhotoService.BLL.Clients;
+using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
 using PhotoService.BLL.Models.OutputModels;
 using PhotoService.DAL.DTO;
 
 namespace PhotoService.BLL.Clients;
 
-public class OrderClient
+public class OrderClient: IOrderClient
 {
     private readonly SingletoneStorage _storage;
     private readonly IMapper _mapper;
@@ -28,6 +29,11 @@ public class OrderClient
     //     }
     // }
 
+    OrderOutputModelForMock IOrderClient.GetOrderById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<OrderOutputModel> GetOrders()
     {
         using (var context = new Context())
@@ -36,6 +42,16 @@ public class OrderClient
             var orderOutputModels  = _mapper.Map<List<OrderOutputModel>>(ordersDto);
             return orderOutputModels;
         }
+    }
+
+    public OrderOutputModelForMock AddOrder(OrderInputModel order)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<OrderOutputModelForMock> GetAllOrders()
+    {
+        throw new NotImplementedException();
     }
 
     public OrderOutputModel GetOrderById(int id)
