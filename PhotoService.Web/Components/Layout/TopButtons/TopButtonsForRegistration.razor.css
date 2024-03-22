@@ -1,0 +1,25 @@
+﻿.enter-tab-registration {
+    width: 100px !important;
+    max-width: 100px;
+    height: 40px;
+    max-height: 40px;
+    text-align: center;
+    color: #4340D2 !important;
+    background-color: white !important;
+    border-color: #4340D2;
+    border-width: 1px;
+    margin-right: -25px;
+}
+
+.enter-tab-registration:hover {
+    color: white !important;
+    background-color: #189dde !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.enter-tab-registration:active {
+    color: navy !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}

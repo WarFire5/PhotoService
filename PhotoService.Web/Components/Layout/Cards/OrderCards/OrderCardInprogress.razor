@@ -1,0 +1,52 @@
+﻿<div class="card order-card" @onclick="OpenModal" style="cursor: pointer;">
+    <div class="card-header d-flex justify-content-between align-items-center order-header">
+        <div class="order-date">
+            2024.04.01
+        </div>
+        <div class="order-status-inprogress">
+            <span class="badge text-bg-success">В работе</span>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <div style="margin-bottom: -5px">
+                    <h5 class="card-title mb-3">
+                        <a href="services" class="order-service">Портретная съёмка в студии</a>
+                    </h5>
+                </div>
+                <div>
+                    <p class="card-text mb-3">
+                        <a href="executors" class="order-executor">Арсений Артемьевич Серебрянников</a>
+                    </p>
+                </div>
+            </div>
+            <div class="order-price">
+                <span class="badge text-bg-danger fs-2">5 000р.</span>
+            </div>
+        </div>
+        <div class="order-buttons">
+            <button type="button" class="btn btn-primary order-button-cansel">
+                <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+            </button>
+            <button type="button" class="btn btn-primary order-button-edit" disabled>
+                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+            </button>
+            <button type="button" class="btn btn-primary order-button-complete">
+                <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+            </button>
+            <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
+                <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+            </button>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private void OpenModal()
+    {
+        throw new NotImplementedException();
+    }
+
+}

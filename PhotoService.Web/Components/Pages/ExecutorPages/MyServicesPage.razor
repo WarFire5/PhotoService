@@ -1,0 +1,54 @@
+﻿@page "/my-services"
+@rendermode InteractiveServer
+
+<PageTitle>Мои услуги</PageTitle>
+
+<div class="d-flex flex-row justify-content-between">
+    <h2>Мои услуги</h2>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #4340D2">
+        <i class="bi bi-plus"></i>
+        Добавить
+    </button>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <AddServiceModal AddService="AddService" />
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
+    @foreach (var Service in Services)
+    {
+       <MyServicesCard Service="Service" DeleteService="DeleteService"/>
+    }
+</div>
+
+@code
+{
+    [Parameter] public int Id { get; set; }
+    [Parameter] public string? Name { get; set; }
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public int Cost { get; set; }
+    
+    [Parameter] public List<ServiceOutputModel> Services { get; set; }
+    private IServiceClient _serviceClient;
+    
+    private ServiceInputModel _inputService;
+    
+    public MyServicesPage()
+    {
+        _serviceClient = new ServiceMock();
+        Services = _serviceClient.GetAllServices();
+        _inputService = new ServiceInputModel();
+    }
+    
+    public void AddService(ServiceInputModel input)
+    {
+       var s= _serviceClient.AddService(input);
+        Services.Add(s);
+        StateHasChanged();
+    }
+
+    public void DeleteService(ServiceOutputModel service)
+    {
+        Services.Remove(service);
+    }
+}

@@ -1,14 +1,58 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
+    @if (_currentPage.EndsWith("/")
+         || _currentPage.EndsWith("/registration")
+         || _currentPage.EndsWith("/registration-executor")
+         || _currentPage.EndsWith("/authorization"))
+    {
+    }
+    else
+    {
+        <div class="sidebar">
+            @if (_currentPage.EndsWith("/executors")
+                 || _currentPage.EndsWith("/orders")
+                 || _currentPage.EndsWith("/reviews")
+                 || _currentPage.EndsWith("/services"))
+            {
+                <NavMenuForCustomer/>
+            }
+            else if (_currentPage.EndsWith("/my-orders")
+                     || _currentPage.EndsWith("/my-reviews")
+                     || _currentPage.EndsWith("/my-services"))
+            {
+                <NavMenuForExecutor/>
+            }
+            @* else if (_currentPage.EndsWith("/executors") *@
+            @*          || _currentPage.EndsWith("/orders") *@
+            @*          || _currentPage.EndsWith("/reviews") *@
+            @*          || _currentPage.EndsWith("/services")) *@
+            else
+            {
+                <NavMenuForManager/>
+            }
+        </div>
+    }
 
     <main>
-        <div class="top-row px-4">
-           <button type="button" class="btn btn-outline-primary">Выйти</button>
-        </div>
+        @if (_currentPage.EndsWith("/registration")
+             || _currentPage.EndsWith("/registration-executor"))
+        {
+            <AppBarForRegistrationPages/>
+        }
+        else if (_currentPage.EndsWith("/authorization"))
+        {
+            <AppBarForAuthorizationPage/>
+        }
+        else if (_currentPage.EndsWith("/"))
+        {
+            <AppBarForNonAuthorizedUsers/>
+        }
+        else
+        {
+            <AppBarForAuthorizedUsers/>
+        }
 
         <article class="content px-4">
             @Body
@@ -21,3 +65,13 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+@code{
+    private string _currentPage;
+
+    protected override void OnInitialized()
+    {
+        _currentPage = NavigationManager.Uri;
+    }
+
+}

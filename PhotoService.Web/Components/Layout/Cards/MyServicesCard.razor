@@ -1,0 +1,29 @@
+@rendermode InteractiveServer
+
+<div class="col card-col">
+    <div class="card">
+        <div class="card-body">
+            <div class="header-card">
+                <h5 class="card-title">@Service.Name</h5>
+            </div>
+            <h6 class="card-subtitle mb-2 text-secondary">@Service.Cost</h6>
+            <p class="card-text text-hide">@Service.Description</p>
+            <div class="footer-card">
+                <button  class="btn btn-outline-primary" @onclick="(() => DeleteService.InvokeAsync(Service))">Удалить</button>
+                <a class="btn btn-outline-secondary">Редактировать</a>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter] public ServiceOutputModel? Service { get; set; }
+    [Parameter] public EventCallback<ServiceOutputModel> DeleteService { get; set; }
+    
+    [Parameter] public int Id { get; set; }
+    [Parameter] public string? Name { get; set; }
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public int Cost { get; set; }
+    
+    
+
+}

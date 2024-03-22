@@ -1,6 +1,42 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+@using PhotoService.BLL
 
-<PageTitle>Услуги</PageTitle>
+@* <AuthorizeView Roles="Manager"> *@
+@*     <Authorized> *@
+@*         Авторизован! *@
+@*         <p></p> *@
+@*         "/customers" *@
+@*     </Authorized> *@
+@*     <NotAuthorized> *@
+@*         Неавторизован! *@
+@*     </NotAuthorized> *@
+@* </AuthorizeView> *@
+@* *@
+@* <AuthorizeView Roles="Executor"> *@
+@*     <Authorized> *@
+@*         Авторизован! *@
+@*         "/my-services" *@
+@*     </Authorized> *@
+@*     <NotAuthorized> *@
+@*         Неавторизован! *@
+@*     </NotAuthorized> *@
+@* </AuthorizeView> *@
+@* *@
+@* <AuthorizeView Roles="Customer"> *@
+@*     <Authorized> *@
+@*         Авторизован!] *@
+@*         "/services" *@
+@*     </Authorized> *@
+@*     <NotAuthorized> *@
+@*         Неавторизован! *@
+@*     </NotAuthorized> *@
+@* </AuthorizeView> *@
+
+@rendermode InteractiveServer
+
+<PageTitle>MainPage</PageTitle>
 
 <h2>Услуги</h2>
 
@@ -11,20 +47,38 @@
     <div class="col-auto">
         <select class="form-select" aria-label="Default select example">
             <option selected>Все</option>
-            <option value="1">Фотографы</option>
-            <option value="2">Видеографы</option>
-            <option value="3">Стилисты</option>
+            <option value="1">Фотограф</option>
+            <option value="2">Видеограф</option>
+            <option value="3">Ретушер</option>
+            <option value="4">Дизайнер</option>
+            <option value="5">Модель</option>
+            <option value="6">Визажист</option>
+            <option value="7">Стилист</option>
+            <option value="8">Предоставление красивых мест для съёмки</option>
+            <option value="9">Предоставление специально оборудованных помещений для проведения съёмки</option>
+            <option value="10">Организация съёмочного процесса</option>
         </select>
     </div>
 </div>
 
 <div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
-    <ServiceCardLayout/>
-    <ServiceCardLayout/>
-    <ServiceCardLayout/>
-    <ServiceCardLayout/>
+    <ServiceCardsForMainPage/>
+    <ServiceCardsForMainPage/>
+    <ServiceCardsForMainPage/>
+    <ServiceCardsForMainPage/>
 </div>
 
-<style>
+@code{
+    // [CascadingParameter]
+    // public class 
+    // {
+    //
+    // }
 
-</style>
+    public MainPage()
+    {
+        DataBaseControl _control = new DataBaseControl();
+        _control.GetDataBase();
+    }
+
+}

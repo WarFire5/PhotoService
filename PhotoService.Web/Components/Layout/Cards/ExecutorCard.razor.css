@@ -1,0 +1,12 @@
+.raiting {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.header-card {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: space-between;
+}

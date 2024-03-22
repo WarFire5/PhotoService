@@ -6,4 +6,13 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
+      <PackageReference Include="Oracle.EntityFrameworkCore" Version="8.21.121" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PhotoService.DAL\PhotoService.DAL.csproj" />
+    </ItemGroup>
+
 </Project>

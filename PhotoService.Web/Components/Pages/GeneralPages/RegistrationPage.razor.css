@@ -1,9 +1,11 @@
 ﻿.registration-logo-container {
+    padding-top: 100px;
     position: relative;
-    height: 10vh;
+    /*height: 10vh;*/
 }
 
 .registration-logo {
+    padding-top: 10px;
     position: absolute;
     top: 35%;
     left: 49%;
@@ -28,7 +30,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     border-color: #4340D2;
     border-width: 1px;
 }
@@ -67,7 +69,7 @@
 }
 
 .executor-tab:hover {
-    color: #ffffff !important;
+    color: white !important;
     background-color: #4340D2 !important;
     border-color: #4340D2;
     border-width: 1px;
@@ -77,13 +79,6 @@
     color: navy !important;
     border-color: #4340D2;
     border-width: 1px;
-}
-
-.general-background {
-    background-image: url("Resources/general-background.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 .container-for-registration-page {

@@ -1,0 +1,66 @@
+﻿.top-buttons-authorization {
+    width: 300px !important;
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.tab {
+    display: flex;
+    flex-direction: row;
+    gap: 0.6rem;
+    padding-inline: 1rem;
+    height: 40px;
+    max-height: 40px;
+    text-align: center;
+    color: white;
+    background-color: rgb(220 53 69) !important;
+    border-color: #1861ac;
+    border-width: 1px;
+    flex-wrap: nowrap;
+}
+
+.registration-tab:hover {
+    color: #4340D2 !important;
+    background-color: white !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.registration-tab:active {
+    color: navy !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.enter-tab {
+    display: flex;
+    flex-direction: row;
+    gap: 0.6rem;
+    padding-inline: 1rem;
+    height: 40px;
+    max-height: 40px;
+    text-align: center;
+    color: white;
+    background-color: #4340D2 !important;
+    border-color: #1861ac;
+    border-width: 1px;
+    flex-wrap: nowrap;
+}
+
+.enter-tab:hover {
+    color: #4340D2 !important;
+    background-color: white !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}
+
+.enter-tab:active {
+    color: navy !important;
+    border-color: #4340D2;
+    border-width: 1px;
+}

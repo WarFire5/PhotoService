@@ -1,0 +1,28 @@
+﻿@page "/list-orders"
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+
+<PageTitle>Список заказов</PageTitle>
+
+<h2>Список заказов</h2>
+
+<div class="row g-3">
+    <div class="col-auto">
+        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
+    </div>
+    <div class="col-auto">
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Все</option>
+            <option value="1">Фотографы</option>
+            <option value="2">Видеографы</option>
+            <option value="3">Стилисты</option>
+        </select>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
+    <ServiceCardsForPage/>
+    <ServiceCardsForPage/>
+    <ServiceCardsForPage/>
+    <ServiceCardsForPage/>
+</div>

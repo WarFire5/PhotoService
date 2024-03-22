@@ -7,12 +7,29 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Components\Pages\ExecutorPages\"/>
-        <Folder Include="Components\Pages\ManagerPages\"/>
+        <None Include="wwwroot\Resources\logo.svg" />
+        <None Update="Components\Templates\ServiceCardTemplate.razor.css">
+          <DependentUpon>ServiceCardTemplate.razor.razor</DependentUpon>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="wwwroot\Resources\logo.svg"/>
+      <Content Update="Components\Pages\GeneralPages\RegistrationPage.razor.css">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PhotoService.BLL\PhotoService.BLL.csproj" />
+      <ProjectReference Include="..\PhotoService.DAL\PhotoService.DAL.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
+      <PackageReference Include="Oracle.EntityFrameworkCore" Version="8.21.121" />
+      <PackageReference Include="Radzen.Blazor" Version="4.27.1" />
     </ItemGroup>
 
 </Project>
