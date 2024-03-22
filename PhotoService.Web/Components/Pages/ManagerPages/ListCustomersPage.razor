@@ -5,8 +5,7 @@
 @rendermode InteractiveServer
 @attribute [StreamRendering]
 
-@* <button @onclick="GetClaimsPrincipalData">Get ClaimsPrincipal Data</button> *@
-<AuthorizeView Roles="Manager">
+<AuthorizeView Roles="Менеджер">
     <Authorized>
         <ListCustomerspage/>
         Вы авторизовались как менеджер.
@@ -45,6 +44,7 @@
         </select>
     </div>
 </div>
+
 <div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
     <ExecutorCard />
     <ExecutorCard />
@@ -59,14 +59,15 @@
 
     private List<Claim> claims = new List<Claim>();
 
-    private async Task GetClaimsPrincipalData()
-    {
-        var authState = await State;
-        var user = authState.User;
-
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims.ToList();
-        }
-    }
+    // private async Task GetClaimsPrincipalData()
+    // {
+    //     var authState = await State;
+    //     var user = authState.User;
+    //
+    //     if (user.Identity is not null && user.Identity.IsAuthenticated)
+    //     {
+    //         claims = user.Claims.ToList();
+    //     }
+    // }
+    
 }

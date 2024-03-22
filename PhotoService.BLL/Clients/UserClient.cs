@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
@@ -23,14 +24,7 @@ public class UserClient : IUserClient
     {
         using (var context = new Context())
         {
-            List<UsersOutputModel> usersList = new List<UsersOutputModel>()
-            {
-                new UsersOutputModel()
-                {
-                    Mail = "111",
-                    Password = "1123"
-                }
-            };
+            var usersList = context.Users.ToList();
 
             foreach (var user in usersList)
             {
@@ -42,5 +36,19 @@ public class UserClient : IUserClient
 
             return false;
         }
+    }
+    
+    public RolesDto GetRoleByEmail(string mail)
+    {
+        var users = SingletoneStorage.GetStorage().Storage.Users.Include(u => u.Role);
+        foreach (var user in users)
+        {
+            if (user.Mail == mail)
+            {
+                return user.Role;
+            }
+        }
+
+        return null;
     }
 }
