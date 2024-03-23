@@ -37,22 +37,19 @@
     </button>
 </div>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <AddServiceModal AddService="AddService" />
+    <AddServiceModal AddService="AddService"/>
 </div>
-
-<div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
-<<<<<<< HEAD
-    <ServiceCardsForPage/>
-    <ServiceCardsForPage/>
-    <ServiceCardsForPage/>
-    <ServiceCardsForPage/>
+<div>
+    @foreach (var Service in Services)
+    {
+        <MyServicesCard Service="Service" DeleteService="DeleteService"/>
+    }
 </div>
 
 
 @code {
 
-    [CascadingParameter] 
-    public Task<AuthenticationState> State { get; set; }
+    [CascadingParameter] public Task<AuthenticationState> State { get; set; }
 
     private List<Claim> claims = new List<Claim>();
 
@@ -67,36 +64,27 @@
     //     }
     // }
 
-}
-=======
-    @foreach (var Service in Services)
-    {
-       <MyServicesCard Service="Service" DeleteService="DeleteService"/>
-    }
-</div>
-
-@code
-{
     [Parameter] public int Id { get; set; }
     [Parameter] public string? Name { get; set; }
     [Parameter] public string? Description { get; set; }
     [Parameter] public int Cost { get; set; }
-    
+
     [Parameter] public List<ServiceOutputModel> Services { get; set; }
+
     private IServiceClient _serviceClient;
-    
+
     private ServiceInputModel _inputService;
-    
+
     public MyServicesPage()
     {
         _serviceClient = new ServiceMock();
         Services = _serviceClient.GetAllServices();
         _inputService = new ServiceInputModel();
     }
-    
+
     public void AddService(ServiceInputModel input)
     {
-       var s= _serviceClient.AddService(input);
+        var s = _serviceClient.AddService(input);
         Services.Add(s);
         StateHasChanged();
     }
@@ -105,5 +93,5 @@
     {
         Services.Remove(service);
     }
+
 }
->>>>>>> origin/Services
