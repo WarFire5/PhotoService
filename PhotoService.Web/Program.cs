@@ -1,3 +1,4 @@
+using AutoMapper;
 using PhotoService.Web.Components;
 using Microsoft.AspNetCore.Authentication.Cookies;
 

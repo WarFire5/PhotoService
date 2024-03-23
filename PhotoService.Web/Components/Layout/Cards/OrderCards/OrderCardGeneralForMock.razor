@@ -347,9 +347,9 @@ else
 
     protected override void OnInitialized()
     {
-        _orders = _orderClient.GetAllOrders();
+        _orders = _orderClient.GetOrdersForMock();
 
-        var o = _orderClient.GetOrderById(Id);
+        var o = _orderClient.GetOrderByIdForMock(Id);
         _comment = o.Comment;
         _creationDate = o.СreationDate;
         _status = o.Status;

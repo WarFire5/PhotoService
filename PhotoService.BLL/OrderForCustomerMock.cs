@@ -1,6 +1,7 @@
 using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
 using PhotoService.BLL.Models.OutputModels;
+using PhotoService.DAL.DTO;
 
 namespace PhotoService.BLL;
 
@@ -55,25 +56,7 @@ public class OrderForCustomerMock : IOrderClient
         };
     }
 
-    public OrderOutputModelForMock AddOrder(OrderInputModel order)
-    {
-        return new OrderOutputModelForMock()
-        {
-            Id = 1,
-            CustomerId = order.CustomerId,
-            СreationDate = order.СreationDate,
-            Comment = order.Comment,
-            ServiceId = order.ServiceId,
-            Status = order.Status
-        };
-    }
-
-    public List<OrderOutputModelForMock> GetAllOrders()
-    {
-        return _orderOutputModelForMock;
-    }
-
-    public OrderOutputModelForMock GetOrderById(int id)
+    public OrderOutputModelForMock GetOrderByIdForMock(int id)
     {
         if (id >= 0 && id <= _orderOutputModelForMock.Count)
         {
@@ -85,8 +68,36 @@ public class OrderForCustomerMock : IOrderClient
         }
     }
 
+    public List<OrderOutputModelForMock> GetOrdersForMock()
+    {
+        return _orderOutputModelForMock;
+    }
+
     public List<OrderOutputModel> GetOrders()
     {
         throw new NotImplementedException();
     }
+    
+    // public OrderOutputModel GetOrderById(int id)
+    // {
+    //     throw new NotImplementedException();
+    // }
+    //
+    // public List<OrdersDto> GetOrdersByCustomerId(int userId)
+    // {
+    //     throw new NotImplementedException();
+    // }
+    //
+    // public OrderOutputModelForMock AddOrder(OrderInputModelForMock order)
+    // {
+    //     return new OrderOutputModelForMock()
+    //     {
+    //         Id = 1,
+    //         CustomerId = order.CustomerId,
+    //         СreationDate = order.СreationDate,
+    //         Comment = order.Comment,
+    //         ServiceId = order.ServiceId,
+    //         Status = order.Status
+    //     };
+    // }
 }

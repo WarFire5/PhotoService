@@ -1,6 +1,7 @@
 using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
 using PhotoService.BLL.Models.OutputModels;
+using PhotoService.DAL.DTO;
 
 namespace PhotoService.BLL;
 
@@ -42,7 +43,7 @@ public class OrderMock : IOrderClient
         };
     }
 
-    public OrderOutputModelForMock AddOrder(OrderInputModel order)
+    public OrderOutputModelForMock AddOrder(OrderInputModelForMock order)
     {
         return new OrderOutputModelForMock()
         {
@@ -55,12 +56,12 @@ public class OrderMock : IOrderClient
         };
     }
 
-    public List<OrderOutputModelForMock> GetAllOrders()
+    public List<OrderOutputModelForMock> GetOrdersForMock()
     {
         return _orderOutputModelForMock;
     }
 
-    public OrderOutputModelForMock GetOrderById(int id)
+    public OrderOutputModelForMock GetOrderByIdForMock(int id)
     {
         if (id >= 0 && id <= _orderOutputModelForMock.Count)
         {
@@ -68,12 +69,21 @@ public class OrderMock : IOrderClient
         }
         else
         {
-            // Обработка ситуации, когда индекс находится вне допустимого диапазона
             throw new ArgumentOutOfRangeException(nameof(id), "Index is out of range");
         }
     }
 
+    public OrderOutputModel GetOrderById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<OrderOutputModel> GetOrders()
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<OrdersDto> GetOrdersByCustomerId(int userId)
     {
         throw new NotImplementedException();
     }
