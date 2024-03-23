@@ -1,4 +1,4 @@
-﻿namespace PhotoService;
+namespace PhotoService;
 
 public class SingletoneStorage
 {
