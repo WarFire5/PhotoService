@@ -1,18 +1,19 @@
 using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
 using PhotoService.BLL.Models.OutputModels;
+using PhotoService.DAL.DTO;
 
 namespace PhotoService.BLL;
 
 public class OrderForCustomerMock : IOrderClient
 {
-    private List<OrderOutputModel> _orderOutputModel;
+    private List<OrderOutputModelForMock> _orderOutputModelForMock;
 
     public OrderForCustomerMock()
     {
-        _orderOutputModel = new List<OrderOutputModel>()
+        _orderOutputModelForMock = new List<OrderOutputModelForMock>()
         {
-            new OrderOutputModel()
+            new OrderOutputModelForMock()
             {
                 Comment = "Какой-то комментарий",
                 СreationDate = new DateTime (2024, 04, 4),
@@ -22,7 +23,7 @@ public class OrderForCustomerMock : IOrderClient
                 ServicePrice = "От 1500 р./ч.",
                 CancellationReason =""
             },
-            new OrderOutputModel()
+            new OrderOutputModelForMock()
             {
                 Comment = "Какой-то комментарий",
                 СreationDate = new DateTime (2024, 04, 1),
@@ -32,7 +33,7 @@ public class OrderForCustomerMock : IOrderClient
                 ServicePrice = "5 000р. за 3 часа",
                 CancellationReason =""
             },
-            new OrderOutputModel()
+            new OrderOutputModelForMock()
             {
                 Comment = "Какой-то комментарий",
                 СreationDate = new DateTime (2024, 03, 19),
@@ -42,7 +43,7 @@ public class OrderForCustomerMock : IOrderClient
                 ServicePrice = "15 000 р. за съёмочный день",
                 CancellationReason =""
             },
-            new OrderOutputModel()
+            new OrderOutputModelForMock()
             {
                 Comment = "Какой-то комментарий",
                 СreationDate = new DateTime (2024, 03, 19),
@@ -55,33 +56,48 @@ public class OrderForCustomerMock : IOrderClient
         };
     }
 
-    public OrderOutputModel AddOrder(OrderInputModel order)
+    public OrderOutputModelForMock GetOrderByIdForMock(int id)
     {
-        return new OrderOutputModel()
+        if (id >= 0 && id <= _orderOutputModelForMock.Count)
         {
-            Id = 1,
-            CustomerId = order.CustomerId,
-            СreationDate = order.СreationDate,
-            Comment = order.Comment,
-            ServiceId = order.ServiceId,
-            Status = order.Status
-        };
-    }
-
-    public List<OrderOutputModel> GetAllOrders()
-    {
-        return _orderOutputModel;
-    }
-
-    public OrderOutputModel GetOrderById(int id)
-    {
-        if (id >= 0 && id <= _orderOutputModel.Count)
-        {
-            return _orderOutputModel[id];
+            return _orderOutputModelForMock[id];
         }
         else
         {
             throw new ArgumentOutOfRangeException(nameof(id), "Index is out of range");
         }
     }
+
+    public List<OrderOutputModelForMock> GetOrdersForMock()
+    {
+        return _orderOutputModelForMock;
+    }
+
+    public List<OrderOutputModel> GetOrders()
+    {
+        throw new NotImplementedException();
+    }
+    
+    // public OrderOutputModel GetOrderById(int id)
+    // {
+    //     throw new NotImplementedException();
+    // }
+    //
+    // public List<OrdersDto> GetOrdersByCustomerId(int userId)
+    // {
+    //     throw new NotImplementedException();
+    // }
+    //
+    // public OrderOutputModelForMock AddOrder(OrderInputModelForMock order)
+    // {
+    //     return new OrderOutputModelForMock()
+    //     {
+    //         Id = 1,
+    //         CustomerId = order.CustomerId,
+    //         СreationDate = order.СreationDate,
+    //         Comment = order.Comment,
+    //         ServiceId = order.ServiceId,
+    //         Status = order.Status
+    //     };
+    // }
 }

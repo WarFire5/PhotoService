@@ -1,5 +1,31 @@
 ﻿@page "/my-services"
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @rendermode InteractiveServer
+@attribute [StreamRendering]
+
+<AuthorizeView Roles="Исполнитель">
+    <Authorized>
+        <MyServicesPage/>
+        Вы авторизовались как исполнитель.
+        @* <p> Привет, @claims.Where(c=>c.Type == nameof(LoginModel))</p> *@
+        @* @if (claims.Count() > 0) *@
+        @* { *@
+        @*     <ul> *@
+        @*         @foreach (var claim in claims) *@
+        @*         { *@
+        @*             <li>@claim.Type: @claim.Value</li> *@
+        @*         } *@
+        @*     </ul> *@
+        @* } *@
+    </Authorized>
+    @* <NotAuthorized> *@
+    @*     <MainPage/> *@
+    @*     Ошибка. Проверьте актуальность вводимых данных. *@
+    @* </NotAuthorized> *@
+</AuthorizeView>
+
 
 <PageTitle>Мои услуги</PageTitle>
 
@@ -20,5 +46,29 @@
 </div>
 
 <div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
-
+    <ServiceCardsForPage/>
+    <ServiceCardsForPage/>
+    <ServiceCardsForPage/>
+    <ServiceCardsForPage/>
 </div>
+
+
+@code {
+
+    [CascadingParameter] 
+    public Task<AuthenticationState> State { get; set; }
+
+    private List<Claim> claims = new List<Claim>();
+
+    // private async Task GetClaimsPrincipalData()
+    // {
+    //     var authState = await State;
+    //     var user = authState.User;
+    //
+    //     if (user.Identity is not null && user.Identity.IsAuthenticated)
+    //     {
+    //         claims = user.Claims.ToList();
+    //     }
+    // }
+
+}
