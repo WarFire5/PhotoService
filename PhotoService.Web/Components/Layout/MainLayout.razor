@@ -24,10 +24,6 @@
             {
                 <NavMenuForExecutor/>
             }
-            @* else if (_currentPage.EndsWith("/executors") *@
-            @*          || _currentPage.EndsWith("/orders") *@
-            @*          || _currentPage.EndsWith("/reviews") *@
-            @*          || _currentPage.EndsWith("/services")) *@
             else
             {
                 <NavMenuForManager/>
@@ -43,7 +39,7 @@
         }
         else if (_currentPage.EndsWith("/authorization"))
         {
-            <AppBarForAuthorizationPage/>
+            <AppBarForAuthenticationPage/>
         }
         else if (_currentPage.EndsWith("/"))
         {
@@ -66,7 +62,9 @@
     <a class="dismiss">🗙</a>
 </div>
 
+
 @code{
+    
     private string _currentPage;
 
     protected override void OnInitialized()

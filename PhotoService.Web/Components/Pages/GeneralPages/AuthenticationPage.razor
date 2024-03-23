@@ -1,0 +1,111 @@
+﻿@page "/authorization"
+@using PhotoService.BLL.Models.InputModels
+@using PhotoService.BLL.Clients
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using PhotoService.DAL.DTO
+@inject NavigationManager navManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div>
+    <div class="authorization-logo-container">
+        <img class="authorization-logo" src="Resources/logo-photoservice.png"/>
+    </div>
+    <div class="container-md container-for-authorization-page">
+        <h2 class="authorization-title">Вход</h2>
+        @* <form class="authorization-form"> *@
+        <EditForm Model="LoginInputModel" OnSubmit="StartLogin" FormName="Authentication">
+            @* OnValidSubmit OnInValidSubmit  *@
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Электронная почта</label>
+                <InputText class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите электронную почту" @bind-Value="LoginInputModel.Mail">
+                    @* <ValidationMessage></ValidationMessage> *@
+                </InputText>
+                <div id="emailHelp" class="form-text">Мы никогда-никода никому-никому не передадим вашу электронную почту может быть, наверное, скорее всего передадим.</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Пароль</label>
+                <InputText class="form-control" id="exampleInputPassword1" placeholder="Введите пароль" @bind-Value="LoginInputModel.Password">
+                    @* <ValidationSummary></ValidationSummary> *@
+                </InputText>
+                <div id="emailHelp" class="form-text">Как и пароль. Наверное.</div>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg authorization-button">Войти</button>
+            </div>
+        </EditForm>
+        @* </form> *@
+        @if (authenticationFailed)
+        {
+            <div class="alert alert-danger" role="alert">
+                Аутентификация не удалась. Проверьте свои учетные данные и повторите попытку.
+            </div>
+        }
+    </div>
+</div>
+
+
+@code {
+
+    private bool authenticationFailed = false;
+    
+    [SupplyParameterFromForm] 
+    public LoginInputModel LoginInputModel { get; set; } = new LoginInputModel();
+
+    [CascadingParameter] 
+    public HttpContext httpContext { get; set; }
+
+    public async Task StartLogin()
+    {
+        UserClient userClient = new UserClient();
+        bool check = userClient.CheckAuthentication(LoginInputModel);
+
+        if (!check)
+        {
+            Console.WriteLine("Аутентификация не удалась");
+            authenticationFailed = true;
+            return;
+        }
+
+        RolesDto userRole = userClient.GetRoleByEmail(LoginInputModel.Mail);
+        Console.WriteLine(userRole.Title);
+
+        string redirectTo = null;
+
+        switch (userRole?.Title)
+        {
+            case "Менеджер":
+                redirectTo = "/customers";
+                break;
+            case "Исполнитель":
+                redirectTo = "/my-services";
+                break;
+            case "Заказчик":
+                redirectTo = "/services";
+                break;
+            default:
+                authenticationFailed = true;
+                return;
+        }
+
+        var claims = new List<Claim>()
+        {
+            new Claim(ClaimTypes.Email, LoginInputModel.Mail),
+            new Claim(ClaimTypes.Role, userRole.Title)
+        };
+
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var user = new ClaimsPrincipal(identity);
+
+        await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, user);
+
+        if (!string.IsNullOrEmpty(redirectTo))
+        {
+            navManager.NavigateTo(redirectTo);
+        }
+    }
+
+}

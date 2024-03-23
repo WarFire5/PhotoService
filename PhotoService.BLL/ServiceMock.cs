@@ -4,7 +4,7 @@ using PhotoService.BLL.Models.OutputModels;
 
 namespace PhotoService.BLL;
 
-public class ServiceMock : IServiceClient
+public class ServiceMock : IClients.IServiceClient
 {
     private List<ServiceOutputModel> _serviceOutputModels;
 

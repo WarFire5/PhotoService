@@ -73,7 +73,7 @@
     private int _serviceId;
     private string? _status;
 
-    private List<OrderOutputModel>? _order;
+    private List<OrderOutputModelForMock>? _order;
     private IOrderClient _orderClient;
 
     public MyOrderTable()
@@ -83,9 +83,9 @@
 
     protected override void OnInitialized()
     {
-        _order = _orderClient.GetAllOrders();
+        _order = _orderClient.GetOrdersForMock();
 
-        var o = _orderClient.GetOrderById(Id);
+        var o = _orderClient.GetOrderByIdForMock(Id);
         _customerId = o.CustomerId;
         _creationDate = o.СreationDate;
         _comment = o.Comment;
