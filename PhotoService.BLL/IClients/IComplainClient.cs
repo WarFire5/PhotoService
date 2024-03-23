@@ -1,6 +1,6 @@
 ﻿namespace PhotoService.BLL.IClients;
 
-public interface Interface
+public interface IComplainClient
 {
     
 }

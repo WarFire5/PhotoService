@@ -1,3 +1,4 @@
+@using IServiceClient = PhotoService.BLL.IClients.IServiceClient
 @foreach (var i in _service)
 {
     <ServiceCardForMainPage Id="@i.Id" Close="@ToggleModal2"></ServiceCardForMainPage>

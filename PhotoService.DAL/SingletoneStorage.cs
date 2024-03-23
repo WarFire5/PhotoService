@@ -1,19 +1,18 @@
-namespace PhotoService.DAL;
+namespace PhotoService;
 
 public class SingletoneStorage
 {
-    private static SingletoneStorage _object = null!;
-    
-    public Context Сontext { get; private set; }
+    private static SingletoneStorage _object = null;
+    public Context Storage { get; private set; }
 
     private SingletoneStorage()
     {
-        Сontext = new Context();
+        Storage = new Context();
     }
 
     public static SingletoneStorage GetStorage()
     {
-        if (_object == null!)
+        if (_object is null)
         {
             _object = new SingletoneStorage();
         }

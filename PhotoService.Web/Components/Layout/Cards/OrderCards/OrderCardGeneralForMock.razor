@@ -1,10 +1,4 @@
-﻿@using AutoMapper
-@using PhotoService.DAL.DTO
-@using PhotoService.BLL.IClients
-@using PhotoService.BLL.Models
-
-
-@if (SelectedDate == null)
+﻿@if (SelectedDate == null)
 {
     @if (_orders != null)
     {
@@ -15,7 +9,7 @@
                 {
                     <div class="card-header d-flex justify-content-between align-items-center order-header-new">
                         <div class="order-date-new">
-                            @order.CreationDate
+                            @order.СreationDate
                         </div>
                         <div class="order-status-new">
                             <span class="badge text-bg-primary">@order.Status</span>
@@ -26,7 +20,7 @@
                 {
                     <div class="card-header d-flex justify-content-between align-items-center order-header-inprogress">
                         <div class="order-date-inprogress">
-                            @order.CreationDate
+                            @order.СreationDate
                         </div>
                         <div class="order-status-inprogress">
                             <span class="badge text-bg-success">@order.Status</span>
@@ -37,7 +31,7 @@
                 {
                     <div class="card-header d-flex justify-content-between align-items-center order-header-completed">
                         <div class="order-date-completed">
-                            @order.CreationDate
+                            @order.СreationDate
                         </div>
                         <div class="order-status-completed">
                             <span class="badge text-bg-light">@order.Status</span>
@@ -48,7 +42,7 @@
                 {
                     <div class="card-header d-flex justify-content-between align-items-center order-header-canceled">
                         <div class="order-date-canceled">
-                            @order.CreationDate
+                            @order.СreationDate
                         </div>
                         <div class="order-status-canceled">
                             <span class="badge text-bg-danger">@order.Status</span>
@@ -61,19 +55,19 @@
                         <div>
                             <div style="margin-bottom: -5px">
                                 <h5 class="card-title mb-3">
-                                    <a href="services" class="order-service">@order.Service.Title</a>
+                                    <a href="services" class="order-service">@order.ServiceTitle</a>
                                 </h5>
                             </div>
                             <div>
                                 <p class="card-text mb-3">
-                                    <a href="executors" class="order-executor">@order.Service.Executor.Name</a>
+                                    <a href="executors" class="order-executor">@order.ExecutorName</a>
                                 </p>
                             </div>
                             @if (@order.Status == "Отменён")
                             {
                                 <div>
                                     <p class="card-text mb-3 cancel-reason">
-                                        @order.CanceledReason
+                                        @order.CancellationReason
                                     </p>
                                 </div>
                             }
@@ -81,13 +75,13 @@
                         @if (@order.Status == "Отменён")
                         {
                             <div class="order-price-canceled">
-                                <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
+                                <span class="badge text-bg-danger fs-3">@order.ServicePrice</span>
                             </div>
                         }
                         else
                         {
                             <div class="order-price">
-                                <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
+                                <span class="badge text-bg-danger fs-3">@order.ServicePrice</span>
                             </div>
                         }
                     </div>
@@ -165,14 +159,14 @@ else
     {
         @foreach (var orderWithDate in _orders)
         {
-            @if (orderWithDate.CreationDate == SelectedDate)
+            @if (orderWithDate.СreationDate == SelectedDate)
             {
                 <div class="card order-card" @onclick="OpenModal" style="cursor: pointer;">
                     @if (@orderWithDate.Status == "Новый")
                     {
                         <div class="card-header d-flex justify-content-between align-items-center order-header-new">
                             <div class="order-date-new">
-                                @orderWithDate.CreationDate
+                                @orderWithDate.СreationDate
                             </div>
                             <div class="order-status-new">
                                 <span class="badge text-bg-primary">@orderWithDate.Status</span>
@@ -183,7 +177,7 @@ else
                     {
                         <div class="card-header d-flex justify-content-between align-items-center order-header-inprogress">
                             <div class="order-date-inprogress">
-                                @orderWithDate.CreationDate
+                                @orderWithDate.СreationDate
                             </div>
                             <div class="order-status-inprogress">
                                 <span class="badge text-bg-success">@orderWithDate.Status</span>
@@ -194,7 +188,7 @@ else
                     {
                         <div class="card-header d-flex justify-content-between align-items-center order-header-completed">
                             <div class="order-date-completed">
-                                @orderWithDate.CreationDate
+                                @orderWithDate.СreationDate
                             </div>
                             <div class="order-status-completed">
                                 <span class="badge text-bg-light">@orderWithDate.Status</span>
@@ -205,7 +199,7 @@ else
                     {
                         <div class="card-header d-flex justify-content-between align-items-center order-header-canceled">
                             <div class="order-date-canceled">
-                                @orderWithDate.CreationDate
+                                @orderWithDate.СreationDate
                             </div>
                             <div class="order-status-canceled">
                                 <span class="badge text-bg-danger">@orderWithDate.Status</span>
@@ -218,19 +212,19 @@ else
                             <div>
                                 <div style="margin-bottom: -5px">
                                     <h5 class="card-title mb-3">
-                                        <a href="services" class="order-service">@orderWithDate.Service.Title</a>
+                                        <a href="services" class="order-service">@orderWithDate.ServiceTitle</a>
                                     </h5>
                                 </div>
                                 <div>
                                     <p class="card-text mb-3">
-                                        <a href="executors" class="order-executor">@orderWithDate.Service.Executor.Name</a>
+                                        <a href="executors" class="order-executor">@orderWithDate.ExecutorName</a>
                                     </p>
                                 </div>
                                 @if (orderWithDate.Status == "Отменён")
                                 {
                                     <div>
                                         <p class="card-text mb-3 cancel-reason">
-                                            @orderWithDate.CanceledReason
+                                            @orderWithDate.CancellationReason
                                         </p>
                                     </div>
                                 }
@@ -238,13 +232,13 @@ else
                             @if (orderWithDate.Status == "Отменён")
                             {
                                 <div class="order-price-canceled">
-                                    <span class="badge text-bg-danger fs-3">@orderWithDate.Service.Price</span>
+                                    <span class="badge text-bg-danger fs-3">@orderWithDate.ServicePrice</span>
                                 </div>
                             }
                             else
                             {
                                 <div class="order-price">
-                                    <span class="badge text-bg-danger fs-3">@orderWithDate.Service.Price</span>
+                                    <span class="badge text-bg-danger fs-3">@orderWithDate.ServicePrice</span>
                                 </div>
                             }
                         </div>
@@ -331,42 +325,38 @@ else
         throw new NotImplementedException();
     }
 
-    [Parameter] 
-    public DateTime? SelectedDate { get; set; }
+    [Parameter] public DateTime? SelectedDate { get; set; }
 
-    [Parameter] 
-    public int Id { get; set; }
+    [Parameter] public int Id { get; set; }
 
-    private UsersDto _executor;
-    private DateTime _creationDate;
-    private string _comment;
-    private string _serviceTitle;
-    private string _executorName;
-    private string _servicePrice;
-    private string? _canceledReason;
-    private string _status;
+    private string? _comment;
+    private DateTime? _creationDate;
+    private string? _status;
+    public string? _serviceTitle { get; set; }
+    public string? _executorName { get; set; }
+    public string? _servicePrice { get; set; }
+    public string? _сancellationReason { get; set; }
 
-    private List<OrderOutputModel>? _orders;
-    private readonly IOrderClient _orderClient = new OrderClient();
+    private List<OrderOutputModelForMock>? _orders;
+    private IOrderClient _orderClient;
 
-    // public OrderCardGeneral()
-    // {
-    // }
+    public OrderCardGeneralForMock()
+    {
+        _orderClient = new OrderForCustomerMock();
+    }
 
     protected override void OnInitialized()
     {
-        _orders = _orderClient.GetOrders();
+        _orders = _orderClient.GetOrdersForMock();
 
-        // var order = _orderClient.GetOrderById(1);
-        // _creationDate = order.CreationDate;
-        // _comment = order.Comment;
-        //  _executorName = order.Service.Executor.Name;
-        // _serviceTitle = order.Service.Title;
-        // _servicePrice = order.Service.Price;
-        // _canceledReason = order.CanceledReason;
-        // _status = order.Status;
-        
-        // var ordersDto = _orderClient.GetOrdersByCustomerId(8);
+        var o = _orderClient.GetOrderByIdForMock(Id);
+        _comment = o.Comment;
+        _creationDate = o.СreationDate;
+        _status = o.Status;
+        _serviceTitle = o.ServiceTitle;
+        _executorName = o.ExecutorName;
+        _servicePrice = o.ServicePrice;
+        _сancellationReason = o.CancellationReason;
     }
 
 }

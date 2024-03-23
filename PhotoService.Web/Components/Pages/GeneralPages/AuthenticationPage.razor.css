@@ -1,7 +1,6 @@
 ﻿.authorization-logo-container {
     padding-top: 100px;
     position: relative;
-    /*height: 10vh;*/
 }
 
 .authorization-logo {
@@ -15,13 +14,11 @@
 .authorization-title {
     padding-top: 5px;
     font-size: 30px;
-    /*font-family: auto;*/
     font-weight: bold;
     color: #000000;
     text-shadow: -2px -2px 55px #e600ff;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: rgb(255 255 255 / 50%);
-    /*text-align: center;*/
 }
 
 .container-for-authorization-page {
@@ -55,6 +52,5 @@
 }
 
 .authorization-form {
-    /*padding-top: 50px;*/
     margin-top: -5px;
 }
