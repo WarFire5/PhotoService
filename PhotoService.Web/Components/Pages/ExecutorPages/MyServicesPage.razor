@@ -3,23 +3,14 @@
 @using System.Security.Claims
 @rendermode InteractiveServer
 @attribute [StreamRendering]
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <AuthorizeView Roles="Исполнитель">
     <Authorized>
-        Вы авторизовались как исполнитель.
-        @* <p> Привет, @claims.Where(c=>c.Type == nameof(LoginModel))</p> *@
-        @* @if (claims.Count() > 0) *@
-        @* { *@
-        @*     <ul> *@
-        @*         @foreach (var claim in claims) *@
-        @*         { *@
-        @*             <li>@claim.Type: @claim.Value</li> *@
-        @*         } *@
-        @*     </ul> *@
-        @* } *@
+        Вы авторизовались как @userRole.
+        <p> Привет, @userName!</p>
     </Authorized>
     <NotAuthorized>
-        <MainPage/>
         Ошибка. Проверьте актуальность вводимых данных.
     </NotAuthorized>
 </AuthorizeView>
@@ -47,20 +38,23 @@
 
 @code {
 
-    [CascadingParameter] public Task<AuthenticationState> State { get; set; }
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
 
-    private List<Claim> claims = new List<Claim>();
+    private string userName;
+    private string userRole;
 
-    // private async Task GetClaimsPrincipalData()
-    // {
-    //     var authState = await State;
-    //     var user = authState.User;
-    //
-    //     if (user.Identity is not null && user.Identity.IsAuthenticated)
-    //     {
-    //         claims = user.Claims.ToList();
-    //     }
-    // }
+    protected override async Task OnInitializedAsync()
+    {
+        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authenticationState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            userName = user.FindFirst(ClaimTypes.Name)?.Value;
+            userRole = user.FindFirst(ClaimTypes.Role)?.Value;
+        }
+    }
 
     [Parameter] 
     public int Id { get; set; }
@@ -96,5 +90,4 @@
     {
         Services.Remove(service);
     }
-
 }

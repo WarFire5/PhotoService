@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
-using PhotoService.BLL.Models.OutputModels;
-using PhotoService.DAL.DTO;
-
 namespace PhotoService.BLL.Clients;
 
 public class UserClient : IUserClient
@@ -35,6 +30,15 @@ public class UserClient : IUserClient
             }
 
             return false;
+        }
+    }
+    
+    public string GetUserNameByEmail(string email)
+    {
+        using (var context = new Context())
+        {
+            var user = context.Users.SingleOrDefault(u => u.Mail == email);
+            return user != null ? user.Name : null;
         }
     }
 }

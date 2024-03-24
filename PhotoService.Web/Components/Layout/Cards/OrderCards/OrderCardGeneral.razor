@@ -349,22 +349,9 @@ else
     private List<OrderOutputModel>? _orders;
     private readonly IOrderClient _orderClient = new OrderClient();
 
-    // public OrderCardGeneral()
-    // {
-    // }
-
     protected override void OnInitialized()
     {
         _orders = _orderClient.GetOrders();
-
-        // var order = _orderClient.GetOrderById(1);
-        // _creationDate = order.CreationDate;
-        // _comment = order.Comment;
-        //  _executorName = order.Service.Executor.Name;
-        // _serviceTitle = order.Service.Title;
-        // _servicePrice = order.Service.Price;
-        // _canceledReason = order.CanceledReason;
-        // _status = order.Status;
         
         // var ordersDto = _orderClient.GetOrdersByCustomerId(8);
     }

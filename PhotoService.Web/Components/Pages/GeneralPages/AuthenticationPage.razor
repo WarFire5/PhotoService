@@ -53,9 +53,19 @@
 
     public async Task StartLogin()
     {
-        UserClient userClient = new UserClient();
-        bool check = userClient.CheckAuthentication(LoginInputModel);
+        RoleClient roleClient = new RoleClient();
+        RolesDto userRole = roleClient.GetRoleByEmail(LoginInputModel.Mail);
+        Console.WriteLine(userRole.Title);
 
+        var claims = new List<Claim>()
+        {
+            new Claim(ClaimTypes.Email, LoginInputModel.Mail),
+            new Claim(ClaimTypes.Role, userRole.Title)
+        };
+        
+        UserClient userClient = new UserClient();
+        
+        bool check = userClient.CheckAuthentication(LoginInputModel);
         if (!check)
         {
             Console.WriteLine("Аутентификация не удалась");
@@ -63,10 +73,12 @@
             return;
         }
         
-        RoleClient roleClient = new RoleClient();
-        RolesDto userRole = roleClient.GetRoleByEmail(LoginInputModel.Mail);
-        Console.WriteLine(userRole.Title);
-
+        var userName = userClient.GetUserNameByEmail(LoginInputModel.Mail);
+        if (!string.IsNullOrEmpty(userName))
+        {
+            claims.Add(new Claim(ClaimTypes.Name, userName));
+        }
+        
         string redirectTo = null;
 
         switch (userRole?.Title)
@@ -84,12 +96,6 @@
                 authenticationFailed = true;
                 return;
         }
-
-        var claims = new List<Claim>()
-        {
-            new Claim(ClaimTypes.Email, LoginInputModel.Mail),
-            new Claim(ClaimTypes.Role, userRole.Title)
-        };
 
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         var user = new ClaimsPrincipal(identity);

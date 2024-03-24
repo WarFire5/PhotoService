@@ -1,8 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using PhotoService.BLL.Clients;
 using PhotoService.BLL.IClients;
-using PhotoService.BLL.Models.InputModels;
 using PhotoService.BLL.Models.OutputModels;
 using PhotoService.DAL.DTO;
 
