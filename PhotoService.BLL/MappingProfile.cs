@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using PhotoService.BLL.Clients;
+using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.OutputModels;
 using PhotoService.DAL.DTO;
 
@@ -9,6 +11,7 @@ public class MappingProfile: Profile
     public MappingProfile()
     {
         CreateMap<OrdersDto, OrderOutputModel>();
-        CreateMap<OrderOutputModel,OrdersDto >();
+        CreateMap<OrderOutputModel,OrdersDto>();
+        CreateMap<IOrderClient, OrderClient>();
     }
 }

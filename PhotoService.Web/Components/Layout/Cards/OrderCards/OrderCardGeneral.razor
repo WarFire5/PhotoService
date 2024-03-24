@@ -2,7 +2,13 @@
 @using PhotoService.DAL.DTO
 @using PhotoService.BLL.IClients
 @using PhotoService.BLL.Models
-
+@using Microsoft.AspNetCore.Components
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@using static PhotoService.BLL.IClients.IOrderClient
+@using static PhotoService.Web.Components.Layout.Cards.OrderCards.OrderCardGeneral
+@inject IOrderClient OrderClient
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 @if (SelectedDate == null)
 {
@@ -333,8 +339,9 @@ else
 
     [Parameter] 
     public DateTime? SelectedDate { get; set; }
-
-    [Parameter] 
+    [Parameter]
+    public int UserId { get; set; }
+    [Parameter]
     public int Id { get; set; }
 
     private UsersDto _executor;
@@ -349,11 +356,20 @@ else
     private List<OrderOutputModel>? _orders;
     private readonly IOrderClient _orderClient = new OrderClient();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _orders = _orderClient.GetOrders();
-        
-        // var ordersDto = _orderClient.GetOrdersByCustomerId(8);
+        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authenticationState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int userId))
+            {
+                Id = userId;
+                _orders = _orderClient.GetOrdersByCustomerIdAsync(Id);
+            }
+        }
     }
 
 }
