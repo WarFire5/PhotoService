@@ -1,7 +1,10 @@
 ﻿@page "/orders"
 @inject NavigationManager navManager
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
 @rendermode InteractiveServer
 @attribute [StreamRendering]
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Мои заказы</PageTitle>
 
@@ -26,9 +29,26 @@
 </div>
 
 <div class="mt-4">
-    <OrderCardGeneral SelectedDate="@selectedDate"/>
+    <OrderCardGeneral UserId="@userId" SelectedDate="@selectedDate"/>
 </div>
 
 @code {
     DateTime? selectedDate { get; set; }
+
+    private int userId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authenticationState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim != null)
+            {
+                userId = int.Parse(userIdClaim.Value);
+            }
+        }
+    }
 }

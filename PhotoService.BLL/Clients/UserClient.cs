@@ -40,5 +40,14 @@ public class UserClient : IUserClient
             var user = context.Users.SingleOrDefault(u => u.Mail == email);
             return user != null ? user.Name : null;
         }
+    }    
+    
+    public int GetUserIdByEmail(string email)
+    {
+        using (var context = new Context())
+        {
+            var user = context.Users.SingleOrDefault(u => u.Mail == email);
+            return user != null ? user.Id : default;
+        }
     }
 }
