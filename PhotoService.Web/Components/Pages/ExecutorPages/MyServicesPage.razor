@@ -1,13 +1,11 @@
 ﻿@page "/my-services"
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Security.Claims
-@inject AuthenticationStateProvider AuthenticationStateProvider
 @rendermode InteractiveServer
 @attribute [StreamRendering]
 
 <AuthorizeView Roles="Исполнитель">
     <Authorized>
-        <MyServicesPage/>
         Вы авторизовались как исполнитель.
         @* <p> Привет, @claims.Where(c=>c.Type == nameof(LoginModel))</p> *@
         @* @if (claims.Count() > 0) *@
@@ -20,10 +18,10 @@
         @*     </ul> *@
         @* } *@
     </Authorized>
-    @* <NotAuthorized> *@
-    @*     <MainPage/> *@
-    @*     Ошибка. Проверьте актуальность вводимых данных. *@
-    @* </NotAuthorized> *@
+    <NotAuthorized>
+        <MainPage/>
+        Ошибка. Проверьте актуальность вводимых данных.
+    </NotAuthorized>
 </AuthorizeView>
 
 
@@ -64,12 +62,17 @@
     //     }
     // }
 
-    [Parameter] public int Id { get; set; }
-    [Parameter] public string? Name { get; set; }
-    [Parameter] public string? Description { get; set; }
-    [Parameter] public int Cost { get; set; }
+    [Parameter] 
+    public int Id { get; set; }
+    [Parameter] 
+    public string? Name { get; set; }
+    [Parameter] 
+    public string? Description { get; set; }
+    [Parameter] 
+    public int Cost { get; set; }
 
-    [Parameter] public List<ServiceOutputModel> Services { get; set; }
+    [Parameter] 
+    public List<ServiceOutputModel> Services { get; set; }
 
     private IServiceClient _serviceClient;
 

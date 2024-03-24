@@ -1,13 +1,11 @@
 ﻿@page "/customers"
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Security.Claims
-@inject AuthenticationStateProvider AuthenticationStateProvider
 @rendermode InteractiveServer
 @attribute [StreamRendering]
 
 <AuthorizeView Roles="Менеджер">
     <Authorized>
-        <ListCustomerspage/>
         Вы авторизовались как менеджер.
         @* <p> Привет, @claims.Where(c=>c.Type == nameof(LoginModel))</p> *@
         @* @if (claims.Count() > 0) *@

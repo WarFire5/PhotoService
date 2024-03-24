@@ -22,7 +22,7 @@ public class RoleClient: IRoleClient
     
     public RolesDto GetRoleByEmail(string mail)
     {
-        var users = SingletoneStorage.GetStorage().Storage.Users.Include(u => u.Role);
+        var users = SingletoneStorage.GetStorage().Storage.Users.Include(u => u.Role).Where(u=>u.Mail==mail).ToList();
         foreach (var user in users)
         {
             if (user.Mail == mail)
