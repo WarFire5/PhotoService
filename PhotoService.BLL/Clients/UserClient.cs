@@ -37,18 +37,4 @@ public class UserClient : IUserClient
             return false;
         }
     }
-    
-    public RolesDto GetRoleByEmail(string mail)
-    {
-        var users = SingletoneStorage.GetStorage().Storage.Users.Include(u => u.Role);
-        foreach (var user in users)
-        {
-            if (user.Mail == mail)
-            {
-                return user.Role;
-            }
-        }
-
-        return null;
-    }
 }

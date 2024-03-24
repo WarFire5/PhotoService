@@ -1,6 +1,8 @@
-﻿namespace PhotoService.BLL.IClients;
+﻿using PhotoService.DAL.DTO;
 
-public class IRoleClient
+namespace PhotoService.BLL.IClients;
+
+public interface IRoleClient
 {
-    
+    public RolesDto GetRoleByEmail(string mail);
 }
