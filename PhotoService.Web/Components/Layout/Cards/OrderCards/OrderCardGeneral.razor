@@ -10,11 +10,459 @@
 @inject IOrderClient OrderClient
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-@if (SelectedDate == null)
+
+@if (_orders != null)
 {
-    @if (_orders != null)
+    @foreach (var order in _orders)
     {
-        @foreach (var order in _orders)
+        @if (SelectedDate == null && SelectedStatus == null)
+        {
+            <div class="card order-card" @onclick="OpenModal" style="cursor: pointer;">
+                @if (@order.Status == "Новый")
+                {
+                    <div class="card-header d-flex justify-content-between align-items-center order-header-new">
+                        <div class="order-date-new">
+                            @order.CreationDate
+                        </div>
+                        <div class="order-status-new">
+                            <span class="badge text-bg-primary">@order.Status</span>
+                        </div>
+                    </div>
+                }
+                else if (@order.Status == "В работе")
+                {
+                    <div class="card-header d-flex justify-content-between align-items-center order-header-inprogress">
+                        <div class="order-date-inprogress">
+                            @order.CreationDate
+                        </div>
+                        <div class="order-status-inprogress">
+                            <span class="badge text-bg-success">@order.Status</span>
+                        </div>
+                    </div>
+                }
+                else if (@order.Status == "Завершён")
+                {
+                    <div class="card-header d-flex justify-content-between align-items-center order-header-completed">
+                        <div class="order-date-completed">
+                            @order.CreationDate
+                        </div>
+                        <div class="order-status-completed">
+                            <span class="badge text-bg-light">@order.Status</span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-header d-flex justify-content-between align-items-center order-header-canceled">
+                        <div class="order-date-canceled">
+                            @order.CreationDate
+                        </div>
+                        <div class="order-status-canceled">
+                            <span class="badge text-bg-danger">@order.Status</span>
+                        </div>
+                    </div>
+                }
+
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div style="margin-bottom: -5px">
+                                <h5 class="card-title mb-3">
+                                    <a href="services" class="order-service">@order.Service.Title</a>
+                                </h5>
+                            </div>
+                            <div>
+                                <p class="card-text mb-3">
+                                    <a href="executors" class="order-executor">@order.Service.Executor.Name</a>
+                                </p>
+                            </div>
+                            @if (@order.Status == "Отменён")
+                            {
+                                <div>
+                                    <p class="card-text mb-3 cancel-reason">
+                                        @order.CanceledReason
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                        @if (@order.Status == "Отменён")
+                        {
+                            <div class="order-price-canceled">
+                                <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="order-price">
+                                <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="order-buttons">
+                        @if (@order.Status == "Новый")
+                        {
+                            <button type="button" class="btn btn-primary order-button-cansel">
+                                <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-edit">
+                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-complete" disabled>
+                                <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
+                                <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                            </button>
+                        }
+                        else if (@order.Status == "В работе")
+                        {
+                            <button type="button" class="btn btn-primary order-button-cansel">
+                                <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-edit" disabled>
+                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-complete">
+                                <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
+                                <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                            </button>
+                        }
+                        else if (@order.Status == "Завершён")
+                        {
+                            <button type="button" class="btn btn-primary order-button-cansel" disabled>
+                                <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-edit" disabled>
+                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-complete" disabled>
+                                <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-leavefeedback">
+                                <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-primary order-button-cansel" disabled>
+                                <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-edit" disabled>
+                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-complete" disabled>
+                                <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
+                                <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        else if (order.CreationDate == SelectedDate && SelectedStatus == null)
+        {
+                <div class="card order-card" @onclick="OpenModal" style="cursor: pointer;">
+                    @if (order.Status == "Новый")
+                    {
+                        <div class="card-header d-flex justify-content-between align-items-center order-header-new">
+                            <div class="order-date-new">
+                                @order.CreationDate
+                            </div>
+                            <div class="order-status-new">
+                                <span class="badge text-bg-primary">@order.Status</span>
+                            </div>
+                        </div>
+                    }
+                    else if (order.Status == "В работе")
+                    {
+                        <div class="card-header d-flex justify-content-between align-items-center order-header-inprogress">
+                            <div class="order-date-inprogress">
+                                @order.CreationDate
+                            </div>
+                            <div class="order-status-inprogress">
+                                <span class="badge text-bg-success">@order.Status</span>
+                            </div>
+                        </div>
+                    }
+                    else if (order.Status == "Завершён")
+                    {
+                        <div class="card-header d-flex justify-content-between align-items-center order-header-completed">
+                            <div class="order-date-completed">
+                                @order.CreationDate
+                            </div>
+                            <div class="order-status-completed">
+                                <span class="badge text-bg-light">@order.Status</span>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card-header d-flex justify-content-between align-items-center order-header-canceled">
+                            <div class="order-date-canceled">
+                                @order.CreationDate
+                            </div>
+                            <div class="order-status-canceled">
+                                <span class="badge text-bg-danger">@order.Status</span>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div style="margin-bottom: -5px">
+                                    <h5 class="card-title mb-3">
+                                        <a href="services" class="order-service">@order.Service.Title</a>
+                                    </h5>
+                                </div>
+                                <div>
+                                    <p class="card-text mb-3">
+                                        <a href="executors" class="order-executor">@order.Service.Executor.Name</a>
+                                    </p>
+                                </div>
+                                @if (order.Status == "Отменён")
+                                {
+                                    <div>
+                                        <p class="card-text mb-3 cancel-reason">
+                                            @order.CanceledReason
+                                        </p>
+                                    </div>
+                                }
+                            </div>
+                            @if (order.Status == "Отменён")
+                            {
+                                <div class="order-price-canceled">
+                                    <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="order-price">
+                                    <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="order-buttons">
+                            @if (order.Status == "Новый")
+                            {
+                                <button type="button" class="btn btn-primary order-button-cansel">
+                                    <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                                </button>
+                                <button type="button" class="btn btn-primary order-button-edit">
+                                    <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                </button>
+                                <button type="button" class="btn btn-primary order-button-complete" disabled>
+                                    <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                                </button>
+                                <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
+                                    <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                                </button>
+                            }
+                            else if (order.Status == "В работе")
+                            {
+                                <button type="button" class="btn btn-primary order-button-cansel">
+                                    <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                                </button>
+                                <button type="button" class="btn btn-primary order-button-edit" disabled>
+                                    <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                </button>
+                                <button type="button" class="btn btn-primary order-button-complete">
+                                    <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                                </button>
+                                <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
+                                    <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                                </button>
+                            }
+                            else if (order.Status == "Завершён")
+                            {
+                                <button type="button" class="btn btn-primary order-button-cansel" disabled>
+                                    <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                                </button>
+                                <button type="button" class="btn btn-primary order-button-edit" disabled>
+                                    <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                </button>
+                                <button type="button" class="btn btn-primary order-button-complete" disabled>
+                                    <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                                </button>
+                                <button type="button" class="btn btn-primary order-button-leavefeedback">
+                                    <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-primary order-button-cansel" disabled>
+                                    <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                                </button>
+                                <button type="button" class="btn btn-primary order-button-edit" disabled>
+                                    <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                </button>
+                                <button type="button" class="btn btn-primary order-button-complete" disabled>
+                                    <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                                </button>
+                                <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
+                                    <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+        }
+        else if (SelectedDate == null && order.Status == SelectedStatus)
+        {
+            <div class="card order-card" @onclick="OpenModal" style="cursor: pointer;">
+                @if (@order.Status == "Новый")
+                {
+                    <div class="card-header d-flex justify-content-between align-items-center order-header-new">
+                        <div class="order-date-new">
+                            @order.CreationDate
+                        </div>
+                        <div class="order-status-new">
+                            <span class="badge text-bg-primary">@order.Status</span>
+                        </div>
+                    </div>
+                }
+                else if (@order.Status == "В работе")
+                {
+                    <div class="card-header d-flex justify-content-between align-items-center order-header-inprogress">
+                        <div class="order-date-inprogress">
+                            @order.CreationDate
+                        </div>
+                        <div class="order-status-inprogress">
+                            <span class="badge text-bg-success">@order.Status</span>
+                        </div>
+                    </div>
+                }
+                else if (@order.Status == "Завершён")
+                {
+                    <div class="card-header d-flex justify-content-between align-items-center order-header-completed">
+                        <div class="order-date-completed">
+                            @order.CreationDate
+                        </div>
+                        <div class="order-status-completed">
+                            <span class="badge text-bg-light">@order.Status</span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-header d-flex justify-content-between align-items-center order-header-canceled">
+                        <div class="order-date-canceled">
+                            @order.CreationDate
+                        </div>
+                        <div class="order-status-canceled">
+                            <span class="badge text-bg-danger">@order.Status</span>
+                        </div>
+                    </div>
+                }
+
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div style="margin-bottom: -5px">
+                                <h5 class="card-title mb-3">
+                                    <a href="services" class="order-service">@order.Service.Title</a>
+                                </h5>
+                            </div>
+                            <div>
+                                <p class="card-text mb-3">
+                                    <a href="executors" class="order-executor">@order.Service.Executor.Name</a>
+                                </p>
+                            </div>
+                            @if (@order.Status == "Отменён")
+                            {
+                                <div>
+                                    <p class="card-text mb-3 cancel-reason">
+                                        @order.CanceledReason
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                        @if (@order.Status == "Отменён")
+                        {
+                            <div class="order-price-canceled">
+                                <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="order-price">
+                                <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="order-buttons">
+                        @if (@order.Status == "Новый")
+                        {
+                            <button type="button" class="btn btn-primary order-button-cansel">
+                                <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-edit">
+                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-complete" disabled>
+                                <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
+                                <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                            </button>
+                        }
+                        else if (@order.Status == "В работе")
+                        {
+                            <button type="button" class="btn btn-primary order-button-cansel">
+                                <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-edit" disabled>
+                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-complete">
+                                <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
+                                <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                            </button>
+                        }
+                        else if (@order.Status == "Завершён")
+                        {
+                            <button type="button" class="btn btn-primary order-button-cansel" disabled>
+                                <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-edit" disabled>
+                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-complete" disabled>
+                                <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-leavefeedback">
+                                <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-primary order-button-cansel" disabled>
+                                <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-edit" disabled>
+                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-complete" disabled>
+                                <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
+                                <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        else if (order.CreationDate == SelectedDate && order.Status == SelectedStatus)
         {
             <div class="card order-card" @onclick="OpenModal" style="cursor: pointer;">
                 @if (@order.Status == "Новый")
@@ -167,168 +615,11 @@
 }
 else
 {
-    @if (_orders != null)
-    {
-        @foreach (var orderWithDate in _orders)
-        {
-            @if (orderWithDate.CreationDate == SelectedDate)
-            {
-                <div class="card order-card" @onclick="OpenModal" style="cursor: pointer;">
-                    @if (@orderWithDate.Status == "Новый")
-                    {
-                        <div class="card-header d-flex justify-content-between align-items-center order-header-new">
-                            <div class="order-date-new">
-                                @orderWithDate.CreationDate
-                            </div>
-                            <div class="order-status-new">
-                                <span class="badge text-bg-primary">@orderWithDate.Status</span>
-                            </div>
-                        </div>
-                    }
-                    else if (orderWithDate.Status == "В работе")
-                    {
-                        <div class="card-header d-flex justify-content-between align-items-center order-header-inprogress">
-                            <div class="order-date-inprogress">
-                                @orderWithDate.CreationDate
-                            </div>
-                            <div class="order-status-inprogress">
-                                <span class="badge text-bg-success">@orderWithDate.Status</span>
-                            </div>
-                        </div>
-                    }
-                    else if (orderWithDate.Status == "Завершён")
-                    {
-                        <div class="card-header d-flex justify-content-between align-items-center order-header-completed">
-                            <div class="order-date-completed">
-                                @orderWithDate.CreationDate
-                            </div>
-                            <div class="order-status-completed">
-                                <span class="badge text-bg-light">@orderWithDate.Status</span>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="card-header d-flex justify-content-between align-items-center order-header-canceled">
-                            <div class="order-date-canceled">
-                                @orderWithDate.CreationDate
-                            </div>
-                            <div class="order-status-canceled">
-                                <span class="badge text-bg-danger">@orderWithDate.Status</span>
-                            </div>
-                        </div>
-                    }
-
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <div style="margin-bottom: -5px">
-                                    <h5 class="card-title mb-3">
-                                        <a href="services" class="order-service">@orderWithDate.Service.Title</a>
-                                    </h5>
-                                </div>
-                                <div>
-                                    <p class="card-text mb-3">
-                                        <a href="executors" class="order-executor">@orderWithDate.Service.Executor.Name</a>
-                                    </p>
-                                </div>
-                                @if (orderWithDate.Status == "Отменён")
-                                {
-                                    <div>
-                                        <p class="card-text mb-3 cancel-reason">
-                                            @orderWithDate.CanceledReason
-                                        </p>
-                                    </div>
-                                }
-                            </div>
-                            @if (orderWithDate.Status == "Отменён")
-                            {
-                                <div class="order-price-canceled">
-                                    <span class="badge text-bg-danger fs-3">@orderWithDate.Service.Price</span>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="order-price">
-                                    <span class="badge text-bg-danger fs-3">@orderWithDate.Service.Price</span>
-                                </div>
-                            }
-                        </div>
-
-                        <div class="order-buttons">
-                            @if (orderWithDate.Status == "Новый")
-                            {
-                                <button type="button" class="btn btn-primary order-button-cansel">
-                                    <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-edit">
-                                    <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-complete" disabled>
-                                    <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
-                                    <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
-                                </button>
-                            }
-                            else if (orderWithDate.Status == "В работе")
-                            {
-                                <button type="button" class="btn btn-primary order-button-cansel">
-                                    <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                    <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-complete">
-                                    <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
-                                    <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
-                                </button>
-                            }
-                            else if (orderWithDate.Status == "Завершён")
-                            {
-                                <button type="button" class="btn btn-primary order-button-cansel" disabled>
-                                    <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                    <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-complete" disabled>
-                                    <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-leavefeedback">
-                                    <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
-                                </button>
-                            }
-                            else
-                            {
-                                <button type="button" class="btn btn-primary order-button-cansel" disabled>
-                                    <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                    <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-complete" disabled>
-                                    <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
-                                    <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
-                                </button>
-                            }
-                        </div>
-                    </div>
-                </div>
-            }
-        }
-    }
-    else
-    {
-        <div>
-            <p>У вас ещё не было заказов</p>
-        </div>
-    }
+    <div>
+        <p>У вас ещё не было заказов</p>
+    </div>
 }
+
 
 @code {
 
@@ -337,6 +628,8 @@ else
         throw new NotImplementedException();
     }
 
+    [Parameter] 
+    public string SelectedStatus { get; set; }
     [Parameter] 
     public DateTime? SelectedDate { get; set; }
     [Parameter]
