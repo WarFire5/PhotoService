@@ -37,7 +37,24 @@ public class UserClient : IUserClient
             return false;
         }
     }
+
+    public List<UsersOutputModel> GetAllUsers()
+    {
+            var users = SingletoneStorage.GetStorage().Storage.Users.ToList();
+            var userOutputModel = _mapper.Map<List<UsersOutputModel>>(users);
+            return userOutputModel;
+    }
     
+    public List<UsersOutputModel> GetAllExecutors()
+    {
+        var users = SingletoneStorage.GetStorage().Storage.Users
+            .Where(r => r.Role.Id == 2)
+            .ToList();
+        
+        var userOutputModel = _mapper.Map<List<UsersOutputModel>>(users);
+        return userOutputModel;
+    }
+
     public RolesDto GetRoleByEmail(string mail)
     {
         var users = SingletoneStorage.GetStorage().Storage.Users.Include(u => u.Role);
@@ -51,4 +68,5 @@ public class UserClient : IUserClient
 
         return null;
     }
+
 }
