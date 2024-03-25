@@ -43,7 +43,7 @@ public class OrderMock : IOrderClient
         };
     }
 
-    public OrderOutputModelForMock AddOrder(OrderInputModelForMock order)
+    public OrderOutputModelForMock AddOrderForMock (OrderInputModelForMock order)
     {
         return new OrderOutputModelForMock()
         {
@@ -73,17 +73,7 @@ public class OrderMock : IOrderClient
         }
     }
 
-    public OrderOutputModel GetOrderById(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<OrderOutputModel> GetOrders()
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<OrdersDto> GetOrdersByCustomerId(int userId)
+    public List<OrderOutputModel> GetOrdersByCustomerIdAsync(int userId)
     {
         throw new NotImplementedException();
     }

@@ -1,29 +1,18 @@
 ﻿@page "/services"
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Security.Claims
-@inject AuthenticationStateProvider AuthenticationStateProvider
 @rendermode InteractiveServer
 @attribute [StreamRendering]
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <AuthorizeView Roles="Заказчик">
     <Authorized>
-        <ServicesPage/>
-        Вы авторизовались как заказчик.
-        @* <p> Привет, @claims.Where(c=>c.Type == nameof(LoginModel))</p> *@
-        @* @if (claims.Count() > 0) *@
-        @* { *@
-        @*     <ul> *@
-        @*         @foreach (var claim in claims) *@
-        @*         { *@
-        @*             <li>@claim.Type: @claim.Value</li> *@
-        @*         } *@
-        @*     </ul> *@
-        @* } *@
+        Вы авторизовались как @userRole.
+        <p> Привет, @userName!</p>
     </Authorized>
-    @* <NotAuthorized> *@
-    @*     <MainPage/> *@
-    @*     Ошибка. Проверьте актуальность вводимых данных. *@
-    @* </NotAuthorized> *@
+    <NotAuthorized>
+        Ошибка. Проверьте актуальность вводимых данных.
+    </NotAuthorized>
 </AuthorizeView>
 
 
@@ -60,22 +49,30 @@
 </div>
 
 
-@* @code { *@
-@*      *@
-@*     [CascadingParameter]  *@
-@*     public Task<AuthenticationState> State { get; set; } *@
-@* *@
-@*     private List<Claim> claims = new List<Claim>(); *@
-@* *@
-@*     // private async Task GetClaimsPrincipalData() *@
-@*     // { *@
-@*     //     var authState = await State; *@
-@*     //     var user = authState.User; *@
-@*     // *@
-@*     //     if (user.Identity is not null && user.Identity.IsAuthenticated) *@
-@*     //     { *@
-@*     //         claims = user.Claims.ToList(); *@
-@*     //     } *@
-@*     // } *@
-@*      *@
-@* } *@
+@code {
+
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    private string userName;
+    private string userRole;
+    private int userId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authenticationState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            userName = user.FindFirst(ClaimTypes.Name)?.Value;
+            userRole = user.FindFirst(ClaimTypes.Role)?.Value;
+            var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim != null)
+            {
+                userId = int.Parse(userIdClaim.Value);
+            }
+        }
+    }
+
+}

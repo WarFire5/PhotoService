@@ -1,29 +1,18 @@
 ﻿@page "/my-services"
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Security.Claims
-@inject AuthenticationStateProvider AuthenticationStateProvider
 @rendermode InteractiveServer
 @attribute [StreamRendering]
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <AuthorizeView Roles="Исполнитель">
     <Authorized>
-        <MyServicesPage/>
-        Вы авторизовались как исполнитель.
-        @* <p> Привет, @claims.Where(c=>c.Type == nameof(LoginModel))</p> *@
-        @* @if (claims.Count() > 0) *@
-        @* { *@
-        @*     <ul> *@
-        @*         @foreach (var claim in claims) *@
-        @*         { *@
-        @*             <li>@claim.Type: @claim.Value</li> *@
-        @*         } *@
-        @*     </ul> *@
-        @* } *@
+        Вы авторизовались как @userRole.
+        <p> Привет, @userName!</p>
     </Authorized>
-    @* <NotAuthorized> *@
-    @*     <MainPage/> *@
-    @*     Ошибка. Проверьте актуальность вводимых данных. *@
-    @* </NotAuthorized> *@
+    <NotAuthorized>
+        Ошибка. Проверьте актуальность вводимых данных.
+    </NotAuthorized>
 </AuthorizeView>
 
 
@@ -49,27 +38,35 @@
 
 @code {
 
-    [CascadingParameter] public Task<AuthenticationState> State { get; set; }
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
 
-    private List<Claim> claims = new List<Claim>();
+    private string userName;
+    private string userRole;
 
-    // private async Task GetClaimsPrincipalData()
-    // {
-    //     var authState = await State;
-    //     var user = authState.User;
-    //
-    //     if (user.Identity is not null && user.Identity.IsAuthenticated)
-    //     {
-    //         claims = user.Claims.ToList();
-    //     }
-    // }
+    protected override async Task OnInitializedAsync()
+    {
+        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authenticationState.User;
 
-    [Parameter] public int Id { get; set; }
-    [Parameter] public string? Name { get; set; }
-    [Parameter] public string? Description { get; set; }
-    [Parameter] public int Cost { get; set; }
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            userName = user.FindFirst(ClaimTypes.Name)?.Value;
+            userRole = user.FindFirst(ClaimTypes.Role)?.Value;
+        }
+    }
 
-    [Parameter] public List<ServiceOutputModel> Services { get; set; }
+    [Parameter] 
+    public int Id { get; set; }
+    [Parameter] 
+    public string? Name { get; set; }
+    [Parameter] 
+    public string? Description { get; set; }
+    [Parameter] 
+    public int Cost { get; set; }
+
+    [Parameter] 
+    public List<ServiceOutputModel> Services { get; set; }
 
     private IServiceClient _serviceClient;
 
@@ -93,5 +90,4 @@
     {
         Services.Remove(service);
     }
-
 }
