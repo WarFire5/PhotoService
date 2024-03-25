@@ -1,8 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using PhotoService.BLL.Clients;
 using PhotoService.BLL.IClients;
-using PhotoService.BLL.Models.InputModels;
 using PhotoService.BLL.Models.OutputModels;
 using PhotoService.DAL.DTO;
 
@@ -20,6 +18,16 @@ public class OrderClient: IOrderClient
         _mapper = new Mapper(config);
     }
 
+    // public void AddOrderForMock (OrdersOutputModel model)
+    // {
+    //     using (var context = new Context())
+    //     {
+    //         var dto = _mapper.Map<OrdersDto>(model);
+    //         context.Orders.Add(dto);
+    //         context.SaveChanges();
+    //     }
+    // }
+    
     OrderOutputModelForMock IOrderClient.GetOrderByIdForMock(int id)
     {
         OrderOutputModelForMock model = new OrderOutputModelForMock();
@@ -50,16 +58,17 @@ public class OrderClient: IOrderClient
         }
     }
     
-    public List<OrderOutputModel> GetOrders()
-    {
-        using (var context = new Context())
-        {
-            List<OrdersDto> ordersDto = context.Orders.Include(o=>o.Customer).Include(o=>o.Service.Executor).ToList();
-            var orderOutputModels  = _mapper.Map<List<OrderOutputModel>>(ordersDto);
-            return orderOutputModels;
-        }
-    }
-
+    // public List<OrderOutputModel> GetOrders()
+    // {
+    //     using (var context = new Context())
+    //     {
+    //         List<OrdersDto> ordersDto = context.Orders.Include(o=>o.Customer).Include(o=>o.Service.Executor).ToList();
+    //         var orderOutputModels  = _mapper.Map<List<OrderOutputModel>>(ordersDto);
+    //         return orderOutputModels;
+    //     }
+    // }
+  
+    
     // public OrderOutputModel GetOrderById(int id)
     // {
     //     OrderOutputModel model = new OrderOutputModel();
@@ -81,35 +90,25 @@ public class OrderClient: IOrderClient
     //     return model;
     // }
     
-    // public List<OrdersDto> GetOrdersByCustomerId(int userId)
-    // {
-    //     using (var context = new Context())
-    //     {
-    //         var customerRole = context.Roles.FirstOrDefault(r => r.Title == "Заказчик");
-    //
-    //         if (customerRole != null)
-    //         {
-    //             var customers = context.Users.Where(u => u.Role.Id == customerRole.Id && u.Id == userId);
-    //
-    //             if (customers.Any())
-    //             {
-    //                 var orders = context.Orders.Where(o => customers.Any(c => c.Id == o.Customer.Id)).ToList();
-    //                 return orders;
-    //             }
-    //         }
-    //
-    //         return new List<OrdersDto>();
-    //     }
-    // }
+    public List<OrderOutputModel> GetOrdersByCustomerIdAsync(int userId)
+    {
+        using (var context = new Context())
+        {
+            var customerRole = context.Roles.FirstOrDefault(r => r.Title == "Заказчик");
 
-    // public void AddOrder(OrdersOutputModel model)
-    // {
-    //     using (var context = new Context())
-    //     {
-    //         var dto = _mapper.Map<OrdersDto>(model);
-    //         context.Orders.Add(dto);
-    //         context.SaveChanges();
-    //     }
-    // }
+            if (customerRole != null)
+            {
+                var customers = context.Users.Where(u => u.Role.Id == customerRole.Id && u.Id == userId);
 
+                if (customers.Any())
+                {
+                    var ordersDto = context.Orders.Include(o => o.Customer).Include(o => o.Service.Executor).Where(o => customers.Any(c => c.Id == o.Customer.Id)).ToList();
+                    var orderOutputModels = _mapper.Map<List<OrderOutputModel>>(ordersDto);
+                    return orderOutputModels;
+                }
+            }
+
+            return new List<OrderOutputModel>();
+        }
+    }
 }

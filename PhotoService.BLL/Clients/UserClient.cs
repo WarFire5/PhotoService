@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
-using PhotoService.BLL.Models.OutputModels;
-using PhotoService.DAL.DTO;
-
 namespace PhotoService.BLL.Clients;
 
 public class UserClient : IUserClient
@@ -38,17 +33,21 @@ public class UserClient : IUserClient
         }
     }
     
-    public RolesDto GetRoleByEmail(string mail)
+    public string GetUserNameByEmail(string email)
     {
-        var users = SingletoneStorage.GetStorage().Storage.Users.Include(u => u.Role);
-        foreach (var user in users)
+        using (var context = new Context())
         {
-            if (user.Mail == mail)
-            {
-                return user.Role;
-            }
+            var user = context.Users.SingleOrDefault(u => u.Mail == email);
+            return user != null ? user.Name : null;
         }
-
-        return null;
+    }    
+    
+    public int GetUserIdByEmail(string email)
+    {
+        using (var context = new Context())
+        {
+            var user = context.Users.SingleOrDefault(u => u.Mail == email);
+            return user != null ? user.Id : default;
+        }
     }
 }
