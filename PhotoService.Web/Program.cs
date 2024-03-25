@@ -1,6 +1,7 @@
-using AutoMapper;
 using PhotoService.Web.Components;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using PhotoService.BLL.Clients;
+using PhotoService.BLL.IClients;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,12 +15,13 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         {
             options.Cookie.Name = "auth_token";
             options.LoginPath = "/authorization";
-            options.Cookie.MaxAge = TimeSpan.FromMinutes(1);
+            options.Cookie.MaxAge = TimeSpan.FromMinutes(10);
         });
 
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IOrderClient, OrderClient>();
 
 var app = builder.Build();
 

@@ -56,38 +56,6 @@ public class OrderForCustomerMock : IOrderClient
         };
     }
 
-    public OrderOutputModelForMock GetOrderByIdForMock(int id)
-    {
-        if (id >= 0 && id <= _orderOutputModelForMock.Count)
-        {
-            return _orderOutputModelForMock[id];
-        }
-        else
-        {
-            throw new ArgumentOutOfRangeException(nameof(id), "Index is out of range");
-        }
-    }
-
-    public List<OrderOutputModelForMock> GetOrdersForMock()
-    {
-        return _orderOutputModelForMock;
-    }
-
-    public List<OrderOutputModel> GetOrders()
-    {
-        throw new NotImplementedException();
-    }
-    
-    // public OrderOutputModel GetOrderById(int id)
-    // {
-    //     throw new NotImplementedException();
-    // }
-    //
-    // public List<OrdersDto> GetOrdersByCustomerId(int userId)
-    // {
-    //     throw new NotImplementedException();
-    // }
-    //
     // public OrderOutputModelForMock AddOrder(OrderInputModelForMock order)
     // {
     //     return new OrderOutputModelForMock()
@@ -100,4 +68,26 @@ public class OrderForCustomerMock : IOrderClient
     //         Status = order.Status
     //     };
     // }
+
+    public List<OrderOutputModelForMock> GetOrdersForMock()
+    {
+        return _orderOutputModelForMock;
+    }
+
+    public OrderOutputModelForMock GetOrderByIdForMock(int id)
+    {
+        if (id >= 0 && id <= _orderOutputModelForMock.Count)
+        {
+            return _orderOutputModelForMock[id];
+        }
+        else
+        {
+            throw new ArgumentOutOfRangeException(nameof(id), "Index is out of range");
+        }
+    }
+
+    public List<OrderOutputModel> GetOrdersByCustomerIdAsync(int userId)
+    {
+        throw new NotImplementedException();
+    }
 }

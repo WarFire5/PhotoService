@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
 using PhotoService.BLL.Models.OutputModels;
-using PhotoService.DAL.DTO;
 
 namespace PhotoService.BLL.Clients;
 
@@ -37,18 +34,39 @@ public class UserClient : IUserClient
             return false;
         }
     }
-    
-    public RolesDto GetRoleByEmail(string mail)
-    {
-        var users = SingletoneStorage.GetStorage().Storage.Users.Include(u => u.Role);
-        foreach (var user in users)
-        {
-            if (user.Mail == mail)
-            {
-                return user.Role;
-            }
-        }
 
-        return null;
+    public List<UsersOutputModel> GetAllUsers()
+    {
+            var users = SingletoneStorage.GetStorage().Storage.Users.ToList();
+            var userOutputModel = _mapper.Map<List<UsersOutputModel>>(users);
+            return userOutputModel;
+    }
+    
+    public List<UsersOutputModel> GetAllExecutors()
+    {
+        var users = SingletoneStorage.GetStorage().Storage.Users
+            .Where(r => r.Role.Id == 2)
+            .ToList();
+        
+        var userOutputModel = _mapper.Map<List<UsersOutputModel>>(users);
+        return userOutputModel;
+    }
+    
+    public string GetUserNameByEmail(string email)
+    {
+        using (var context = new Context())
+        {
+            var user = context.Users.SingleOrDefault(u => u.Mail == email);
+            return user != null ? user.Name : null;
+        }
+    }    
+    
+    public int GetUserIdByEmail(string email)
+    {
+        using (var context = new Context())
+        {
+            var user = context.Users.SingleOrDefault(u => u.Mail == email);
+            return user != null ? user.Id : default;
+        }
     }
 }
