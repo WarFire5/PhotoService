@@ -1,6 +1,8 @@
-﻿namespace PhotoService.BLL.IClients;
+﻿using PhotoService.BLL.Models.OutputModels;
 
-public class ITypeClient
+namespace PhotoService.BLL.IClients;
+
+public interface ITypeClient
 {
-    
+    public List<TypeOutputModel> GetAllTypes();
 }

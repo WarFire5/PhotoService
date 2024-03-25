@@ -1,0 +1,64 @@
+@using PhotoService.DAL.DTO
+@rendermode InteractiveServer
+<div class="table-bordered t-bg">
+    <table class="table table-striped">
+        <tr>
+            <th class="tb-item" scope="col">ФИО</th>
+            <th class="tb-item" scope="col">Вид деятельности</th>
+            <th class="tb-item" scope="col">Портфолио</th>
+            <th class="tb-item" scope="col">Компания/ИП</th>
+            <th class="tb-item" scope="col">ИНН</th>
+            <th class="tb-item" scope="col">ОГРН</th>
+            <th class="tb-item" scope="col">Электронная почта</th>
+            <th class="tb-item" scope="col">Телефон</th>
+            <th class="tb-item" scope="col">Статус</th>
+            
+            @* TODO Добавить блокировку/ разблокировку исполнителя*@
+        </tr>
+        <tbody>
+        
+        @if (true)
+        {
+            @foreach (var user in _users)
+            {
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Specialization</td> @* TODO Получать специализации из базы*@
+                    <td>
+                        <a href="@user.URL">@user.URL</a>
+                    </td>
+                    <td>@user.CompanyTitle</td>
+                    <td>@user.INN</td>
+                    <td>@user.OGRN</td>
+                    <td>@user.Mail</td>
+                    <td>@user.Phone</td>
+                    <td>@user.Dossier</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <td colspan="12">
+                <p class="text">Список исполнителей пуст</p>
+            </td>
+        }
+
+        </tbody>
+    </table > @* TODO: Добавить прокрутку таблицы*@
+</div >
+
+@code {
+    private List<UsersOutputModel> _users;
+    private UserClient _userClient;
+
+    public ListExecutorsTable()
+    {
+        _userClient = new UserClient();
+    }
+
+    protected override void OnInitialized()
+    {
+        _users = _userClient.GetAllExecutors();
+    }
+
+}

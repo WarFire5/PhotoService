@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
+using PhotoService.BLL.Models.OutputModels;
+
 namespace PhotoService.BLL.Clients;
 
 public class UserClient : IUserClient
@@ -31,6 +33,23 @@ public class UserClient : IUserClient
 
             return false;
         }
+    }
+
+    public List<UsersOutputModel> GetAllUsers()
+    {
+            var users = SingletoneStorage.GetStorage().Storage.Users.ToList();
+            var userOutputModel = _mapper.Map<List<UsersOutputModel>>(users);
+            return userOutputModel;
+    }
+    
+    public List<UsersOutputModel> GetAllExecutors()
+    {
+        var users = SingletoneStorage.GetStorage().Storage.Users
+            .Where(r => r.Role.Id == 2)
+            .ToList();
+        
+        var userOutputModel = _mapper.Map<List<UsersOutputModel>>(users);
+        return userOutputModel;
     }
     
     public string GetUserNameByEmail(string email)
