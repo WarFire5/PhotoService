@@ -41,18 +41,20 @@
     </div>
 </div>
 
-<div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
-    <ServiceCardsForPage/>
-    <ServiceCardsForPage/>
-    <ServiceCardsForPage/>
-    <ServiceCardsForPage/>
-</div>
+
+@if (true)
+{
+    <ServiceCard/>
+}
+else
+{
+    <p style="display: flex; justify-content: center; align-items: center; height: 10rem">Нет ни одной услуги</p>
+}
 
 
 @code {
 
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
+    [CascadingParameter] public Task<AuthenticationState> State { get; set; }
 
     private string userName;
     private string userRole;

@@ -1,4 +1,3 @@
-using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
 using PhotoService.BLL.Models.OutputModels;
 
@@ -15,35 +14,32 @@ public class ServiceMock : IClients.IServiceClient
             new ServiceOutputModel()
             {
                 Id = 1,
-                Name = "Делаю быстрые фото",
+                Title = "Делаю быстрые фото",
                 Description =
                     "Меня зовут Евгений и я Ваш фотограф). Веду запись на осень, торопись! (Свяжитесь со мной прямо сейчас, чтобы узнать, «свободна ли ваша дата»). ",
                 ExecutorName = "Евгения Иванова",
-                Rating = 4,
-                ServiceType = "Фотограф",
-                Cost = 5500
+                TypeName = "Фотограф",
+                Price = "5500"
             },
             new ServiceOutputModel()
             {
                 Id = 2,
-                Name = "Видео для свадьбы",
+                Title = "Видео для свадьбы",
                 Description =
                     "Качественная видеосъёмка свадьбы, банкета, Лавстори, Будуар, Студия. Профессиональное оборудование. Большой опыт.",
                 ExecutorName = "Никита Громов",
-                Rating = 5,
-                ServiceType = "Видеограф",
-                Cost = 10000
+                TypeName= "Видеограф",
+                Price = "10000"
             },
             new ServiceOutputModel()
             {
                 Id = 3,
-                Name = "Фотоуслуги",
+                Title = "Фотоуслуги",
                 Description =
                     "Акция спец цены на фотосессию выписка из роддома. Подробности в сообщениях. Детский и семейный фотограф в Санкт-Петербурге. -семейная фотосъемка",
                 ExecutorName = "Наталья Крик",
-                Rating = 5,
-                ServiceType = "Фотограф",
-                Cost = 2999
+                TypeName = "Фотограф",
+                Price = "2999"
             }
         };
     }
@@ -53,12 +49,10 @@ public class ServiceMock : IClients.IServiceClient
         return new ServiceOutputModel()
         {
             Id = 1,
-            Name = service.Name,
+            Title = service.Title,
             Description = service.Description,
-            ExecutorName = service.ExecutorName,
-            Rating = service.Rating,
-            ServiceType = service.ServiceType,
-            Cost = service.Cost
+            TypeName = service.TypeName,
+            Price = service.Price
         };
     }
 
