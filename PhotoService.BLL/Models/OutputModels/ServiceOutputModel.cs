@@ -1,18 +1,17 @@
+using PhotoService.DAL.DTO;
+
 namespace PhotoService.BLL.Models.OutputModels;
 
 public class ServiceOutputModel
 {
     public int Id { get; set; }
+    public UsersDto? Executor { get; set; }
+    public TypesDto? Type { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public string Price { get; set; }
+    public bool IsDeleted { get; set; }
     
-    public string? Name { get; set; }
-    
-    public string? Description { get; set; }
-    
-    public string? ExecutorName { get; set; } //Будут тянуться из списка Исполнителя
-    
-    public int Rating { get; set; } //Будут тянуться из Отзывов
-    
-    public string? ServiceType  { get; set; }
-    
-    public int Cost  { get; set; }
+    public string ExecutorName { get; set; }
+    public string TypeName { get; set; }
 }
