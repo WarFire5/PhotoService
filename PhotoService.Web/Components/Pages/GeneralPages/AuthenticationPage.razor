@@ -9,25 +9,25 @@
     </div>
     <div class="container-md container-for-authorization-page">
         <h2 class="authorization-title">Вход</h2>
-        @* <form class="authorization-form"> *@
         <EditForm Model="LoginInputModel" OnSubmit="StartLogin" FormName="Authentication">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Электронная почта</label>
-                <InputText class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите электронную почту" @bind-Value="LoginInputModel.Mail" @bind-Value="LoginInputModel.Mail" required pattern="@EmailPattern">
+                <InputText class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите электронную почту" @bind-Value="LoginInputModel.Mail" required pattern="@EmailPattern">
                 </InputText>
                 <div id="emailHelp" class="form-text">Мы никогда-никода никому-никому не передадим вашу электронную почту может быть, наверное, скорее всего передадим.</div>
+                <ValidationMessage For="@(() => LoginInputModel.Mail)">Введите адрес электронной почты в формате "user@example.com".</ValidationMessage>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Пароль</label>
-                <InputText class="form-control" id="exampleInputPassword1" placeholder="Введите пароль" @bind-Value="LoginInputModel.Password" @bind-Value="LoginInputModel.Password" required pattern="@PasswordPattern">
+                <InputText class="form-control" id="exampleInputPassword1" placeholder="Введите пароль" @bind-Value="LoginInputModel.Password" required pattern="@PasswordPattern">
                 </InputText>
-                <div id="emailHelp" class="form-text">Как и пароль. Наверное.</div>
+                <div id="passwordHelp" class="form-text">Как и пароль. Наверное.</div>
+                <ValidationMessage For="@(() => LoginInputModel.Password)">Пароль должен содержать от 6 до 20 символов и хотя бы по одной цифре и букве из верхнего и нижнего регистров. Например, "Password123".</ValidationMessage>
             </div>
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary btn-lg authorization-button">Войти</button>
             </div>
         </EditForm>
-        @* </form> *@
         @if (authenticationFailed)
         {
             <div class="alert alert-danger" role="alert">
@@ -41,19 +41,26 @@
 @code {
 
     private string EmailPattern => @"^\S+@\S+\.\S{2,10}$";
-    private string PasswordPattern => @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$";
+    private string PasswordPattern => @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,20}$";
 
     private bool authenticationFailed = false;
+    
+    [SupplyParameterFromForm] 
+    public LoginInputModel LoginInputModel { get; set; } = new LoginInputModel();
 
-    [SupplyParameterFromForm] public LoginInputModel LoginInputModel { get; set; } = new LoginInputModel();
-
-    [CascadingParameter] public HttpContext httpContext { get; set; }
+    [CascadingParameter] 
+    public HttpContext httpContext { get; set; }
 
     public async Task StartLogin()
     {
         RoleClient roleClient = new RoleClient();
         RolesDto userRole = roleClient.GetRoleByEmail(LoginInputModel.Mail);
-        Console.WriteLine(userRole.Title);
+
+        if (userRole == null)
+        {
+            authenticationFailed = true;
+            return;
+        }
 
         var claims = new List<Claim>()
         {
@@ -66,7 +73,6 @@
         bool check = userClient.CheckAuthentication(LoginInputModel);
         if (!check)
         {
-            Console.WriteLine("Аутентификация не удалась");
             authenticationFailed = true;
             return;
         }
