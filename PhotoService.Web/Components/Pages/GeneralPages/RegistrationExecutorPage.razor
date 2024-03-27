@@ -13,11 +13,12 @@
             <a href="registration" class="btn btn-primary сustomer-executor-tab" aria-current="page">Заказчик</a>
             <a href="registration-executor" class="btn btn-primary active executor-executor-tab">Исполнитель</a>
         </div>
-        <form class="row g-3 registration-form">
+        <EditForm Model="@registrationModel" class="row g-3 registration-form">
+            <DataAnnotationsValidator/>
             <div class="col-md-12">
-                <label for="inputTitle" class="form-label">Выберите Ваш основной вид деятельности</label>
+                <label for="inputTitle" class="form-label registration-form">Какова Ваша специализация?</label>
                 <select class="form-select" aria-label="Вид деятельности" @bind="@selectedActivityType">
-                    <option value="0" selected>Выберите основной вид деятельности</option>
+                    <option value="0" selected>Выберите Ваш основной вид деятельности</option>
                     <option value="1">Фотограф</option>
                     <option value="2">Видеограф</option>
                     <option value="3">Ретушер</option>
@@ -34,24 +35,26 @@
             @if (selectedActivityType != "0")
             {
                 <div class="col-md-12">
-                    <label for="inputURL" class="form-label">Ссылка на портфолио</label>
+                    <label for="inputURL" class="form-label">Ссылка на Ваше портфолио</label>
                     <input type="url" class="form-control" id="inputURL" placeholder="URL" required pattern="@UrlPattern">
                 </div>
                 <div class="col-12">
-                    <label for="inputName" class="form-label">ФИО</label>
-                    <input type="text" class="form-control" id="inputName" placeholder="Введите ФИО" required pattern="@NamePattern">
+                    <label for="inputName" class="form-label">Как вас зовут?</label>
+                    <input type="text" class="form-control" id="inputName" placeholder="Введите ФИО*" required pattern="@NamePattern">
+                    <div id="nameHelp" class="form-text" style="font-style: italic;">*три слова кириллицей через пробел.</div>
                 </div>
                 <div class="col-md-6">
-                    <label for="inputEmail" class="form-label">Электронный адрес</label>
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Введите электронный адрес" required pattern="@EmailPattern">
+                    <label for="inputEmail" class="form-label">Ваш электронный адрес</label>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Введите почту в формате 'user@example.com'" required pattern="@EmailPattern">
                 </div>
                 <div class="col-md-6">
-                    <label for="inputPhone" class="form-label">Контактный телефон</label>
-                    <input type="text" class="form-control" id="inputPhone" placeholder="Введите актуальный номер телефона" required pattern="@PhonePattern">
+                    <label for="inputPhone" class="form-label">Ваш контактный телефон</label>
+                    <input type="text" class="form-control" id="inputPhone" placeholder="Введите актуальный номер*" required pattern="@PhonePattern">
+                    <div id="nameHelp" class="form-text" style="font-style: italic;">*начиная с 7 либо 8 без пробелов и прочих знаков.</div>
                 </div>
                 <div class="col-md-12">
-                    <label for="inputTitle" class="form-label">Укажите тип налогоплательщика</label>
-                    <select class="form-select" aria-label="Тип исполнителя" @bind="@selectedTaxType">
+                    <label for="inputTitle" class="form-label">Ваш тип налогообложения</label>
+                    <select class="form-select" aria-label="Тип налогообложения" @bind="@selectedTaxType">
                         <option value="0" selected>Выберите тип налогоплательщика</option>
                         <option value="1">Самозанятый</option>
                         <option value="2">ИП</option>
@@ -109,12 +112,15 @@
 
                     <div class="col-md-6">
                         <label for="inputPassword" class="form-label">Пароль</label>
-                        <input type="text" class="form-control" id="inputPassword" placeholder="Введите пароль" required pattern="@PasswordPattern">
+                        <InputText id="inputPassword" class="form-control" @bind-Value="@registrationModel.Password" type="password" placeholder="Задайте пароль*"/>
+                        <ValidationMessage For="@(() => registrationModel.Password)"/>
                     </div>
                     <div class="col-md-6">
                         <label for="inputPasswordCheck" class="form-label">Проверка пароля</label>
-                        <input type="text" class="form-control" id="inputPasswordCheck" placeholder="Повторите пароль" required pattern="@PasswordPattern">
+                        <InputText id="inputPasswordCheck" class="form-control" @bind-Value="@registrationModel.PasswordConfirmation" type="password" placeholder="Повторите пароль"/>
+                        <ValidationMessage For="@(() => registrationModel.PasswordConfirmation)"/>
                     </div>
+                    <div id="passwordHelp" class="form-text" style="font-style: italic;">*в формате 'passWord123' (6-20 символов, как минимум по одной цифре и букве из верхнего и нижнего регистров).</div>
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary btn-lg registration-executor-button">Зарегистрироваться</button>
                     </div>
@@ -150,24 +156,26 @@
             else
             {
                 <div class="col-md-12">
-                    <label for="inputURL" class="form-label">Ссылка на портфолио</label>
+                    <label for="inputURL" class="form-label">Ссылка на Ваше портфолио</label>
                     <input type="url" class="form-control" id="inputURL" placeholder="URL" readonly>
                 </div>
                 <div class="col-12">
-                    <label for="inputName" class="form-label">ФИО</label>
+                    <label for="inputName" class="form-label">Как вас зовут?</label>
                     <input type="text" class="form-control" id="inputName" placeholder="Введите ФИО" readonly>
+                    <div id="nameHelp" class="form-text" style="font-style: italic;">*три слова кириллицей через пробел.</div>
                 </div>
                 <div class="col-md-6">
-                    <label for="inputEmail" class="form-label">Электронный адрес</label>
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Введите электронный адрес" readonly>
+                    <label for="inputEmail" class="form-label">Ваш электронный адрес</label>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Введите почту в формате 'user@example.com'" readonly>
                 </div>
                 <div class="col-md-6">
-                    <label for="inputPhone" class="form-label">Контактный телефон</label>
-                    <input type="text" class="form-control" id="inputPhone" placeholder="Введите актуальный номер телефона" readonly>
+                    <label for="inputPhone" class="form-label">Ваш контактный телефон</label>
+                    <input type="text" class="form-control" id="inputPhone" placeholder="Введите актуальный номер*" readonly>
+                    <div id="nameHelp" class="form-text" style="font-style: italic;">*начиная с 7 либо 8 без пробелов и прочих знаков.</div>
                 </div>
                 <div class="col-md-12">
-                    <label for="inputTitle" class="form-label">Укажите тип налогоплательщика</label>
-                    <select class="form-select" aria-label="Тип исполнителя" disabled>
+                    <label for="inputTitle" class="form-label">Ваш тип налогообложения</label>
+                    <select class="form-select" aria-label="Тип налогообложения" disabled>
                         <option selected>Выберите тип налогоплательщика</option>
                         <option value="1">Самозанятый</option>
                         <option value="2">ИП</option>
@@ -189,17 +197,18 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputPassword" class="form-label">Пароль</label>
-                    <input type="text" class="form-control" id="inputPassword" placeholder="Введите пароль" readonly>
+                    <input type="text" class="form-control" id="inputPassword" placeholder="Задайте пароль*" readonly>
                 </div>
                 <div class="col-md-6">
                     <label for="inputPasswordCheck" class="form-label">Проверка пароля</label>
                     <input type="text" class="form-control" id="inputPasswordCheck" placeholder="Повторите пароль" readonly>
                 </div>
+                <div id="passwordHelp" class="form-text" style="font-style: italic;">*в формате 'passWord123' (6-20 символов, как минимум по одной цифре и букве из верхнего и нижнего регистров).</div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary btn-lg registration-executor-button" disabled>Зарегистрироваться</button>
                 </div>
             }
-        </form>
+        </EditForm>
     </div>
 </div>
 
@@ -210,12 +219,25 @@
 
     private string NamePattern => @"^([а-яА-ЯёЁ]{2,15}\s){2}[а-яА-ЯёЁ]{2,15}$";
     private string EmailPattern => @"^\S+@\S+\.\S{2,10}$";
-    private string PasswordPattern => @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,20}$";
     private string UrlPattern => @"^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$";
     private string PhonePattern => @"^[7-8]\d{10}$";
     private string InnPattern => @"^\d{12}$";
     private string OgrnIpPattern => @"^3\d{2}\d{2}\d{9}\d$";
     private string InnUrPattern => @"^\d{10}$";
     private string OgrnPattern => @"^[15]\d{2}\d{2}\d{7}\d$";
+
+    private RegistrationModel registrationModel = new RegistrationModel();
+
+    public class RegistrationModel
+    {
+        [Required(ErrorMessage = "Поле 'Пароль' обязательно для заполнения")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,20}$",
+            ErrorMessage = "Должен содержать от 6 до 20 символов, включать арабские цифры, строчные и прописные буквы.")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Поле 'Подтверждение пароля' обязательно для заполнения")]
+        [Compare(nameof(Password), ErrorMessage = "Пароли не совпадают")]
+        public string PasswordConfirmation { get; set; }
+    }
 
 }
