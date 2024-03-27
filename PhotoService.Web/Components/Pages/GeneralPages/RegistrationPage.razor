@@ -13,21 +13,23 @@
         </div>
         <form class="row g-3 registration-form">
             <div class="col-12">
-                <label for="inputName" class="form-label">ФИО</label>
-                <input type="text" class="form-control" id="inputName" placeholder="Введите ФИО">
+                <label for="inputName" class="form-label">Как к Вам обращаться?</label>
+                <input type="text" class="form-control" id="inputName" placeholder="Введите имя*" required pattern="@NamePattern">
+                <div id="nameHelp" class="form-text" style="font-style: italic;">*не менее двух и не более трёх слов кириллицей через пробел.</div>
             </div>
             <div class="col-md-12">
-                <label for="inputEmail" class="form-label">Электронный адрес</label>
-                <input type="email" class="form-control" id="inputEmail" placeholder="Введите электронный адрес">
+                <label for="inputEmail" class="form-label">Ваш электронный адрес</label>
+                <input type="email" class="form-control" id="inputEmail" placeholder="Введите почту в формате 'user@example.com'" required pattern="@EmailPattern">
             </div>
             <div class="col-md-6">
                 <label for="inputPassword" class="form-label">Пароль</label>
-                <input type="text" class="form-control" id="inputPassword" placeholder="Задайте пароль">
+                <input type="text" class="form-control" id="inputPassword" placeholder="Задайте пароль*" required pattern="@PasswordPattern">
             </div>
             <div class="col-md-6">
                 <label for="inputPasswordCheck" class="form-label">Проверка пароля</label>
-                <input type="text" class="form-control" id="inputPasswordCheck" placeholder="Повторите пароль">
+                <input type="text" class="form-control" id="inputPasswordCheck" placeholder="Повторите пароль" required pattern="@PasswordPattern">
             </div>
+            <div id="passwordHelp" class="form-text" style="font-style: italic;">*в формате 'passWord123' (6-20 символов, как минимум по цифре и букве из верхнего и нижнего регистров).</div>
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary btn-lg registration-button">Зарегистрироваться</button>
             </div>
@@ -36,4 +38,12 @@
 </div>
 
 @code {
+
+    private string NamePattern => @"^([а-яА-ЯёЁ]{2,15}\s){1,2}[а-яА-ЯёЁ]{2,15}$";
+    private string EmailPattern => @"^\S+@\S+\.\S{2,10}$";
+    private string PasswordPattern => @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,20}$";
+
 }
+
+@* <div id="emailHelp" class="form-text" style="font-style: italic;">Введите адрес электронной почты в формате "user@example.com".</div> *@
+@* <div id="passwordHelp" class="form-text">Ваш пароль должен содержать от 6 до 20 символов и хотя бы по одной цифре и букве из верхнего и нижнего регистров. Например, "Password123".</div> *@
