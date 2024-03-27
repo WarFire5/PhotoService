@@ -14,8 +14,8 @@
         <form class="row g-3 registration-form">
             <div class="col-md-12">
                 <label for="inputTitle" class="form-label">Выберите Ваш основной вид деятельности</label>
-                <select class="form-select" aria-label="Вид деятельности">
-                    @* <option selected>Выберите основной вид деятельности*</option> *@
+                <select class="form-select" aria-label="Вид деятельности" @bind="@selectedActivityType">
+                    <option value="0" selected>Выберите основной вид деятельности</option>
                     <option value="1">Фотограф</option>
                     <option value="2">Видеограф</option>
                     <option value="3">Ретушер</option>
@@ -28,87 +28,192 @@
                     <option value="10">Организация съёмочного процесса</option>
                 </select>
             </div>
-            <div class="col-md-12">
-                <label for="inputURL" class="form-label">Ссылка на портфолио</label>
-                <input type="url" class="form-control" id="inputURL" placeholder="URL">
-            </div>
-            <div class="col-12">
-                <label for="inputName" class="form-label">ФИО</label>
-                <input type="text" class="form-control" id="inputName" placeholder="Введите ФИО">
-            </div>
-            <div class="col-md-6">
-                <label for="inputEmail" class="form-label">Электронный адрес</label>
-                <input type="email" class="form-control" id="inputEmail" placeholder="Введите электронный адрес">
-            </div>
-            <div class="col-md-6">
-                <label for="inputPhone" class="form-label">Контактный телефон</label>
-                <input type="text" class="form-control" id="inputPhone" placeholder="Введите актуальный номер телефона">
-            </div>
-            <div class="col-md-12">
-                <label for="inputTitle" class="form-label">Укажите тип налогоплательщика</label>
-                <select class="form-select" aria-label="Тип исполнителя" @bind="@selectedTaxType">
-                    <option selected>Выберите тип налогоплательщика</option>
-                    <option value="1">Самозанятый</option>
-                    <option value="2">ИП</option>
-                    <option value="3">Юрлицо</option>
-                </select>
-            </div>
 
-            @if (selectedTaxType == "1")
+            @if (selectedActivityType != "0")
             {
-                <div class="col-md-6">
-                    <label for="inputINN" class="form-label">ИНН</label>
-                    <input type="text" class="form-control" id="inputINN" placeholder="Введите ИНН">
+                <div class="col-md-12">
+                    <label for="inputURL" class="form-label">Ссылка на портфолио</label>
+                    <input type="url" class="form-control" id="inputURL" placeholder="URL" required pattern="@UrlPattern">
+                </div>
+                <div class="col-12">
+                    <label for="inputName" class="form-label">ФИО</label>
+                    <input type="text" class="form-control" id="inputName" placeholder="Введите ФИО" required pattern="@NamePattern">
                 </div>
                 <div class="col-md-6">
-                    <label for="inputOGRN" class="form-label">ОГРН/ОГРНИП</label>
-                    <input type="text" class="form-control" id="inputOGRN" placeholder="Введите ОГРН" readonly>
-                </div>
-            }
-            else if (selectedTaxType == "2")
-            {
-                <div class="col-md-6">
-                    <label for="inputINN" class="form-label">ИНН</label>
-                    <input type="text" class="form-control" id="inputINN" placeholder="Введите ИНН">
+                    <label for="inputEmail" class="form-label">Электронный адрес</label>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Введите электронный адрес" required pattern="@EmailPattern">
                 </div>
                 <div class="col-md-6">
-                    <label for="inputOGRNIP" class="form-label">ОГРНИП</label>
-                    <input type="text" class="form-control" id="inputOGRNIP" placeholder="Введите ОГРНИП">
+                    <label for="inputPhone" class="form-label">Контактный телефон</label>
+                    <input type="text" class="form-control" id="inputPhone" placeholder="Введите актуальный номер телефона" required pattern="@PhonePattern">
                 </div>
+                <div class="col-md-12">
+                    <label for="inputTitle" class="form-label">Укажите тип налогоплательщика</label>
+                    <select class="form-select" aria-label="Тип исполнителя" @bind="@selectedTaxType">
+                        <option value="0" selected>Выберите тип налогоплательщика</option>
+                        <option value="1">Самозанятый</option>
+                        <option value="2">ИП</option>
+                        <option value="3">Юрлицо</option>
+                    </select>
+                </div>
+
+                @if (selectedTaxType != "0")
+                {
+                    @if (selectedTaxType == "3")
+                    {
+                        <div class="col-md-6">
+                            <label for="inputInnUr" class="form-label">ИНН</label>
+                            <input type="text" class="form-control" id="inputInnUr" placeholder="Введите ИНН" required pattern="@InnUrPattern">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputOgrn" class="form-label">ОГРН</label>
+                            <input type="text" class="form-control" id="inputOgrn" placeholder="Введите ОГРН" required pattern="@OgrnPattern">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label>
+                            <input type="text" class="form-control" id="inputTitle" placeholder="Введите название" required>
+                        </div>
+                    }
+                    else if (selectedTaxType == "2")
+                    {
+                        <div class="col-md-6">
+                            <label for="inputInn" class="form-label">ИНН</label>
+                            <input type="text" class="form-control" id="inputInn" placeholder="Введите ИНН" required pattern="@InnPattern">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputOgrnIp" class="form-label">ОГРНИП</label>
+                            <input type="text" class="form-control" id="inputOgrnIp" placeholder="Введите ОГРНИП" required pattern="@OgrnIpPattern">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label>
+                            <input type="text" class="form-control" id="inputTitle" placeholder="Введите название">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-6">
+                            <label for="inputInn" class="form-label">ИНН</label>
+                            <input type="text" class="form-control" id="inputInn" placeholder="Введите ИНН" required pattern="@InnPattern">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputOgrn" class="form-label">ОГРН/ОГРНИП</label>
+                            <input type="text" class="form-control" id="inputOgrn" placeholder="Введите ОГРН/ОГРНИП" readonly>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label>
+                            <input type="text" class="form-control" id="inputTitle" placeholder="Введите название">
+                        </div>
+                    }
+
+                    <div class="col-md-6">
+                        <label for="inputPassword" class="form-label">Пароль</label>
+                        <input type="text" class="form-control" id="inputPassword" placeholder="Введите пароль" required pattern="@PasswordPattern">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPasswordCheck" class="form-label">Проверка пароля</label>
+                        <input type="text" class="form-control" id="inputPasswordCheck" placeholder="Повторите пароль" required pattern="@PasswordPattern">
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg registration-executor-button">Зарегистрироваться</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-6">
+                        <label for="inputInn" class="form-label">ИНН</label>
+                        <input type="text" class="form-control" id="inputInn" placeholder="Введите ИНН" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputOgrn" class="form-label">ОГРН/ОГРНИП</label>
+                        <input type="text" class="form-control" id="inputOgrn" placeholder="Введите ОГРН/ОГРНИП" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label>
+                        <input type="text" class="form-control" id="inputTitle" placeholder="Введите название" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputPassword" class="form-label">Пароль</label>
+                        <input type="text" class="form-control" id="inputPassword" placeholder="Введите пароль" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPasswordCheck" class="form-label">Проверка пароля</label>
+                        <input type="text" class="form-control" id="inputPasswordCheck" placeholder="Повторите пароль" readonly>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg registration-executor-button" disabled>Зарегистрироваться</button>
+                    </div>
+                }
             }
             else
             {
-                <div class="col-md-6">
-                    <label for="inputINN" class="form-label">ИНН</label>
-                    <input type="text" class="form-control" id="inputINN" placeholder="Введите ИНН">
+                <div class="col-md-12">
+                    <label for="inputURL" class="form-label">Ссылка на портфолио</label>
+                    <input type="url" class="form-control" id="inputURL" placeholder="URL" readonly>
+                </div>
+                <div class="col-12">
+                    <label for="inputName" class="form-label">ФИО</label>
+                    <input type="text" class="form-control" id="inputName" placeholder="Введите ФИО" readonly>
                 </div>
                 <div class="col-md-6">
-                    <label for="inputOGRN" class="form-label">ОГРН</label>
-                    <input type="text" class="form-control" id="inputOGRN" placeholder="Введите ОГРН">
+                    <label for="inputEmail" class="form-label">Электронный адрес</label>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Введите электронный адрес" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPhone" class="form-label">Контактный телефон</label>
+                    <input type="text" class="form-control" id="inputPhone" placeholder="Введите актуальный номер телефона" readonly>
+                </div>
+                <div class="col-md-12">
+                    <label for="inputTitle" class="form-label">Укажите тип налогоплательщика</label>
+                    <select class="form-select" aria-label="Тип исполнителя" disabled>
+                        <option selected>Выберите тип налогоплательщика</option>
+                        <option value="1">Самозанятый</option>
+                        <option value="2">ИП</option>
+                        <option value="3">Юрлицо</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputInn" class="form-label">ИНН</label>
+                    <input type="text" class="form-control" id="inputInn" placeholder="Введите ИНН" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputOgrn" class="form-label">ОГРН/ОГРНИП</label>
+                    <input type="text" class="form-control" id="inputOgrn" placeholder="Введите ОГРН/ОГРНИП" readonly>
+                </div>
+
+                <div class="col-md-12">
+                    <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label>
+                    <input type="text" class="form-control" id="inputTitle" placeholder="Введите название" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPassword" class="form-label">Пароль</label>
+                    <input type="text" class="form-control" id="inputPassword" placeholder="Введите пароль" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPasswordCheck" class="form-label">Проверка пароля</label>
+                    <input type="text" class="form-control" id="inputPasswordCheck" placeholder="Повторите пароль" readonly>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg registration-executor-button" disabled>Зарегистрироваться</button>
                 </div>
             }
-
-            <div class="col-md-12">
-                <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь (обязательно для юрлиц)</label>
-                <input type="text" class="form-control" id="inputTitle" placeholder="Введите название">
-            </div>
-            <div class="col-md-6">
-                <label for="inputPassword" class="form-label">Пароль</label>
-                <input type="text" class="form-control" id="inputPassword" placeholder="Введите пароль">
-            </div>
-            <div class="col-md-6">
-                <label for="inputPasswordCheck" class="form-label">Проверка пароля</label>
-                <input type="text" class="form-control" id="inputPasswordCheck" placeholder="Повторите пароль">
-            </div>
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary btn-lg registration-executor-button">Зарегистрироваться</button>
-            </div>
         </form>
     </div>
 </div>
 
 @code {
 
-    private string selectedTaxType;
+    private string selectedActivityType = "0";
+    private string selectedTaxType = "0";
+
+    private string NamePattern => @"^([а-яА-ЯёЁ]{2,15}\s){2}[а-яА-ЯёЁ]{2,15}$";
+    private string EmailPattern => @"^\S+@\S+\.\S{2,10}$";
+    private string PasswordPattern => @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,20}$";
+    private string UrlPattern => @"^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$";
+    private string PhonePattern => @"^[7-8]\d{10}$";
+    private string InnPattern => @"^\d{12}$";
+    private string OgrnIpPattern => @"^3\d{2}\d{2}\d{9}\d$";
+    private string InnUrPattern => @"^\d{10}$";
+    private string OgrnPattern => @"^[15]\d{2}\d{2}\d{7}\d$";
 
 }
