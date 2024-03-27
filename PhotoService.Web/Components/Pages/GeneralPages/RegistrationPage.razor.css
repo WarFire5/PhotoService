@@ -1,7 +1,6 @@
 ﻿.registration-logo-container {
     padding-top: 100px;
     position: relative;
-    /*height: 10vh;*/
 }
 
 .registration-logo {
@@ -15,22 +14,18 @@
 .registration-title {
     padding-top: 5px;
     font-size: 30px;
-    /*font-family: auto;*/
     font-weight: bold;
     color: #000000;
     text-shadow: -2px -2px 55px #dc35b4;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: rgb(255 255 255 / 50%);
-    /*text-align: center;*/
 }
 
 .registration-tabs {
-    padding-top: 5px;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    /*margin: 0 auto;*/
     border-color: #4340D2;
     border-width: 1px;
 }
@@ -82,12 +77,13 @@
 }
 
 .container-for-registration-page {
-    width: 482px;
-    height: 482px;
+    width: 800px;
+    height: 525px;
     background: white;
     box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
     padding-left: 15px;
     border-radius: 5px;
+    margin-bottom: 250px;
 }
 
 .registration-button {
@@ -111,5 +107,5 @@
 }
 
 .registration-form {
-    padding-top: 5px;
+    margin-top: 15px;
 }
