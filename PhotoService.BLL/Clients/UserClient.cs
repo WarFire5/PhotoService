@@ -2,6 +2,7 @@
 using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
 using PhotoService.BLL.Models.OutputModels;
+using PhotoService.DAL.DTO;
 
 namespace PhotoService.BLL.Clients;
 
@@ -68,5 +69,12 @@ public class UserClient : IUserClient
             var user = context.Users.SingleOrDefault(u => u.Mail == email);
             return user != null ? user.Id : default;
         }
+    }
+
+    public void AddUser(UserInputModel userInputModel)
+    {
+        UsersDto user = _mapper.Map<UsersDto>(userInputModel);
+        _storage.Storage.Users.Add(user);
+        _storage.Storage.SaveChanges();
     }
 }

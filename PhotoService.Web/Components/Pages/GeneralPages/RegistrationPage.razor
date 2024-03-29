@@ -1,8 +1,9 @@
-﻿@using System.ComponentModel.DataAnnotations
-
+﻿@page "/registration"
+@using System.Security.Claims
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager navManager
 @rendermode InteractiveServer
 
-@page "/registration"
 <div>
     <div class="registration-logo-container">
         <img class="registration-logo" src="Resources/logo-photoservice.png"/>
@@ -13,17 +14,16 @@
             <a href="registration" class="btn btn-primary active сustomer-tab" aria-current="page">Заказчик</a>
             <a href="registration-executor" class="btn btn-primary executor-tab">Исполнитель</a>
         </div>
-        <EditForm Model="@registrationModel" class="row g-3 registration-form">
+        <EditForm Model="@registrationModel" class="row g-3 registration-form" OnValidSubmit="Register" FormName="Authentication">
             <DataAnnotationsValidator/>
-            @* <ValidationSummary/> *@
             <div class="col-12">
                 <label for="inputName" class="form-label registration-form">Как к Вам обращаться?</label>
-                <input type="text" class="form-control" id="inputName" placeholder="Введите имя*" required pattern="@NamePattern">
+                <InputText id="inputName" class="form-control" @bind-Value="@registrationModel.Name" type="text" placeholder="Введите имя*" required pattern="@NamePattern"/>
                 <div id="nameHelp" class="form-text" style="font-style: italic;">*не менее двух и не более трёх слов кириллицей через пробел.</div>
             </div>
             <div class="col-md-12">
                 <label for="inputEmail" class="form-label">Ваш электронный адрес</label>
-                <input type="email" class="form-control" id="inputEmail" placeholder="Введите почту в формате 'user@example.com'" required pattern="@EmailPattern">
+                <InputText id="inputEmail" class="form-control" @bind-Value="@registrationModel.Mail" type="email" placeholder="Введите почту в формате 'user@example.com'" required pattern="@EmailPattern"/>
             </div>
             <div class="col-md-6">
                 <label for="inputPassword" class="form-label">Пароль</label>
@@ -43,6 +43,7 @@
     </div>
 </div>
 
+
 @code {
 
     private string NamePattern => @"^([а-яА-ЯёЁ]{2,15}\s){1,2}[а-яА-ЯёЁ]{2,15}$";
@@ -52,6 +53,9 @@
 
     public class RegistrationModel
     {
+        public string Name { get; set; }
+        public string Mail { get; set; }
+
         [Required(ErrorMessage = "Поле 'Пароль' обязательно для заполнения")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,20}$",
             ErrorMessage = "Должен содержать от 6 до 20 символов, включать арабские цифры, строчные и прописные буквы.")]
@@ -60,6 +64,44 @@
         [Required(ErrorMessage = "Поле 'Подтверждение пароля' обязательно для заполнения")]
         [Compare(nameof(Password), ErrorMessage = "Пароли не совпадают")]
         public string PasswordConfirmation { get; set; }
+    }
+
+    [SupplyParameterFromForm] 
+    public UserInputModel UserInputModel { get; set; } = new UserInputModel();
+
+    [CascadingParameter] 
+    public HttpContext httpContext { get; set; }
+
+    public async Task StartLogin()
+    {
+        var claims = new List<Claim>()
+        {
+            new Claim(ClaimTypes.Email, UserInputModel.Mail),
+        };
+
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var customer = new ClaimsPrincipal(identity);
+
+        await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, customer);
+    }
+
+    private void Register()
+    {
+        UserInputModel userInputModel = new UserInputModel()
+        {
+            Name = registrationModel.Name,
+            Mail = registrationModel.Mail.ToLower(),
+            Password = registrationModel.Password,
+
+            Role = SingletoneStorage.GetStorage().Storage.Roles.FirstOrDefault(r => r.Id == 3)
+        };
+
+        UserClient userClient = new UserClient();
+        userClient.AddUser(userInputModel);
+        
+        navManager.NavigateTo("/services");
+        
+        StartLogin();
     }
 
 }
