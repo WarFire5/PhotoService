@@ -5,8 +5,8 @@ namespace PhotoService.BLL.Models.InputModels;
 public class ServiceInputModel
 {
     public int Id { get; set; }
-    public UsersDto? Executor { get; set; }
-    public TypesDto? Type { get; set; }
+    public int ExecutorId { get; set; }
+    public int Type { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
     public string Price { get; set; }

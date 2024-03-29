@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
 using PhotoService.BLL.Models.OutputModels;
@@ -41,14 +42,29 @@ public class UserClient : IUserClient
             var userOutputModel = _mapper.Map<List<UsersOutputModel>>(users);
             return userOutputModel;
     }
-    
+
+    public UsersOutputModel GetAllUsersById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<UsersOutputModel> GetAllExecutors()
     {
-        var users = SingletoneStorage.GetStorage().Storage.Users
-            .Where(r => r.Role.Id == 2)
-            .ToList();
+        var users = SingletoneStorage.GetStorage().Storage.Users.
+            Where(r => r.Role.Id == 2).
+            Include(s=> s.Specialization).
+            ToList();
         
         var userOutputModel = _mapper.Map<List<UsersOutputModel>>(users);
+        
+        foreach (var user in userOutputModel)
+        {
+                if (user.Specialization != null)
+                {
+                    user.TypeSpecialization = user.Specialization.Id;
+                }
+        }
+        
         return userOutputModel;
     }
     
