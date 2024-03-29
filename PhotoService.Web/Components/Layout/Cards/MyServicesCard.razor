@@ -1,20 +1,24 @@
 @rendermode InteractiveServer
 
-<div class="col card-col">
-    <div class="card">
-        <div class="card-body">
-            <div class="header-card">
-                <h5 class="card-title">@Service!.Title</h5>
-            </div>
-            <h6 class="card-subtitle mb-2 text-secondary">@Service.Price</h6>
-            <p class="card-text text-hide">@Service.Description</p>
-            <div class="footer-card">
-                <button  class="btn btn-outline-primary" @onclick="(() => DeleteService.InvokeAsync(Service))">Удалить</button>
-                <a class="btn btn-outline-secondary">Редактировать</a>
+@foreach (var s in _service)
+{
+    <div class="col card-col mb-2">
+        <div class="card">
+            <div class="card-body">
+                <div class="header-card">
+                    <h5 class="card-title">@s.Title</h5>
+                </div>
+                <h6 class="card-subtitle mb-2 text-secondary">@s.Price</h6>
+                <p class="card-text text-hide">@s.Description</p>
+                <div class="footer-card">
+                    <button  class="btn btn-outline-primary" @onclick="(() => DeleteService.InvokeAsync(Service))">Удалить</button>
+                    <a class="btn btn-outline-secondary">Редактировать</a>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </div> 
+}
+
 @code {
     [Parameter]
     public ServiceOutputModel? Service { get; set; }
@@ -22,12 +26,12 @@
     [Parameter]
     public EventCallback<ServiceOutputModel> DeleteService { get; set; }
     
-    [Parameter]
-    public int Id { get; set; }
-    [Parameter]
-    public string? Name { get; set; }
-    [Parameter]
-    public string? Description { get; set; }
-    [Parameter]
-    public int Cost { get; set; }
+    private List<ServiceOutputModel> _service = null!;
+    private IServiceClient _serviceClient = new ServiceClient();
+
+    protected override void OnInitialized()
+    {
+        _service = _serviceClient.GetAllServices();
+    }
+    
 }

@@ -1,11 +1,14 @@
+using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
 using PhotoService.BLL.Models.OutputModels;
+using PhotoService.DAL.DTO;
 
 namespace PhotoService.BLL;
 
-public class ServiceMock : IClients.IServiceClient
+public class ServiceMock : IServiceClient
 {
     private List<ServiceOutputModel> _serviceOutputModels;
+    private IServiceClient _serviceClientImplementation;
 
     public ServiceMock()
     {
@@ -44,7 +47,7 @@ public class ServiceMock : IClients.IServiceClient
         };
     }
 
-    public ServiceOutputModel AddService(ServiceInputModel service)
+    public ServiceOutputModel AddService(ServiceInputModel service, UsersDto? executorId)
     {
         return new ServiceOutputModel()
         {
@@ -54,6 +57,21 @@ public class ServiceMock : IClients.IServiceClient
             TypeName = service.TypeName,
             Price = service.Price
         };
+    }
+
+    public ServiceOutputModel AddService(ServiceInputModel service)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ServiceOutputModel AddService(ServiceInputModel service, int userId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<ServiceOutputModel> GetAllServices(int id)
+    {
+        throw new NotImplementedException();
     }
 
     public List<ServiceOutputModel> GetAllServices()

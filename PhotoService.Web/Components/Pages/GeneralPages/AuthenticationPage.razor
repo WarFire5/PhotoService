@@ -2,6 +2,8 @@
 @using System.Security.Claims
 @using PhotoService.DAL.DTO
 @inject NavigationManager navManager
+@using Microsoft.AspNetCore.Antiforgery;
+@attribute [RequireAntiforgeryToken(required: false)]
 
 <div>
     <div class="authorization-logo-container">
@@ -81,6 +83,7 @@
         if (userId != default(int))
         {
             claims.Add(new Claim(ClaimTypes.NameIdentifier, userId.ToString()));
+            SingletoneStorage.GetStorage().SetUserId(userId);
         }
 
         string redirectTo = null;

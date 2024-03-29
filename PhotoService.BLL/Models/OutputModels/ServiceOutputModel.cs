@@ -6,6 +6,8 @@ public class ServiceOutputModel
 {
     public int Id { get; set; }
     public UsersDto? Executor { get; set; }
+    
+    public int ExecutorId { get; set; }
     public TypesDto? Type { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
