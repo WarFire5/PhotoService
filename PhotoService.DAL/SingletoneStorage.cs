@@ -4,6 +4,7 @@ public class SingletoneStorage
 {
     private static SingletoneStorage _object = null;
     public Context Storage { get; private set; }
+    public int UserId { get; private set; }
 
     private SingletoneStorage()
     {
@@ -18,5 +19,10 @@ public class SingletoneStorage
         }
 
         return _object;
+    }
+    
+    public void SetUserId(int userId)
+    {
+        UserId = userId;
     }
 }

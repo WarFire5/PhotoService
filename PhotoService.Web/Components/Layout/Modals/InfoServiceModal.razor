@@ -10,8 +10,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="header-card">
-                            <h5 class="card-title">@_name</h5>
-                            <span class="badge bg-danger" style="font-size: 1rem">@_cost</span>
+                            <h5 class="card-title">@_title</h5>
+                            <span class="badge bg-danger" style="font-size: 1rem">@_price</span>
                         </div>
                         <h6 class="card-subtitle mb-2 text-secondary">@_executorName</h6>
                         <p class="card-text">@_description</p>
@@ -40,19 +40,17 @@
         {
             IServiceClient serviceRepositories = new ServiceMock();
             var s = serviceRepositories.GetServiceById(value);
-            _name = s.Name;
+            _title = s.Title;
             _description = s.Description;
             _executorName = s.ExecutorName;
-            _rating = s.Rating;
-            _cost = s.Cost;
+            _price = s.Price;
         }
     }
 
-    private string? _name;
-    private string? _description;
-    private string? _executorName;
-    private int _rating;
-    private int _cost;
+    private string _title = null!;
+    private string _description = null!;
+    private string _executorName = null!;
+    private string _price = null!;
 }
 
 <style>

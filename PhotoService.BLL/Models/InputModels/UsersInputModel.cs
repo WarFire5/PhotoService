@@ -1,18 +1,12 @@
-﻿using PhotoService.DAL.DTO;
+namespace PhotoService.BLL.Models.InputModels;
 
-namespace PhotoService.BLL.Models.OutputModels;
-
-public class UsersOutputModel
+public class UsersInputModel
 {
     public int Id { get; set; }
-    public RolesDto Role { get; set; }
     public string Password { get; set; }
     public string Name { get; set; }
     public string Mail { get; set; }
     public string? Phone { get; set; }
-    public TypesDto? Specialization { get; set; }
-    
-    public int TypeSpecialization { get; set; }
     public string? Dossier { get; set; }
     public int? Rating { get; set; }
     public bool IsBlocked { get; set; }
