@@ -1,59 +1,88 @@
 @using IServiceClient = PhotoService.BLL.IClients.IServiceClient
 
-@* Card component *@
-<div class="col card-col">
-    <div class="card">
-        <div class="card-body">
-            <div class="header-card">
-                <h5 class="card-title">@_name</h5>
-                <div class="raiting">
-                    <i class="bi bi-star-fill" style="color: #ffc107"></i>
-                    <p class="card-text">@_rating</p>
-                </div>
-            </div>
-            <h6 class="card-subtitle mb-2 text-secondary">@_executorName</h6>
-            <p class="card-text text-hide">@_description</p>
-            <div class="footer-card">
-                <div class="row-btn">
-                    <a href="#" class="btn btn-primary btn-sm">Заказать</a>
-                    <a class="btn btn-outline-secondary btn-sm" @onclick="OpenModal">Подробнее</a>
-                </div>
+<div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
+    @foreach (var s in _service)
+    {
+        <div class="col card-col">
+            <div class="card">
 
-                <span class="badge bg-danger" style="font-size: 1rem">@_cost руб.</span>
+                <div class="card-body">
+                    <div class="header-card">
+                        <h5 class="card-title">@s.Title</h5>
+                    </div>
+
+                    <h6 class="card-subtitle mb-2 text-secondary">@s.ExecutorName</h6>
+                    <p class="card-text text-hide">@s.Description</p>
+                    <p class="price">@s.Price</p>
+
+                    <div class="footer-card">
+                        <small class="text-body-secondary">@s.TypeName</small>
+                        <div class="row-btn">
+                            <a href="#" class="btn btn-primary btn-sm">Заказать</a>
+
+                            <!-- Button Modal -->
+                            <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal-@s.Id">
+                                Подробнее
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal-@s.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Информация об услуге</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="header-card">
+                                                        <h5 class="card-title">@s.Title</h5>
+                                                        <p class="price">@s.Price</p>
+                                                    </div>
+                                                    <h6 class="card-subtitle mb-2 text-secondary">@s.ExecutorName</h6>
+                                                    <p class="card-text">@s.Description</p>
+                                                    <div class="footer-card">
+                                                        <small class="text-body-secondary">@s.TypeName</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary btn-sm">Заказать услугу</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    }
 </div>
 
 @code {
-    [Parameter] public Action<int>? Close { get; set; }
+    private List<ServiceOutputModel> _service = null!;
+    private IServiceClient _serviceClient = new ServiceClient();
 
-    public void OpenModal()
+    protected override void OnInitialized()
     {
-        Close(Id);
+        _service = _serviceClient.GetAllServices();
     }
 
-    [Parameter]
-    public int Id
-    {
-        get { return _id; }
-        set
-        {
-            _id = value;
-            IServiceClient serviceRepositories = new ServiceMock();
-            var s = serviceRepositories.GetServiceById(value);
-            _name = s.Name;
-            _description = s.Description;
-            _executorName = s.ExecutorName;
-            _rating = s.Rating;
-            _cost = s.Cost;
-        }
-    }
-
-    private int _id;
-    private string? _name;
-    private string? _description;
-    private string? _executorName;
-    private int _rating;
-    private int _cost;
 }
+
+<style>
+    .price {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #56BA18;
+        padding: 0;
+    }
+    small{
+        color: #8D8E90;
+    }
+</style>

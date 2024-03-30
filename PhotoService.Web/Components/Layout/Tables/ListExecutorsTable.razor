@@ -1,0 +1,66 @@
+@using PhotoService.DAL.DTO
+@rendermode InteractiveServer
+<div class="table-bordered" style="overflow-x: auto; width: max-content">
+    <table class="table">
+        <tr>
+            <th class="tb-item" scope="col">ФИО</th>
+            <th class="tb-item" scope="col">Вид деятельности</th>
+            <th class="tb-item" scope="col">Портфолио</th>
+            <th class="tb-item" scope="col">Тип налогоплательщика</th>
+            <th class="tb-item" scope="col">Компания/ИП</th>
+            <th class="tb-item" scope="col">ИНН</th>
+            <th class="tb-item" scope="col">ОГРН</th>
+            <th class="tb-item" scope="col">Электронная почта</th>
+            <th class="tb-item" scope="col">Телефон</th>
+            <th class="tb-item" scope="col">Статус</th>
+            
+            @* TODO Добавить блокировку/ разблокировку исполнителя*@
+        </tr>
+        <tbody>
+        
+        @if (true)
+        {
+            @foreach (var user in _users)
+            {
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@(user.Specialization.Title != null ? user.INN: "Нет специализации") </td>
+                    <td>@user.Mail</td>
+                    <td>@user.Phone</td>
+                    <td>
+                        <a href="@user.URL">@user.URL</a>
+                    </td>
+                    <td>@(user.ExecutorType ?? "Тип не указан")</td>
+                    <td>@(user.CompanyTitle ?? "Компания не указана")</td>
+                    <td>@(user.INN != null ? user.INN: "Инн не указан")</td>
+                    <td>@(user.OGRN != null ? user.OGRN: "ОГРН не указан")</td>
+                    <td>@(user.Dossier ?? "Описание не указано")</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <td colspan="12">
+                <p class="text">Список исполнителей пуст</p>
+            </td>
+        }
+
+        </tbody>
+    </table > @* TODO: Добавить прокрутку таблицы*@
+</div >
+
+@code {
+    private List<UsersOutputModel>  _users;
+    private UserClient _userClient;
+
+    public ListExecutorsTable()
+    {
+        _userClient = new UserClient();
+    }
+
+    protected override void OnInitialized()
+    {
+        _users = _userClient.GetAllExecutors();
+    }
+
+}

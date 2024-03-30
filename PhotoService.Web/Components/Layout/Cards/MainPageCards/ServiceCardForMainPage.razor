@@ -4,11 +4,7 @@
     <div class="card">
         <div class="card-body">
             <div class="header-card">
-                <h5 class="card-title">@_name</h5>
-                <div class="raiting">
-                    <i class="bi bi-star-fill" style="color: #ffc107"></i>
-                    <p class="card-text">@_rating</p>
-                </div>
+                <h5 class="card-title">@_title</h5>
             </div>
             <h6 class="card-subtitle mb-2 text-secondary">@_executorName</h6>
             <p class="card-text text-hide">@_description</p>
@@ -18,7 +14,7 @@
                     <a class="btn btn-outline-secondary btn-sm" @onclick="OpenModal">Подробнее</a>
                 </div>
 
-                <span class="badge bg-danger" style="font-size: 1rem">@_cost руб.</span>
+                <span class="badge bg-danger" style="font-size: 1rem">@_price</span>
             </div>
         </div>
     </div>
@@ -29,7 +25,8 @@
 
     public void OpenModal()
     {
-        Close(Id);
+       
+        Close?.Invoke(Id);
     }
 
     [Parameter]
@@ -41,18 +38,17 @@
             _id = value;
             IServiceClient serviceRepositories = new ServiceMock();
             var s = serviceRepositories.GetServiceById(value);
-            _name = s.Name;
+            _title = s.Title;
             _description = s.Description;
             _executorName = s.ExecutorName;
-            _rating = s.Rating;
-            _cost = s.Cost;
+            _price = s.Price;
         }
     }
 
     private int _id;
-    private string? _name;
-    private string? _description;
-    private string? _executorName;
+    private string _title = null!;
+    private string _description = null!;
+    private string _executorName = null!;
     private int _rating;
-    private int _cost;
+    private string _price = null!;
 }

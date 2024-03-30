@@ -1,49 +1,74 @@
+@using Microsoft.AspNetCore.Components
+@using PhotoService.DAL.DTO
+@using System.Diagnostics.CodeAnalysis
 
-@rendermode InteractiveServer
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #4340D2">
+    <i class="bi bi-plus"></i>
+    Добавить
+</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Добавление услуги</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
- 
-            <div class="form-group">
-                <label>Заголовок</label>
-                <input class="form-control" @bind="_inputService.Name"/>
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Добавление услуги</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="form-group">
-                <label>Цена(в руб.)</label>
-                <input class="form-control" @bind="_inputService.Cost"/>
+
+            <div class="modal-body">
+                <div class="form-group mb-3">
+                    <label>Заголовок</label>
+                    <input class="form-control" @bind="_serviceInput.Title" placeholder="Заголовк услуги"/>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>Цена(в руб.)</label>
+                    <input class="form-control" @bind="_serviceInput.Price" placeholder="Укажите цену"/>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>Тип</label>
+                    <select class="form-select" aria-label="Default select example" @bind="_serviceInput.Type">
+                        @foreach (var type in _types)
+                        {
+                            <option value="@type.Id">@type.Title</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>Описание</label>
+                    <input class="form-control" @bind="_serviceInput.Description" placeholder="Опишите вашу услугу"/>
+                </div>
+
             </div>
-            <div class="form-group">
-                <label>Описание</label>
-                <input class="form-control" @bind="_inputService.Description"/> 
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                <button @onclick="AddService" class="btn btn-primary">Добавить услугу</button>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
-            <button @onclick="Add" class="btn btn-primary">Добавить услугу</button>
         </div>
     </div>
 </div>
 
 
-@code {
-    [Parameter] public ServiceOutputModel Service { get; set; }
-    private ServiceInputModel _inputService;
-    
-    [Parameter] public Action <ServiceInputModel> AddService { get; set; }
+@code
+{
+    private ServiceInputModel _serviceInput = new();
+    private IServiceClient _serviceClient = new ServiceClient();
 
-    public AddServiceModal()
+    private List<TypeOutputModel> _types = new();
+    private ITypeClient? _typeClient;
+
+    protected override void OnInitialized()
     {
-        _inputService = new ServiceInputModel();
-        
+        _typeClient = new TypeClient();
+        _types = _typeClient.GetAllTypes();
     }
 
-    public void Add()
+    private void AddService()
     {
-        AddService(_inputService);
+        _serviceClient.AddService(_serviceInput);
+        _serviceInput = new ServiceInputModel();
+        StateHasChanged();
     }
 }

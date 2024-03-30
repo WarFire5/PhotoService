@@ -2,6 +2,8 @@
 @using System.Security.Claims
 @using PhotoService.DAL.DTO
 @inject NavigationManager navManager
+@using Microsoft.AspNetCore.Antiforgery;
+@attribute [RequireAntiforgeryToken(required: false)]
 
 <div>
     <div class="authorization-logo-container">
@@ -9,28 +11,25 @@
     </div>
     <div class="container-md container-for-authorization-page">
         <h2 class="authorization-title">Вход</h2>
-        @* <form class="authorization-form"> *@
         <EditForm Model="LoginInputModel" OnSubmit="StartLogin" FormName="Authentication">
-            @* OnValidSubmit OnInValidSubmit  *@
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Электронная почта</label>
-                <InputText class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите электронную почту" @bind-Value="LoginInputModel.Mail">
-                    @* <ValidationMessage></ValidationMessage> *@
+                <InputText class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите электронную почту" @bind-Value="LoginInputModel.Mail" required pattern="@EmailPattern">
                 </InputText>
                 <div id="emailHelp" class="form-text">Мы никогда-никода никому-никому не передадим вашу электронную почту может быть, наверное, скорее всего передадим.</div>
+                <ValidationMessage For="@(() => LoginInputModel.Mail)">Введите адрес электронной почты в формате "user@example.com".</ValidationMessage>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Пароль</label>
-                <InputText class="form-control" id="exampleInputPassword1" placeholder="Введите пароль" @bind-Value="LoginInputModel.Password">
-                    @* <ValidationSummary></ValidationSummary> *@
+                <InputText class="form-control" id="exampleInputPassword1" placeholder="Введите пароль" @bind-Value="LoginInputModel.Password" required pattern="@PasswordPattern">
                 </InputText>
-                <div id="emailHelp" class="form-text">Как и пароль. Наверное.</div>
+                <div id="passwordHelp" class="form-text">Как и пароль. Наверное.</div>
+                <ValidationMessage For="@(() => LoginInputModel.Password)">Пароль должен содержать от 6 до 20 символов и хотя бы по одной цифре и букве из верхнего и нижнего регистров. Например, "Password123".</ValidationMessage>
             </div>
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary btn-lg authorization-button">Войти</button>
             </div>
         </EditForm>
-        @* </form> *@
         @if (authenticationFailed)
         {
             <div class="alert alert-danger" role="alert">
@@ -42,6 +41,9 @@
 
 
 @code {
+
+    private string EmailPattern => @"^\S+@\S+\.\S{2,10}$";
+    private string PasswordPattern => @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,20}$";
 
     private bool authenticationFailed = false;
     
@@ -55,36 +57,41 @@
     {
         RoleClient roleClient = new RoleClient();
         RolesDto userRole = roleClient.GetRoleByEmail(LoginInputModel.Mail);
-        Console.WriteLine(userRole.Title);
+
+        if (userRole == null)
+        {
+            authenticationFailed = true;
+            return;
+        }
 
         var claims = new List<Claim>()
         {
             new Claim(ClaimTypes.Email, LoginInputModel.Mail),
             new Claim(ClaimTypes.Role, userRole.Title)
         };
-        
+
         UserClient userClient = new UserClient();
-        
+
         bool check = userClient.CheckAuthentication(LoginInputModel);
         if (!check)
         {
-            Console.WriteLine("Аутентификация не удалась");
             authenticationFailed = true;
             return;
         }
-        
+
         var userName = userClient.GetUserNameByEmail(LoginInputModel.Mail);
         if (!string.IsNullOrEmpty(userName))
         {
             claims.Add(new Claim(ClaimTypes.Name, userName));
-        }    
-        
+        }
+
         var userId = userClient.GetUserIdByEmail(LoginInputModel.Mail);
         if (userId != default(int))
         {
             claims.Add(new Claim(ClaimTypes.NameIdentifier, userId.ToString()));
+            SingletoneStorage.GetStorage().SetUserId(userId);
         }
-        
+
         string redirectTo = null;
 
         switch (userRole?.Title)

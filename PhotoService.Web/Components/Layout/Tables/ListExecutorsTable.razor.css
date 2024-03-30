@@ -1,0 +1,23 @@
+.tb-item {
+    padding: 0.5rem 0.5rem;
+    color: gray;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.t-bg {
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.3rem;
+    box-shadow: 0px 1px 10px 0px rgba(0,0,0,0.1),
+    0px 1px 2px -1px rgba(0,0,0,0.1);
+}
+
+.text {
+    color: gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
