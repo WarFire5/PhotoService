@@ -71,7 +71,7 @@
     border-radius: 15px;
 }
 
-.order-price-canceled{
+.order-price-done{
     color: white !important;
     background-color: rgba(255, 131, 43, 0.5) !important;
     border-color: #4340D2;

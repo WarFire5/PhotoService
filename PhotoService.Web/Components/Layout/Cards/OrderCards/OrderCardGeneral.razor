@@ -9,7 +9,7 @@
 @using static PhotoService.Web.Components.Layout.Cards.OrderCards.OrderCardGeneral
 @inject IOrderClient OrderClient
 @inject AuthenticationStateProvider AuthenticationStateProvider
-
+@rendermode InteractiveServer
 
 @if (_orders != null)
 {
@@ -85,9 +85,9 @@
                                 </div>
                             }
                         </div>
-                        @if (@order.Status == "Отменён")
+                        @if (@order.Status == "Отменён" || @order.Status == "Завершён")
                         {
-                            <div class="order-price-canceled">
+                            <div class="order-price-done">
                                 <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
                             </div>
                         }
@@ -106,7 +106,7 @@
                                 <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-edit">
-                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-complete" disabled>
                                 <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -121,7 +121,7 @@
                                 <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-complete">
                                 <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -136,7 +136,7 @@
                                 <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-complete" disabled>
                                 <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -151,7 +151,7 @@
                                 <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-complete" disabled>
                                 <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -234,9 +234,9 @@
                                     </div>
                                 }
                             </div>
-                            @if (order.Status == "Отменён")
+                            @if (order.Status == "Отменён" || @order.Status == "Завершён")
                             {
-                                <div class="order-price-canceled">
+                                <div class="order-price-done">
                                     <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
                                 </div>
                             }
@@ -255,7 +255,7 @@
                                     <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                                 </button>
                                 <button type="button" class="btn btn-primary order-button-edit">
-                                    <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                    <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                                 </button>
                                 <button type="button" class="btn btn-primary order-button-complete" disabled>
                                     <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -270,7 +270,7 @@
                                     <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                                 </button>
                                 <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                    <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                    <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                                 </button>
                                 <button type="button" class="btn btn-primary order-button-complete">
                                     <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -285,7 +285,7 @@
                                     <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                                 </button>
                                 <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                    <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                    <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                                 </button>
                                 <button type="button" class="btn btn-primary order-button-complete" disabled>
                                     <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -300,7 +300,7 @@
                                     <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                                 </button>
                                 <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                    <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                    <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                                 </button>
                                 <button type="button" class="btn btn-primary order-button-complete" disabled>
                                     <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -383,9 +383,9 @@
                                 </div>
                             }
                         </div>
-                        @if (@order.Status == "Отменён")
+                        @if (@order.Status == "Отменён" || @order.Status == "Завершён")
                         {
-                            <div class="order-price-canceled">
+                            <div class="order-price-done">
                                 <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
                             </div>
                         }
@@ -404,7 +404,7 @@
                                 <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-edit">
-                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-complete" disabled>
                                 <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -419,7 +419,7 @@
                                 <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-complete">
                                 <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -434,7 +434,7 @@
                                 <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-complete" disabled>
                                 <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -449,7 +449,7 @@
                                 <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-complete" disabled>
                                 <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -532,9 +532,9 @@
                                 </div>
                             }
                         </div>
-                        @if (@order.Status == "Отменён")
+                        @if (@order.Status == "Отменён" || @order.Status == "Завершён")
                         {
-                            <div class="order-price-canceled">
+                            <div class="order-price-done">
                                 <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
                             </div>
                         }
@@ -553,7 +553,7 @@
                                 <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-edit">
-                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-complete" disabled>
                                 <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -568,7 +568,7 @@
                                 <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-complete">
                                 <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -583,7 +583,7 @@
                                 <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-complete" disabled>
                                 <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
@@ -598,7 +598,7 @@
                                 <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                <a href="#"><i class="bi bi-exposure"></i> Редактировать</a>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
                             </button>
                             <button type="button" class="btn btn-primary order-button-complete" disabled>
                                 <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
