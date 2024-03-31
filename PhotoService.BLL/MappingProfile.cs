@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using PhotoService.BLL.Clients;
 using PhotoService.BLL.IClients;
 using PhotoService.BLL.Models.InputModels;
@@ -26,6 +26,6 @@ public class MappingProfile: Profile
         
         CreateMap<ServicesDto, ServiceOutputModel>();
         CreateMap<ServiceOutputModel, ServicesDto>();
-     
+        CreateMap<UserInputModel, UsersDto>();
     }
 }

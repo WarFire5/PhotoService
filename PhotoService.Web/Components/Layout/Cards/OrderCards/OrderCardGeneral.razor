@@ -11,7 +11,13 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @rendermode InteractiveServer
 
-@if (_orders != null)
+@if (_orders == null || _orders.Count == 0)
+{
+    <div>
+        <p>У вас ещё не было заказов</p>
+    </div>
+}
+else 
 {
     @foreach (var order in _orders)
     {
@@ -612,12 +618,6 @@
             </div>
         }
     }
-}
-else
-{
-    <div>
-        <p>У вас ещё не было заказов</p>
-    </div>
 }
 
 
