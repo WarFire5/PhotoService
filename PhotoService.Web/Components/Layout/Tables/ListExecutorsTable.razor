@@ -1,56 +1,88 @@
 @using PhotoService.DAL.DTO
 @rendermode InteractiveServer
-<div class="table-bordered" style="overflow-x: auto; width: max-content">
-    <table class="table">
-        <tr>
-            <th class="tb-item" scope="col">ФИО</th>
-            <th class="tb-item" scope="col">Вид деятельности</th>
-            <th class="tb-item" scope="col">Портфолио</th>
-            <th class="tb-item" scope="col">Тип налогоплательщика</th>
-            <th class="tb-item" scope="col">Компания/ИП</th>
-            <th class="tb-item" scope="col">ИНН</th>
-            <th class="tb-item" scope="col">ОГРН</th>
-            <th class="tb-item" scope="col">Электронная почта</th>
-            <th class="tb-item" scope="col">Телефон</th>
-            <th class="tb-item" scope="col">Статус</th>
-            
-            @* TODO Добавить блокировку/ разблокировку исполнителя*@
-        </tr>
-        <tbody>
-        
-        @if (true)
-        {
-            @foreach (var user in _users)
-            {
-                <tr>
-                    <td>@user.Name</td>
-                    <td>@(user.Specialization.Title != null ? user.INN: "Нет специализации") </td>
-                    <td>@user.Mail</td>
-                    <td>@user.Phone</td>
-                    <td>
-                        <a href="@user.URL">@user.URL</a>
-                    </td>
-                    <td>@(user.ExecutorType ?? "Тип не указан")</td>
-                    <td>@(user.CompanyTitle ?? "Компания не указана")</td>
-                    <td>@(user.INN != null ? user.INN: "Инн не указан")</td>
-                    <td>@(user.OGRN != null ? user.OGRN: "ОГРН не указан")</td>
-                    <td>@(user.Dossier ?? "Описание не указано")</td>
-                </tr>
-            }
-        }
-        else
-        {
-            <td colspan="12">
-                <p class="text">Список исполнителей пуст</p>
-            </td>
-        }
+<div class="container-md">
+    <div class="card t-bg">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive scrollbar mx-n1 px-1">
+                        <table class="table table-sm fs-9 mb-0">
+                            <thead>
+                            <tr>
+                                <th class="tb-item p-1 text-900 sort pe-1 align-middle text-nowrap" data-sortable="true">ФИО</th>
+                                <th class="tb-item p-1  text-nowrap" scope="col">Вид деятельности</th>
+                                <th class="tb-item p-1  text-nowrap" scope="col">Контакты</th>
+                                <th class="tb-item p-1  text-nowrap" scope="col">Портфолио</th>
+                                <th class="tb-item p-1  text-nowrap" scope="col">Описание</th>
+                                <th class="tb-item p-1  text-nowrap">Статус</th>
+                                
+                            </tr>
+                            </thead>
+                            <tbody class="list">
 
-        </tbody>
-    </table > @* TODO: Добавить прокрутку таблицы*@
-</div >
+                            @if (true)
+                            {
+                                @foreach (var user in _users)
+                                {
+                                    <tr>
+                                        <th >
+                                            <p class="tb-item-1 mb-1" style="white-space: normal!important;">@user.Name</p>
+                                        </th>
+
+                                        <td>
+                                            <p class="tb-item-1 mb-1 ">
+                                                @((user.Specialization?.Title) ?? "Нет специализации")
+                                            </p>
+                                        </td>
+
+                                        <td>
+                                            <div class="flex-column">
+                                                <p class="tb-item-1 mb-1">Электронная почта: @(user?.Mail ?? "Не указан")</p>
+                                                <p class="tb-item-1 mb-1">Телефон: @(user?.Phone ?? "Не указан")</p>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <a class="tb-item-1 mb-1" href="@user.URL">@user.URL</a>
+                                        </td>
+
+                                        <td>
+                                            <p class="tb-item-1 mb-1">
+                                                @(user.Dossier ?? "Описание не указано")
+                                            </p>
+                                        </td>
+                                        <td>
+                                            @if (user.IsBlocked == false)
+                                            {
+                                                <p class="tb-item-1 mb-1" style="color: #4CAF50">Активный</p>
+                                            }
+                                            else
+                                            {
+                                                <p class="tb-item-1 mb-1" style="color: #DC3545">Заблокированный</p>
+                                            }
+                                           
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <td colspan="12">
+                                    <p class="text">Список исполнителей пуст</p>
+                                </td>
+                            }
+
+                            </tbody>
+                        </table >
+                    </div >
+                </div>
+            </div>
+        </div>
+    </div >
+</div>
 
 @code {
-    private List<UsersOutputModel>  _users;
+    private List<UsersOutputModel> _users;
     private UserClient _userClient;
 
     public ListExecutorsTable()
@@ -64,3 +96,10 @@
     }
 
 }
+
+<style>
+    .table{
+    overflow: auto;
+    table-layout: auto !important;
+    }
+</style>
