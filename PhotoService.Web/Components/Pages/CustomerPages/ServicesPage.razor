@@ -15,7 +15,6 @@
     </NotAuthorized>
 </AuthorizeView>
 
-
 <PageTitle>Услуги</PageTitle>
 
 <h2>Услуги</h2>
@@ -41,14 +40,13 @@
     </div>
 </div>
 
-
 @if (true)
 {
     <ServiceCard/>
 }
 else
 {
-    <p style="display: flex; justify-content: center; align-items: center; height: 10rem">Нет ни одной услуги</p>
+    <p style="display: flex; justify-content: center; align-items: center; height: 10rem">По выбранному метоположению предложений услуг не найдено</p>
 }
 
 
@@ -59,7 +57,6 @@ else
 
     private string userName;
     private string userRole;
-    private int userId;
 
     protected override async Task OnInitializedAsync()
     {
@@ -70,11 +67,6 @@ else
         {
             userName = user.FindFirst(ClaimTypes.Name)?.Value;
             userRole = user.FindFirst(ClaimTypes.Role)?.Value;
-            var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim != null)
-            {
-                userId = int.Parse(userIdClaim.Value);
-            }
         }
     }
 
