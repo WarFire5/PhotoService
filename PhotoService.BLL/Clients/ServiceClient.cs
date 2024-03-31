@@ -53,10 +53,6 @@ public class ServiceClient : IServiceClient
             .Include(s => s.Executor)
             .Include(s => s.Type)
             .ToList();
-
-        // var user = SingletoneStorage.GetStorage().Storage.Users.
-        //     Include(u => u.Id).
-        //     ToList();
         
         var serviceOutputModel = _mapper.Map<List<ServiceOutputModel>>(services);
 
@@ -77,5 +73,31 @@ public class ServiceClient : IServiceClient
         var serviceId = SingletoneStorage.GetStorage().Storage.Services.Where(s => s.Id == id);
         var serviceOutputModel = _mapper.Map<ServiceOutputModel>(serviceId);
         return serviceOutputModel;
+    }
+
+    public List<ServiceOutputModel> GetAllServicesForExecutor(int userId)
+    {
+        var user = SingletoneStorage.GetStorage().UserId;
+
+        if (user != null)
+        {
+            var services = SingletoneStorage.GetStorage().Storage.Services
+                .Where(s => s.Executor.Id == user) 
+                .Include(s => s.Type)
+                .ToList();
+
+            var serviceOutputModel = _mapper.Map<List<ServiceOutputModel>>(services);
+
+            foreach (var service in serviceOutputModel)
+            {
+                if (service.Type != null)
+                    service.TypeName = service.Type.Title;
+            }
+            return serviceOutputModel;
+        }
+        else
+        {
+            return null;
+        }        
     }
 }
