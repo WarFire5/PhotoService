@@ -17,9 +17,9 @@ values(1, '123455fF', 'Иван Петрович Веселов', 'hsdht@hard.ru
     (2, '12346fF', 'Иванов Иван Иванович', 'dawa@fe.ru', '89356786879', 1, null, null, 0, 0, 'какая-то ссылка', 'ИП', 'ИИИ', 123, 132, 0, null),
     (2, '12347fF', 'Елизавета Александровна Михеева', 'vdvd@dsejdvDfek.ru', '89233445675', 1, null, null, 0, 0, 'чё-то там', 'Самозанятый', null, 222, null, 0, null),
 
-    (3, '1233fF', 'Дядя Вася', 'VD@mm', null, null, null, null, 0, 0, null, null, null, null, null, 0, null),
-    (3, '1234fF', 'Баба Саша', 'fzbn@nzgt', null, null, null, null, 0, 0, null, null, null, null, null, 0, null),
-    (3, '1235fF', 'Тётя Клава', 'gdeakueh@dsejdfek', null, null, null, null, 0, 0, null, null, null, null, null, 0, null)
+    (3, '1233fF', 'Дядя Вася', 'vd@mm.ru', null, null, null, null, 0, 0, null, null, null, null, null, 0, null),
+    (3, '1234fF', 'Баба Саша', 'fzbn@nzgt.ru', null, null, null, null, 0, 0, null, null, null, null, null, 0, null),
+    (3, '1235fF', 'Тётя Клава', 'gdeakueh@dsejdfek.ru', null, null, null, null, 0, 0, null, null, null, null, null, 0, null)
 
 insert into Services (ExecutorId, TypeId, Title, Description, Price, IsDeleted) values(4, 1, 'Съёмка Ваших мероприятий', 'Супер-дупер-ультра', 'От 1500 р./ч.', 0),
     (5, 1, 'Портретная съёмка в студии', 'Лучше всех', '5 000р. за 3 часа', 0), (6, 1, 'Свадебный фотограф', 'Ничего не упущу', '15 000 р. за съёмочный день', 0),
@@ -36,11 +36,3 @@ insert into Reviews (Mark, Review, OrderId, Status, IsDeleted) values(5, 'Нек
 
 insert into Complains (AuthorId, Complain, RecipientId, Status, IsDeleted) values(4, 'Жалоба', 8, 'Создан', 0), (5, 'Жалоба', 9, 'На проверке', 0),
     (6, 'Жалоба', 10, 'Опубликован', 0), (10, 'Жалоба', 4, 'Отклонён', 0)
-
--- drop table Roles
--- drop table Types
--- drop table Users
--- drop table Services
--- drop table Orders
--- drop table Reviews
--- drop table Complains
