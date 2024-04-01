@@ -16,8 +16,11 @@ public class TypeClient : ITypeClient
 
     public List<TypeOutputModel> GetAllTypes()
     {
-        var types = SingletoneStorage.GetStorage().Storage.Types.ToList();
-        var typeOutputModel = _mapper.Map<List<TypeOutputModel>>(types);
-        return typeOutputModel;
+        using (var context = new Context())
+        {
+            var types = context.Types.ToList();
+            var typeOutputModel = _mapper.Map<List<TypeOutputModel>>(types);
+            return typeOutputModel;
+        }
     }
 }

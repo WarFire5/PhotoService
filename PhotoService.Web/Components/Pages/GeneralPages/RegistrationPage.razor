@@ -1,8 +1,8 @@
-﻿@using System.ComponentModel.DataAnnotations
-
+﻿@page "/registration"
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager navManager
 @rendermode InteractiveServer
 
-@page "/registration"
 <div>
     <div class="registration-logo-container">
         <img class="registration-logo" src="Resources/logo-photoservice.png"/>
@@ -13,26 +13,25 @@
             <a href="registration" class="btn btn-primary active сustomer-tab" aria-current="page">Заказчик</a>
             <a href="registration-executor" class="btn btn-primary executor-tab">Исполнитель</a>
         </div>
-        <EditForm Model="@registrationModel" class="row g-3 registration-form">
+        <EditForm Model="registrationModel" class="row g-3 registration-form" OnValidSubmit="CheckUser" FormName="Authentication">
             <DataAnnotationsValidator/>
-            @* <ValidationSummary/> *@
             <div class="col-12">
                 <label for="inputName" class="form-label registration-form">Как к Вам обращаться?</label>
-                <input type="text" class="form-control" id="inputName" placeholder="Введите имя*" required pattern="@NamePattern">
+                <InputText id="inputName" class="form-control" @bind-Value="registrationModel.Name" type="text" placeholder="Введите имя*" required pattern="@NamePattern"/>
                 <div id="nameHelp" class="form-text" style="font-style: italic;">*не менее двух и не более трёх слов кириллицей через пробел.</div>
             </div>
             <div class="col-md-12">
                 <label for="inputEmail" class="form-label">Ваш электронный адрес</label>
-                <input type="email" class="form-control" id="inputEmail" placeholder="Введите почту в формате 'user@example.com'" required pattern="@EmailPattern">
+                <InputText id="inputEmail" class="form-control" @bind-Value="registrationModel.Mail" type="email" placeholder="Введите почту в формате 'user@example.com'" required pattern="@EmailPattern"/>
             </div>
             <div class="col-md-6">
                 <label for="inputPassword" class="form-label">Пароль</label>
-                <InputText id="inputPassword" class="form-control" @bind-Value="@registrationModel.Password" type="password" placeholder="Задайте пароль*"/>
+                <InputText id="inputPassword" class="form-control" @bind-Value="registrationModel.Password" type="password" placeholder="Задайте пароль*"/>
                 <ValidationMessage For="@(() => registrationModel.Password)"/>
             </div>
             <div class="col-md-6">
                 <label for="inputPasswordCheck" class="form-label">Проверка пароля</label>
-                <InputText id="inputPasswordCheck" class="form-control" @bind-Value="@registrationModel.PasswordConfirmation" type="password" placeholder="Повторите пароль"/>
+                <InputText id="inputPasswordCheck" class="form-control" @bind-Value="registrationModel.PasswordConfirmation" type="password" placeholder="Повторите пароль"/>
                 <ValidationMessage For="@(() => registrationModel.PasswordConfirmation)"/>
             </div>
             <div id="passwordHelp" class="form-text" style="font-style: italic;">*в формате 'passWord123' (6-20 символов, как минимум по одной цифре и букве из верхнего и нижнего регистров).</div>
@@ -40,18 +39,30 @@
                 <button type="submit" class="btn btn-primary btn-lg registration-button">Зарегистрироваться</button>
             </div>
         </EditForm>
+        @if (_checkUser == false)
+        {
+            <div class="alert alert-danger" role="alert">
+                Пользователь с указанным e-mail уже зарегистрирован.
+            </div>
+        }
     </div>
 </div>
+
 
 @code {
 
     private string NamePattern => @"^([а-яА-ЯёЁ]{2,15}\s){1,2}[а-яА-ЯёЁ]{2,15}$";
     private string EmailPattern => @"^\S+@\S+\.\S{2,10}$";
+    private bool _checkUser = true;
+    private string _mail;
 
     private RegistrationModel registrationModel = new RegistrationModel();
 
     public class RegistrationModel
     {
+        public string Name { get; set; }
+        public string Mail { get; set; }
+
         [Required(ErrorMessage = "Поле 'Пароль' обязательно для заполнения")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,20}$",
             ErrorMessage = "Должен содержать от 6 до 20 символов, включать арабские цифры, строчные и прописные буквы.")]
@@ -60,6 +71,42 @@
         [Required(ErrorMessage = "Поле 'Подтверждение пароля' обязательно для заполнения")]
         [Compare(nameof(Password), ErrorMessage = "Пароли не совпадают")]
         public string PasswordConfirmation { get; set; }
+    }
+
+    private void Register()
+    {
+        UserInputModel userInputModel = new UserInputModel()
+        {
+            Name = registrationModel.Name,
+            Mail = registrationModel.Mail.ToLower(),
+            Password = registrationModel.Password,
+
+            Role = SingletoneStorage.GetStorage().Storage.Roles.FirstOrDefault(r => r.Id == 3)
+        };
+
+        UserClient userClient = new UserClient();
+        
+        userClient.GetAllUsers();
+
+        userClient.AddUser(userInputModel);
+
+        navManager.NavigateTo("/authorization");
+    }
+
+    private void CheckUser()
+    {
+        _mail = registrationModel.Mail;
+        UserClient userClient = new UserClient();
+        var users = userClient.GetAllUsers();
+        var user = users.Where(u => u.Mail == _mail).FirstOrDefault();
+        if (user != null)
+        {
+            _checkUser = false;
+        }
+        else
+        {
+            Register();
+        }
     }
 
 }

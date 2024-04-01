@@ -79,8 +79,18 @@ public class ServiceMock : IServiceClient
         return _serviceOutputModels;
     }
 
+    public List<ServiceOutputModel> GetAllServicesForExecutor(int userId)
+    {
+        throw new NotImplementedException();
+    }
+
     public ServiceOutputModel GetServiceById(int id)
     {
         return _serviceOutputModels[id-1];
+    }
+
+    public ServiceOutputModel ToggleIsDeleted()
+    {
+        throw new NotImplementedException();
     }
 }

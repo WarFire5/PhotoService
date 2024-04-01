@@ -20,15 +20,21 @@
 
 <div class="d-flex flex-row justify-content-between mb-4">
     <h2>Мои услуги</h2>
-    <AddServiceModal />
+    <AddServiceModal/>
 </div>
-<MyServicesCard/>
+@if (Services != null)
+{
+    <MyServicesCard/>
+}
+else
+{
+    <p style="display: flex; justify-content: center; align-items: center; height: 10rem">Нет ни одной услуги</p>
+}
 
 
 @code {
 
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
+    [CascadingParameter] public Task<AuthenticationState> State { get; set; }
 
     private string userName;
     private string userRole;
@@ -46,21 +52,13 @@
         }
     }
 
-    [Parameter] 
-    public int Id { get; set; }
-    [Parameter] 
-    public string? Name { get; set; }
-    [Parameter] 
-    public string? Description { get; set; }
-    [Parameter] 
-    public int Cost { get; set; }
-    
+    [Parameter] public int Id { get; set; }
+    [Parameter] public string? Name { get; set; }
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public int Cost { get; set; }
+
     [Parameter] 
     public List<ServiceOutputModel> Services { get; set; }
     
-    public void DeleteService(ServiceOutputModel service)
-    {
-        Services.Remove(service);
-    }
-    
+
 }

@@ -32,7 +32,9 @@
     <OrderCardGeneral UserId="@userId" SelectedStatus="@selectedStatus" SelectedDate="@selectedDate"/>
 </div>
 
+
 @code {
+    
     DateTime? selectedDate { get; set; }
     
     string selectedStatus { get; set; }
@@ -53,4 +55,5 @@
             }
         }
     }
+    
 }
