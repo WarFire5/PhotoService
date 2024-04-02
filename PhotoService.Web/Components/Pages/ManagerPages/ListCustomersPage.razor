@@ -18,27 +18,8 @@
 <PageTitle>Список заказчиков</PageTitle>
 
 <h2>Список заказчиков</h2>
+<ListCustomersTable/>
 
-<div class="row g-3">
-    <div class="col-auto">
-        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
-    </div>
-    <div class="col-auto">
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Тип услуги</option>
-            <option value="1">Фотографы</option>
-            <option value="2">Видеографы</option>
-            <option value="3">Стилисты</option>
-        </select>
-    </div>
-</div>
-
-<div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
-    <ExecutorCard />
-    <ExecutorCard />
-    <ExecutorCard />
-    <ExecutorCard />
-</div>
 
 
 @code {

@@ -1,6 +1,3 @@
-@inject IJSRuntime JSRuntime
-@rendermode InteractiveServer
-
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
@@ -42,12 +39,11 @@
                 Заказ успешно добавлен!
             </div>
     </div>
-    
 }
 
 @code {
     [Parameter] public ServiceOutputModel? Service { get; set; }
- 
+    
     private List<OrderOutputModel>? _order;
     private IOrderClient? _orderClient;
     private OrderInputModel _orderInput = new();
@@ -58,7 +54,7 @@
     {
         _orderClient = new OrderClient();
     }
-
+    
     private async Task AddOrder(int serviceId)
     {
         _orderClient?.AddOrder(serviceId, _orderInput);
@@ -71,5 +67,4 @@
         
         StateHasChanged();
     }
-
 }

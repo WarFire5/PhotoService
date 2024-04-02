@@ -44,11 +44,6 @@ public class UserClient : IUserClient
             return userOutputModel;
     }
 
-    public UsersOutputModel GetAllUsersById(int id)
-    {
-        throw new NotImplementedException();
-    }
-
     public List<UsersOutputModel> GetAllExecutors()
     {
         var users = SingletoneStorage.GetStorage().Storage.Users.
@@ -66,6 +61,15 @@ public class UserClient : IUserClient
                 }
         }
         
+        return userOutputModel;
+    }
+
+    public List<UsersOutputModel> GetAllCustomers()
+    {
+        var users = SingletoneStorage.GetStorage().Storage.Users.
+            Where(r => r.Role.Id == 3).ToList();
+        
+        var userOutputModel = _mapper.Map<List<UsersOutputModel>>(users);
         return userOutputModel;
     }
     
