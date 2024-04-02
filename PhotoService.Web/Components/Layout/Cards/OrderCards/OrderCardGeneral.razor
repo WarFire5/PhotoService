@@ -23,7 +23,7 @@ else
     {
         @if (SelectedDate == null && SelectedStatus == null)
         {
-            <div class="card order-card" @onclick="OpenModal" style="cursor: pointer;">
+            <div class="card order-card">
                 @if (@order.Status == "Новый")
                 {
                     <div class="card-header d-flex justify-content-between align-items-center order-header-new">
@@ -69,7 +69,7 @@ else
                     </div>
                 }
 
-                <div class="card-body">
+                <div class="card-body" @onclick="OpenModal" style="cursor: pointer;">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <div style="margin-bottom: -5px">
@@ -168,11 +168,34 @@ else
                         }
                     </div>
                 </div>
+                
+                @if (showModal)
+                {
+                    <div class="modal fade show" tabindex="-1" style="display: block;" role="dialog">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Модальное окно</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="() => showModal = false">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Здесь добавьте содержимое вашего модального окна -->
+                                    Содержимое модального окна...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" @onclick="() => showModal = false">Закрыть</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         }
-        else if (order.CreationDate == SelectedDate && SelectedStatus == null)
+        else if (order.CreationDate.Date == SelectedDate && SelectedStatus == null)
         {
-                <div class="card order-card" @onclick="OpenModal" style="cursor: pointer;">
+                <div class="card order-card">
                     @if (order.Status == "Новый")
                     {
                         <div class="card-header d-flex justify-content-between align-items-center order-header-new">
@@ -218,7 +241,7 @@ else
                         </div>
                     }
 
-                    <div class="card-body">
+                    <div class="card-body" @onclick="OpenModal" style="cursor: pointer;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <div style="margin-bottom: -5px">
@@ -316,12 +339,34 @@ else
                                 </button>
                             }
                         </div>
+                        @if (showModal)
+                        {
+                            <div class="modal fade show" tabindex="-1" style="display: block;" role="dialog">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Модальное окно</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="() => showModal = false">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Здесь добавьте содержимое вашего модального окна -->
+                                            Содержимое модального окна...
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" @onclick="() => showModal = false">Закрыть</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
         }
         else if (SelectedDate == null && order.Status == SelectedStatus)
         {
-            <div class="card order-card" @onclick="OpenModal" style="cursor: pointer;">
+            <div class="card order-card">
                 @if (@order.Status == "Новый")
                 {
                     <div class="card-header d-flex justify-content-between align-items-center order-header-new">
@@ -367,7 +412,7 @@ else
                     </div>
                 }
 
-                <div class="card-body">
+                <div class="card-body" @onclick="OpenModal" style="cursor: pointer;">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <div style="margin-bottom: -5px">
@@ -466,11 +511,33 @@ else
                         }
                     </div>
                 </div>
+                @if (showModal)
+                {
+                    <div class="modal fade show" tabindex="-1" style="display: block;" role="dialog">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Модальное окно</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="() => showModal = false">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Здесь добавьте содержимое вашего модального окна -->
+                                    Содержимое модального окна...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" @onclick="() => showModal = false">Закрыть</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         }
         else if (order.CreationDate == SelectedDate && order.Status == SelectedStatus)
         {
-            <div class="card order-card" @onclick="OpenModal" style="cursor: pointer;">
+            <div class="card order-card">
                 @if (@order.Status == "Новый")
                 {
                     <div class="card-header d-flex justify-content-between align-items-center order-header-new">
@@ -516,7 +583,7 @@ else
                     </div>
                 }
 
-                <div class="card-body">
+                <div class="card-body" @onclick="OpenModal" style="cursor: pointer;">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <div style="margin-bottom: -5px">
@@ -615,6 +682,28 @@ else
                         }
                     </div>
                 </div>
+                @if (showModal)
+                {
+                    <div class="modal fade show" tabindex="-1" style="display: block;" role="dialog">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Модальное окно</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="() => showModal = false">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Здесь добавьте содержимое вашего модального окна -->
+                                    Содержимое модального окна...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" @onclick="() => showModal = false">Закрыть</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         }
     }
@@ -623,9 +712,11 @@ else
 
 @code {
 
-    private void OpenModal()
+    bool showModal = false;
+
+    void OpenModal()
     {
-        throw new NotImplementedException();
+        showModal = true;
     }
 
     [Parameter] 
