@@ -6,7 +6,7 @@
     {
         <div class="col card-col">
             <div class="card">
-
+                <img src="Resources/Service.png" class="card-img-top" alt="Service" style="background-color: @GenerateRandomColor()">
                 <div class="card-body">
                     <div class="header-card">
                         <h5 class="card-title">@s.Title</h5>
@@ -44,6 +44,16 @@
     protected override void OnInitialized()
     {
         _service = _serviceClient.GetAllServices();
+    }
+    
+    private string GenerateRandomColor()
+    {
+        Random random = new Random();
+        int red = random.Next(0, 256);
+        int green = random.Next(0, 256);
+        int blue = random.Next(0, 256);
+
+        return $"rgb({red}, {green}, {blue})";
     }
     
 }
