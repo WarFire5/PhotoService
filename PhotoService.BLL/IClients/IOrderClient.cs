@@ -17,4 +17,6 @@ public interface IOrderClient
     
     public List<OrderOutputModel> GetOrdersByCustomerIdAsync(int userId);
 
+    public OrderOutputModel AddOrder(int serviceId, OrderInputModel order);
+
 }
