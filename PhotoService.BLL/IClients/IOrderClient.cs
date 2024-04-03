@@ -19,4 +19,6 @@ public interface IOrderClient
 
     public OrderOutputModel AddOrder(int serviceId, OrderInputModel order);
 
+    public List<OrderOutputModel> GetOrdersByExecutor();
+
 }

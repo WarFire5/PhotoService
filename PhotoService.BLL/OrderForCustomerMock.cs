@@ -95,4 +95,9 @@ public class OrderForCustomerMock : IOrderClient
     {
         throw new NotImplementedException();
     }
+
+    public List<OrderOutputModel> GetOrdersByExecutor()
+    {
+        throw new NotImplementedException();
+    }
 }
