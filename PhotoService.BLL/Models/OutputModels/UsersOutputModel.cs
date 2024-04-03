@@ -20,8 +20,8 @@ public class UsersOutputModel
     public string? URL { get; set; }
     public string? ExecutorType { get; set; }
     public string? CompanyTitle { get; set; }
-    public int? INN { get; set; }
-    public int? OGRN { get; set; }
+    public string? INN { get; set; }
+    public string? OGRN { get; set; }
     public bool IsDenied { get; set; }
     public string? ReasonDenied { get; set; }
 }

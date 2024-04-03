@@ -2,7 +2,7 @@
 
 namespace PhotoService.BLL.Models.InputModels;
 
-public class UserInputModel
+public class UserParametersForRegistrationInputModel
 {
     public int Id { get; set; }
     public RolesDto Role { get; set; }
@@ -18,8 +18,8 @@ public class UserInputModel
     public string? URL { get; set; }
     public string? ExecutorType { get; set; }
     public string? CompanyTitle { get; set; }
-    public int? INN { get; set; }
-    public int? OGRN { get; set; }
+    public string? INN { get; set; }
+    public string? OGRN { get; set; }
     public bool IsDenied { get; set; }
     public string? ReasonDenied { get; set; }
 }

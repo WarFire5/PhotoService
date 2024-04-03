@@ -17,7 +17,10 @@ public class MappingProfile: Profile
         CreateMap<UsersDto, UsersOutputModel>();
         CreateMap<UsersOutputModel, UsersDto>();
         CreateMap<UsersDto, UsersInputModel>();
-        CreateMap<UserInputModel, UsersDto>();
+        CreateMap<UserParametersForRegistrationInputModel, UsersDto>();
+        
+        CreateMap<UsersDto, UserParametersForRegistrationInputModel>();
+        CreateMap<UserParametersForRegistrationInputModel, UsersDto>();
         
         CreateMap<TypesDto, TypeOutputModel>();
         CreateMap<TypeOutputModel,TypesDto>();

@@ -1,6 +1,8 @@
-﻿namespace PhotoService.DAL.DTO;
+﻿using PhotoService.DAL.DTO;
 
-public class UsersDto
+namespace PhotoService.BLL.Models.OutputModels;
+
+public class UserParametersForRegistrationOutputModel
 {
     public int Id { get; set; }
     public RolesDto Role { get; set; }
