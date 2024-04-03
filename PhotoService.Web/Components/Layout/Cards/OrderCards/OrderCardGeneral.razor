@@ -17,10 +17,12 @@
         <p>У вас ещё не было заказов</p>
     </div>
 }
-else 
+else
 {
     @foreach (var order in _orders)
     {
+        _comment = order.Comment;
+
         @if (SelectedDate == null && SelectedStatus == null)
         {
             <div class="card order-card">
@@ -29,6 +31,9 @@ else
                     <div class="card-header d-flex justify-content-between align-items-center order-header-new">
                         <div class="order-date-new">
                             @order.CreationDate
+                        </div>
+                        <div>
+                            <NewModalForOrdersCards Comment="@_comment"/>
                         </div>
                         <div class="order-status-new">
                             <span class="badge text-bg-primary">@order.Status</span>
@@ -41,6 +46,9 @@ else
                         <div class="order-date-inprogress">
                             @order.CreationDate
                         </div>
+                        <div>
+                            <InProgressModalForOrdersCards Comment="@_comment"/>
+                        </div>
                         <div class="order-status-inprogress">
                             <span class="badge text-bg-success">@order.Status</span>
                         </div>
@@ -51,6 +59,9 @@ else
                     <div class="card-header d-flex justify-content-between align-items-center order-header-completed">
                         <div class="order-date-completed">
                             @order.CreationDate
+                        </div>
+                        <div>
+                            <CompletedModalForOrdersCards Comment="@_comment"/>
                         </div>
                         <div class="order-status-completed">
                             <span class="badge text-bg-light">@order.Status</span>
@@ -63,13 +74,16 @@ else
                         <div class="order-date-canceled">
                             @order.CreationDate
                         </div>
+                        <div>
+                            <CanceledModalForOrdersCards Comment="@_comment"/>
+                        </div>
                         <div class="order-status-canceled">
                             <span class="badge text-bg-danger">@order.Status</span>
                         </div>
                     </div>
                 }
 
-                <div class="card-body" @onclick="OpenModal" style="cursor: pointer;">
+                <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <div style="margin-bottom: -5px">
@@ -90,6 +104,9 @@ else
                                     </p>
                                 </div>
                             }
+                        </div>
+                        <div>
+                            <GeneralModalForOrdersCards Comment="@_comment"/>
                         </div>
                         @if (@order.Status == "Отменён" || @order.Status == "Завершён")
                         {
@@ -168,201 +185,171 @@ else
                         }
                     </div>
                 </div>
-                
-                @if (showModal)
-                {
-                    <div class="modal fade show" tabindex="-1" style="display: block;" role="dialog">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Модальное окно</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="() => showModal = false">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Здесь добавьте содержимое вашего модального окна -->
-                                    Содержимое модального окна...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" @onclick="() => showModal = false">Закрыть</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
             </div>
         }
         else if (order.CreationDate.Date == SelectedDate && SelectedStatus == null)
         {
-                <div class="card order-card">
-                    @if (order.Status == "Новый")
-                    {
-                        <div class="card-header d-flex justify-content-between align-items-center order-header-new">
-                            <div class="order-date-new">
-                                @order.CreationDate
-                            </div>
-                            <div class="order-status-new">
-                                <span class="badge text-bg-primary">@order.Status</span>
-                            </div>
+            <div class="card order-card">
+                @if (order.Status == "Новый")
+                {
+                    <div class="card-header d-flex justify-content-between align-items-center order-header-new">
+                        <div class="order-date-new">
+                            @order.CreationDate
                         </div>
-                    }
-                    else if (order.Status == "В работе")
-                    {
-                        <div class="card-header d-flex justify-content-between align-items-center order-header-inprogress">
-                            <div class="order-date-inprogress">
-                                @order.CreationDate
-                            </div>
-                            <div class="order-status-inprogress">
-                                <span class="badge text-bg-success">@order.Status</span>
-                            </div>
+                        <div>
+                            <NewModalForOrdersCards Comment="@_comment"/>
                         </div>
-                    }
-                    else if (order.Status == "Завершён")
-                    {
-                        <div class="card-header d-flex justify-content-between align-items-center order-header-completed">
-                            <div class="order-date-completed">
-                                @order.CreationDate
-                            </div>
-                            <div class="order-status-completed">
-                                <span class="badge text-bg-light">@order.Status</span>
-                            </div>
+                        <div class="order-status-new">
+                            <span class="badge text-bg-primary">@order.Status</span>
                         </div>
-                    }
-                    else
-                    {
-                        <div class="card-header d-flex justify-content-between align-items-center order-header-canceled">
-                            <div class="order-date-canceled">
-                                @order.CreationDate
-                            </div>
-                            <div class="order-status-canceled">
-                                <span class="badge text-bg-danger">@order.Status</span>
-                            </div>
+                    </div>
+                }
+                else if (order.Status == "В работе")
+                {
+                    <div class="card-header d-flex justify-content-between align-items-center order-header-inprogress">
+                        <div class="order-date-inprogress">
+                            @order.CreationDate
                         </div>
-                    }
+                        <div>
+                            <InProgressModalForOrdersCards Comment="@_comment"/>
+                        </div>
+                        <div class="order-status-inprogress">
+                            <span class="badge text-bg-success">@order.Status</span>
+                        </div>
+                    </div>
+                }
+                else if (order.Status == "Завершён")
+                {
+                    <div class="card-header d-flex justify-content-between align-items-center order-header-completed">
+                        <div class="order-date-completed">
+                            @order.CreationDate
+                        </div>
+                        <div>
+                            <CompletedModalForOrdersCards Comment="@_comment"/>
+                        </div>
+                        <div class="order-status-completed">
+                            <span class="badge text-bg-light">@order.Status</span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-header d-flex justify-content-between align-items-center order-header-canceled">
+                        <div class="order-date-canceled">
+                            @order.CreationDate
+                        </div>
+                        <div>
+                            <CanceledModalForOrdersCards Comment="@_comment"/>
+                        </div>
+                        <div class="order-status-canceled">
+                            <span class="badge text-bg-danger">@order.Status</span>
+                        </div>
+                    </div>
+                }
 
-                    <div class="card-body" @onclick="OpenModal" style="cursor: pointer;">
-                        <div class="d-flex justify-content-between align-items-center">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div style="margin-bottom: -5px">
+                                <h5 class="card-title mb-3">
+                                    <a href="services" class="order-service">@order.Service.Title</a>
+                                </h5>
+                            </div>
                             <div>
-                                <div style="margin-bottom: -5px">
-                                    <h5 class="card-title mb-3">
-                                        <a href="services" class="order-service">@order.Service.Title</a>
-                                    </h5>
-                                </div>
+                                <p class="card-text mb-3">
+                                    <a href="executors" class="order-executor">@order.Service.Executor.Name</a>
+                                </p>
+                            </div>
+                            @if (order.Status == "Отменён")
+                            {
                                 <div>
-                                    <p class="card-text mb-3">
-                                        <a href="executors" class="order-executor">@order.Service.Executor.Name</a>
+                                    <p class="card-text mb-3 cancel-reason">
+                                        @order.CanceledReason
                                     </p>
                                 </div>
-                                @if (order.Status == "Отменён")
-                                {
-                                    <div>
-                                        <p class="card-text mb-3 cancel-reason">
-                                            @order.CanceledReason
-                                        </p>
-                                    </div>
-                                }
-                            </div>
-                            @if (order.Status == "Отменён" || @order.Status == "Завершён")
-                            {
-                                <div class="order-price-done">
-                                    <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="order-price">
-                                    <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
-                                </div>
                             }
                         </div>
-
-                        <div class="order-buttons">
-                            @if (order.Status == "Новый")
-                            {
-                                <button type="button" class="btn btn-primary order-button-cansel">
-                                    <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-edit">
-                                    <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-complete" disabled>
-                                    <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
-                                    <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
-                                </button>
-                            }
-                            else if (order.Status == "В работе")
-                            {
-                                <button type="button" class="btn btn-primary order-button-cansel">
-                                    <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                    <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-complete">
-                                    <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
-                                    <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
-                                </button>
-                            }
-                            else if (order.Status == "Завершён")
-                            {
-                                <button type="button" class="btn btn-primary order-button-cansel" disabled>
-                                    <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                    <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-complete" disabled>
-                                    <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-leavefeedback">
-                                    <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
-                                </button>
-                            }
-                            else
-                            {
-                                <button type="button" class="btn btn-primary order-button-cansel" disabled>
-                                    <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-edit" disabled>
-                                    <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-complete" disabled>
-                                    <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
-                                </button>
-                                <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
-                                    <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
-                                </button>
-                            }
+                        <div>
+                            <GeneralModalForOrdersCards Comment="@_comment"/>
                         </div>
-                        @if (showModal)
+                        @if (order.Status == "Отменён" || @order.Status == "Завершён")
                         {
-                            <div class="modal fade show" tabindex="-1" style="display: block;" role="dialog">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Модальное окно</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="() => showModal = false">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Здесь добавьте содержимое вашего модального окна -->
-                                            Содержимое модального окна...
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" @onclick="() => showModal = false">Закрыть</button>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="order-price-done">
+                                <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="order-price">
+                                <span class="badge text-bg-danger fs-3">@order.Service.Price</span>
                             </div>
                         }
                     </div>
+
+                    <div class="order-buttons">
+                        @if (order.Status == "Новый")
+                        {
+                            <button type="button" class="btn btn-primary order-button-cansel">
+                                <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-edit">
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-complete" disabled>
+                                <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
+                                <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                            </button>
+                        }
+                        else if (order.Status == "В работе")
+                        {
+                            <button type="button" class="btn btn-primary order-button-cansel">
+                                <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-edit" disabled>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-complete">
+                                <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
+                                <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                            </button>
+                        }
+                        else if (order.Status == "Завершён")
+                        {
+                            <button type="button" class="btn btn-primary order-button-cansel" disabled>
+                                <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-edit" disabled>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-complete" disabled>
+                                <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-leavefeedback">
+                                <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-primary order-button-cansel" disabled>
+                                <a href="#"><i class="bi bi-x-circle"></i> Отменить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-edit" disabled>
+                                <a href="#"><i class="bi bi-exposure"></i> Добавить комментарий</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-complete" disabled>
+                                <a href="#"><i class="bi bi-check2-square"></i> Завершить</a>
+                            </button>
+                            <button type="button" class="btn btn-primary order-button-leavefeedback" disabled>
+                                <a href="#"><i class="bi bi-pencil-square"></i> Оставить отзыв</a>
+                            </button>
+                        }
+                    </div>
                 </div>
+            </div>
         }
         else if (SelectedDate == null && order.Status == SelectedStatus)
         {
@@ -373,6 +360,9 @@ else
                         <div class="order-date-new">
                             @order.CreationDate
                         </div>
+                        <div>
+                            <NewModalForOrdersCards Comment="@_comment"/>
+                        </div>
                         <div class="order-status-new">
                             <span class="badge text-bg-primary">@order.Status</span>
                         </div>
@@ -383,6 +373,9 @@ else
                     <div class="card-header d-flex justify-content-between align-items-center order-header-inprogress">
                         <div class="order-date-inprogress">
                             @order.CreationDate
+                        </div>
+                        <div>
+                            <InProgressModalForOrdersCards Comment="@_comment"/>
                         </div>
                         <div class="order-status-inprogress">
                             <span class="badge text-bg-success">@order.Status</span>
@@ -395,6 +388,9 @@ else
                         <div class="order-date-completed">
                             @order.CreationDate
                         </div>
+                        <div>
+                            <CompletedModalForOrdersCards Comment="@_comment"/>
+                        </div>
                         <div class="order-status-completed">
                             <span class="badge text-bg-light">@order.Status</span>
                         </div>
@@ -406,13 +402,16 @@ else
                         <div class="order-date-canceled">
                             @order.CreationDate
                         </div>
+                        <div>
+                            <CanceledModalForOrdersCards Comment="@_comment"/>
+                        </div>
                         <div class="order-status-canceled">
                             <span class="badge text-bg-danger">@order.Status</span>
                         </div>
                     </div>
                 }
 
-                <div class="card-body" @onclick="OpenModal" style="cursor: pointer;">
+                <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <div style="margin-bottom: -5px">
@@ -433,6 +432,9 @@ else
                                     </p>
                                 </div>
                             }
+                        </div>
+                        <div>
+                            <GeneralModalForOrdersCards Comment="@_comment"/>
                         </div>
                         @if (@order.Status == "Отменён" || @order.Status == "Завершён")
                         {
@@ -511,28 +513,6 @@ else
                         }
                     </div>
                 </div>
-                @if (showModal)
-                {
-                    <div class="modal fade show" tabindex="-1" style="display: block;" role="dialog">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Модальное окно</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="() => showModal = false">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Здесь добавьте содержимое вашего модального окна -->
-                                    Содержимое модального окна...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" @onclick="() => showModal = false">Закрыть</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
             </div>
         }
         else if (order.CreationDate == SelectedDate && order.Status == SelectedStatus)
@@ -544,6 +524,9 @@ else
                         <div class="order-date-new">
                             @order.CreationDate
                         </div>
+                        <div>
+                            <NewModalForOrdersCards Comment="@_comment"/>
+                        </div>
                         <div class="order-status-new">
                             <span class="badge text-bg-primary">@order.Status</span>
                         </div>
@@ -554,6 +537,9 @@ else
                     <div class="card-header d-flex justify-content-between align-items-center order-header-inprogress">
                         <div class="order-date-inprogress">
                             @order.CreationDate
+                        </div>
+                        <div>
+                            <InProgressModalForOrdersCards Comment="@_comment"/>
                         </div>
                         <div class="order-status-inprogress">
                             <span class="badge text-bg-success">@order.Status</span>
@@ -566,6 +552,9 @@ else
                         <div class="order-date-completed">
                             @order.CreationDate
                         </div>
+                        <div>
+                            <CompletedModalForOrdersCards Comment="@_comment"/>
+                        </div>
                         <div class="order-status-completed">
                             <span class="badge text-bg-light">@order.Status</span>
                         </div>
@@ -577,13 +566,16 @@ else
                         <div class="order-date-canceled">
                             @order.CreationDate
                         </div>
+                        <div>
+                            <CanceledModalForOrdersCards Comment="@_comment"/>
+                        </div>
                         <div class="order-status-canceled">
                             <span class="badge text-bg-danger">@order.Status</span>
                         </div>
                     </div>
                 }
 
-                <div class="card-body" @onclick="OpenModal" style="cursor: pointer;">
+                <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <div style="margin-bottom: -5px">
@@ -604,6 +596,9 @@ else
                                     </p>
                                 </div>
                             }
+                        </div>
+                        <div>
+                            <GeneralModalForOrdersCards Comment="@_comment"/>
                         </div>
                         @if (@order.Status == "Отменён" || @order.Status == "Завершён")
                         {
@@ -682,28 +677,6 @@ else
                         }
                     </div>
                 </div>
-                @if (showModal)
-                {
-                    <div class="modal fade show" tabindex="-1" style="display: block;" role="dialog">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Модальное окно</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="() => showModal = false">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Здесь добавьте содержимое вашего модального окна -->
-                                    Содержимое модального окна...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" @onclick="() => showModal = false">Закрыть</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
             </div>
         }
     }
@@ -712,20 +685,13 @@ else
 
 @code {
 
-    bool showModal = false;
-
-    void OpenModal()
-    {
-        showModal = true;
-    }
-
     [Parameter] 
     public string SelectedStatus { get; set; }
     [Parameter] 
     public DateTime? SelectedDate { get; set; }
-    [Parameter]
+    [Parameter] 
     public int UserId { get; set; }
-    [Parameter]
+    [Parameter] 
     public int Id { get; set; }
 
     private UsersDto _executor;

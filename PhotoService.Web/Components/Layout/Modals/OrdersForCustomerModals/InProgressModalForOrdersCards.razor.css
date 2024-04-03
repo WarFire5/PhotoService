@@ -1,0 +1,11 @@
+﻿.button-modal-inprogress {
+    background-color: rgba(255 175 0 / 50%);
+}
+
+.button-modal-inprogress:hover {
+    background-color: rgba(255 175 0);
+}
+
+.button-modal-inprogress:active {
+    background-color: rgba(255 175 0 / 50%);
+}

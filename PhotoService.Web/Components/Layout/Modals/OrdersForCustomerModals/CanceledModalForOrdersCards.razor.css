@@ -1,0 +1,11 @@
+﻿.button-modal-canceled {
+    background-color: rgba(220, 53, 69, 0.5);
+}
+
+.button-modal-canceled:hover {
+    background-color: rgba(220, 53, 69);
+}
+
+.button-modal-canceled:active {
+    background-color: rgba(220, 53, 69, 0.5);
+}

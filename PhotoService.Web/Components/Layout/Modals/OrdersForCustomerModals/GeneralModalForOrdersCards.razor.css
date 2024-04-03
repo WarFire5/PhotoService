@@ -1,0 +1,23 @@
+﻿.button-modal {
+    background-color: transparent;
+    border: none;
+    outline: none !important;
+    color: rgba(153, 153, 153, 0);
+    transition: color 0.3s;
+    width: auto;
+    font-size: 300%;
+    opacity: 0;
+}
+
+.button-modal:hover {
+    color: rgba(24, 64, 224, 0.5);
+    opacity: 1;
+}
+
+.button-modal:active {
+    background-color: transparent;
+    color: #999;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
