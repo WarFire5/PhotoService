@@ -1,0 +1,70 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Новый заказ</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="card">
+                <div class="card-body">
+                    <div class="header-card">
+                        <h5 class="card-title">@Service.Title</h5>
+                        <p class="price">@Service.Price</p>
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-secondary">@Service.ExecutorName</h6>
+                    <p class="card-text">@Service.Description</p>
+                    <div class="footer-card">
+                        <small class="text-body-secondary">@Service.TypeName</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group my-2">
+                <label>Комментарий</label>
+                <textarea class="form-control" @bind="_orderInput.Comment" placeholder="Опишите вашу услугу"></textarea>
+            </div>
+
+
+            <div class="modal-footer">
+                <button @onclick="() => AddOrder(Service.Id)" type="button" class="btn btn-primary btn-sm">Заказать услугу</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+@if (_orderAddedSuccessfully)
+{
+    <div class="d-flex justify-content-center mt-2">
+        <div class="alert alert-success w-25" role="alert">
+                Заказ успешно добавлен!
+            </div>
+    </div>
+}
+
+@code {
+    [Parameter] public ServiceOutputModel? Service { get; set; }
+    
+    private List<OrderOutputModel>? _order;
+    private IOrderClient? _orderClient;
+    private OrderInputModel _orderInput = new();
+    
+    private bool _orderAddedSuccessfully = false;
+    
+    protected override void OnInitialized()
+    {
+        _orderClient = new OrderClient();
+    }
+    
+    private async Task AddOrder(int serviceId)
+    {
+        _orderClient?.AddOrder(serviceId, _orderInput);
+        _orderInput = new OrderInputModel();
+        _orderAddedSuccessfully = true;
+        
+        await Task.Delay(5000);
+        
+        _orderAddedSuccessfully = false;
+        
+        StateHasChanged();
+    }
+}

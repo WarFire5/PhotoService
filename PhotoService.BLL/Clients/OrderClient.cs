@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PhotoService.BLL.IClients;
+using PhotoService.BLL.Models.InputModels;
 using PhotoService.BLL.Models.OutputModels;
 using PhotoService.DAL.DTO;
 
@@ -110,5 +111,55 @@ public class OrderClient: IOrderClient
 
             return new List<OrderOutputModel>();
         }
+    }
+
+    public List<OrderOutputModel> GetOrdersByExecutor()
+    {
+        var user = SingletoneStorage.GetStorage().UserId;
+        var executorRole = SingletoneStorage.GetStorage().Storage.Roles.FirstOrDefault(r => r.Id == 2);
+    
+        if (executorRole != null)
+        {
+            var orders = SingletoneStorage.GetStorage().Storage.Orders
+                .Include(o => o.Customer)
+                .Include(o => o.Service)
+                .Where(o => o.Service.Executor != null && o.Service.Executor.Id == user)
+                .ToList();
+
+            var orderOutputModels = _mapper.Map<List<OrderOutputModel>>(orders);
+            return orderOutputModels;
+        }
+
+        return new List<OrderOutputModel>();
+    }
+    
+    public OrderOutputModel AddOrder(int serviceId, OrderInputModel order)
+    {
+        var serviceDto = SingletoneStorage.GetStorage().Storage.Services.FirstOrDefault(s => s.Id == serviceId);
+
+        var userId = SingletoneStorage.GetStorage().UserId;
+        var user = SingletoneStorage.GetStorage().Storage.Users
+            .FirstOrDefault(u => u.Id == userId);
+
+        if (serviceDto == null)
+        {
+            return null;
+        }
+
+        var newOrder = new OrdersDto()
+        {
+            Status = "Новый",
+            Service = serviceDto,
+            Customer = user,
+            CreationDate = DateTime.Now,
+            IsDeleted = false,
+            Comment = order.Comment,
+        };
+        var orderOutputModel = _mapper.Map<OrderOutputModel>(newOrder);
+        SingletoneStorage.GetStorage().Storage.Orders.Add(newOrder);
+        SingletoneStorage.GetStorage().Storage.SaveChanges();
+
+
+        return orderOutputModel;
     }
 }

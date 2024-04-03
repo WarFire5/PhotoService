@@ -1,0 +1,11 @@
+﻿.button-modal-completed {
+    background-color: rgba(81 205 67 / 50%);
+}
+
+.button-modal-completed:hover {
+    background-color: rgba(81 205 67);
+}
+
+.button-modal-completed:active {
+    background-color: rgba(81 205 67 / 50%);
+}

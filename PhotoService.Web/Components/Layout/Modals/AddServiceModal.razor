@@ -48,6 +48,14 @@
             </div>
         </div>
     </div>
+    @if (_serviceAddedSuccessfully)
+    {
+        <div class="d-flex justify-content-center mt-2">
+            <div class="alert alert-success w-25" role="alert">
+                    Услуга успешно добавлена!
+                </div>
+        </div>
+    }
 </div>
 
 
@@ -58,6 +66,8 @@
 
     private List<TypeOutputModel> _types = new();
     private ITypeClient? _typeClient;
+    
+    private bool _serviceAddedSuccessfully = false;
 
     protected override void OnInitialized()
     {
@@ -65,10 +75,16 @@
         _types = _typeClient.GetAllTypes();
     }
 
-    private void AddService()
+    private async Task AddService()
     {
         _serviceClient.AddService(_serviceInput);
         _serviceInput = new ServiceInputModel();
+        _serviceAddedSuccessfully = true;
+        
+        await Task.Delay(5000);
+        
+        _serviceAddedSuccessfully = false;
+        
         StateHasChanged();
     }
 }

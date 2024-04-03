@@ -1,0 +1,11 @@
+﻿.button-modal-new {
+    background-color: rgb(24 64 224 / 50%);
+}
+
+.button-modal-new:hover {
+    background-color: rgba(24, 64, 224);
+}
+
+.button-modal-new:active {
+    background-color: rgb(24 64 224 / 50%);
+}

@@ -1,0 +1,77 @@
+﻿@using AutoMapper
+@using PhotoService.DAL.DTO
+@using PhotoService.BLL.IClients
+@using PhotoService.BLL.Models
+@using Microsoft.AspNetCore.Components
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@using static PhotoService.BLL.IClients.IOrderClient
+@using static PhotoService.Web.Components.Layout.Cards.OrderCards.OrderCardGeneral
+@inject IOrderClient OrderClient
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@rendermode InteractiveServer
+
+<button type="button" class="btn btn-primary button-modal-completed" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Подробнее о заказе
+</button>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Информация о заказе</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                @Comment
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Понял</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter] 
+    public string Comment { get; set; }
+
+    [Parameter] 
+    public string SelectedStatus { get; set; }
+    [Parameter] 
+    public DateTime? SelectedDate { get; set; }
+    [Parameter] 
+    public int UserId { get; set; }
+    [Parameter] 
+    public int Id { get; set; }
+
+    private UsersDto _executor;
+    private DateTime _creationDate;
+    private string _comment;
+    private string _serviceTitle;
+    private string _executorName;
+    private string _servicePrice;
+    private string? _canceledReason;
+    private string _status;
+
+    private List<OrderOutputModel>? _orders;
+    private readonly IOrderClient _orderClient = new OrderClient();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authenticationState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int userId))
+            {
+                Id = userId;
+                _orders = _orderClient.GetOrdersByCustomerIdAsync(Id);
+            }
+        }
+    }
+
+}

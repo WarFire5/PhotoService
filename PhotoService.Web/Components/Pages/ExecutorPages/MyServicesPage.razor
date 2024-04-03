@@ -22,9 +22,11 @@
     <h2>Мои услуги</h2>
     <AddServiceModal/>
 </div>
-@if (Services != null)
+@if (true)
 {
-    <MyServicesCard/>
+    <div class="d-flex flex-column-reverse">
+        <MyServicesCard/>
+    </div>
 }
 else
 {
@@ -57,8 +59,6 @@ else
     [Parameter] public string? Description { get; set; }
     [Parameter] public int Cost { get; set; }
 
-    [Parameter] 
-    public List<ServiceOutputModel> Services { get; set; }
-    
-
+    // [Parameter] 
+    // public List<ServiceOutputModel> Services { get; set; }
 }
