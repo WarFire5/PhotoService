@@ -1,0 +1,71 @@
+@rendermode InteractiveServer
+@using IServiceClient = PhotoService.BLL.IClients.IServiceClient
+@using PhotoService.BLL.Clients
+@foreach (var s in _service)
+{
+    <div class="card my-3" data-bs-toggle="modal" data-bs-target="#exampleModal-@s.Id">
+        <div class="card-body">
+            <div class="header-card">
+                <h5 class="card-title">@s.ExecutorName</h5>
+                <div class="d-flex flex-column justify-content-end">
+                    <div class="raiting">
+                        <i class="bi bi-star-fill" style="color: #ffc107"></i>
+                        <p class="card-text">5</p>
+                    </div>
+                    <span class="badge bg-secondary">Отзывы: 5</span>
+                </div>
+            </div>
+            <p class="card-text">@s.TypeName</p>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal-@s.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Информация об исполнителе</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="header-card">
+                            </div>
+                            <h6 class="card-subtitle mb-2 text-secondary">@s.ExecutorName</h6>
+                            <div class="footer-card">
+                                <small class="text-body-secondary">@s.TypeName</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start">
+                        <div class="raiting">
+                            <i class="bi bi-star-fill" style="color: #ffc107"></i>
+
+                            <p class="card-text">5</p>
+
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <span class="badge bg-secondary">Отзывы: 0</span>
+                    </div>
+
+                    <div class="card">
+                        <p class="card-text">По данному исполнителю пока нет отзывов</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@code {
+    private List<ServiceOutputModel> _service = null!;
+    private IServiceClient _serviceClient = new ServiceClient();
+
+    protected override void OnInitialized()
+    {
+        _service = _serviceClient.GetAllServices();
+    }
+
+
+}
