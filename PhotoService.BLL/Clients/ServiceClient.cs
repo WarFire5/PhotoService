@@ -70,7 +70,8 @@ public class ServiceClient : IServiceClient
 
     public ServiceOutputModel GetServiceById(int id)
     {
-        var serviceId = SingletoneStorage.GetStorage().Storage.Services.Where(s => s.Id == id);
+        var serviceId = SingletoneStorage.GetStorage().Storage.Services.
+            FirstOrDefault(s => s.Id == id);
         var serviceOutputModel = _mapper.Map<ServiceOutputModel>(serviceId);
         return serviceOutputModel;
     }

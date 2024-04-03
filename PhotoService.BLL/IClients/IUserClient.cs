@@ -7,9 +7,8 @@ public interface IUserClient
 {
     public bool CheckAuthentication(LoginInputModel loginInputModel);
     public List<UsersOutputModel> GetAllUsers();
-    
-    public UsersOutputModel GetAllUsersById(int id);
     public List<UsersOutputModel> GetAllExecutors();
+    public List<UsersOutputModel> GetAllCustomers();
     public string GetUserNameByEmail(string email);
     public int GetUserIdByEmail(string email);
 
