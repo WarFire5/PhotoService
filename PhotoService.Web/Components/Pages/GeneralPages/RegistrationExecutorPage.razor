@@ -216,6 +216,12 @@
                 Пользователь с указанными данными уже зарегистрирован.
             </div>
         }
+        @if (_isWait == true)
+        {
+            <div class="alert alert-success" role="alert">
+                Ваша заявка на регистрацию принята. Ожидайте письма с подтверждением на указанный электронный адрес.
+            </div>
+        }
     </div>
 </div>
 
@@ -234,11 +240,12 @@
     private string OgrnPattern => @"^[15]\d{2}\d{2}\d{7}\d$";
 
     private bool _checkUser = true;
+    private bool _isWait = false;
     private string _mail;
     private string? _phone;
     private string? _url;
-    private int? _inn;
-    private int? _ogrn;
+    private string? _inn;
+    // private string? _ogrn;
 
     private RegistrationModel registrationModel = new RegistrationModel();
 
@@ -249,7 +256,7 @@
         public string? Phone { get; set; }
         public string? URL { get; set; }
         public string? CompanyTitle { get; set; }
-        public string? INN { get; set; } 
+        public string? INN { get; set; }
         public string? OGRN { get; set; }
 
         [Required(ErrorMessage = "Поле 'Пароль' обязательно для заполнения")]
@@ -273,15 +280,15 @@
             Id = specialization.Id,
             Title = specialization.Title
         };
-        
-        
-        UserInputModel userInputModel = new UserInputModel()
+
+
+        UserParametersForRegistrationInputModel userParametersForRegistrationInputModel = new UserParametersForRegistrationInputModel()
         {
             Role = SingletoneStorage.GetStorage().Storage.Roles.FirstOrDefault(r => r.Id == 2),
             Password = registrationModel.Password,
             Name = registrationModel.Name,
             Phone = registrationModel.Phone,
-            Mail = registrationModel.Mail,
+            Mail = registrationModel.Mail.ToLower(),
             Specialization = SingletoneStorage.GetStorage().Storage.Types.FirstOrDefault(t => t.Id == typesDto.Id),
             IsBlocked = true,
             URL = registrationModel.URL,
@@ -295,9 +302,10 @@
 
         userClient.GetAllUsers();
 
-        userClient.AddUser(userInputModel);
+        userClient.AddUser(userParametersForRegistrationInputModel);
 
-        navManager.NavigateTo("/authorization");
+        // navManager.NavigateTo("/authorization");
+        _isWait = true;
     }
 
     private void CheckExecutor()
@@ -306,12 +314,12 @@
         _phone = registrationModel.Phone;
         _url = registrationModel.URL;
         _inn = registrationModel.INN;
-        _ogrn = registrationModel.OGRN;
+        // _ogrn = registrationModel.OGRN;
 
         UserClient userClient = new UserClient();
         var users = userClient.GetAllUsers();
         // var user = users.Where(u => u.Mail == _mail).FirstOrDefault();
-        var user = users.Where(u => u.Mail == _mail || u.Phone == _phone || u.URL == _url || u.INN == _inn || u.OGRN == _ogrn).FirstOrDefault();
+        var user = users.Where(u => u.Mail == _mail || u.Phone == _phone || u.URL == _url || u.INN == _inn).FirstOrDefault();
         if (user != null)
         {
             _checkUser = false;

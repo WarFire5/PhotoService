@@ -12,5 +12,5 @@ public interface IUserClient
     public string GetUserNameByEmail(string email);
     public int GetUserIdByEmail(string email);
 
-    public void AddUser(UserInputModel userInputModel);
+    public void AddUser(UserParametersForRegistrationInputModel userParametersForRegistrationInputModel);
 }

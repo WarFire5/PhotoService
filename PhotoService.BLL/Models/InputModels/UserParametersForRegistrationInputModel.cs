@@ -2,7 +2,7 @@
 
 namespace PhotoService.BLL.Models.InputModels;
 
-public class UserInputModel
+public class UserParametersForRegistrationInputModel
 {
     public int Id { get; set; }
     public RolesDto Role { get; set; }

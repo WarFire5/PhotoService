@@ -76,7 +76,7 @@
 
     private void Register()
     {
-        UserInputModel userInputModel = new UserInputModel()
+        UserParametersForRegistrationInputModel userParametersForRegistrationInputModel = new UserParametersForRegistrationInputModel()
         {
             Name = registrationModel.Name,
             Mail = registrationModel.Mail.ToLower(),
@@ -89,7 +89,7 @@
         
         userClient.GetAllUsers();
 
-        userClient.AddUser(userInputModel);
+        userClient.AddUser(userParametersForRegistrationInputModel);
 
         navManager.NavigateTo("/authorization");
     }

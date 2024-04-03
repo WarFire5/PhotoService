@@ -91,9 +91,9 @@ public class UserClient : IUserClient
         }
     }
 
-    public void AddUser(UserInputModel userInputModel)
+    public void AddUser(UserParametersForRegistrationInputModel userParametersForRegistrationInputModel)
     {
-        UsersDto user = _mapper.Map<UsersDto>(userInputModel);
+        UsersDto user = _mapper.Map<UsersDto>(userParametersForRegistrationInputModel);
         _storage.Storage.Users.Add(user);
         _storage.Storage.SaveChanges();
     }
