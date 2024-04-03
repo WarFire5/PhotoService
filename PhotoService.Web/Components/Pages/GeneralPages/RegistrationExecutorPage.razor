@@ -69,11 +69,11 @@
                     {
                         <div class="col-md-6">
                             <label for="inputInnUr" class="form-label">ИНН</label>
-                            <InputText id="inputInnUr" class="form-control" @bind-Value="_innFromForm" type="text" placeholder="Введите ИНН" required pattern="@InnUrPattern"/>
+                            <InputText id="inputInnUr" class="form-control" @bind-Value="registrationModel.INN" type="text" placeholder="Введите ИНН" required pattern="@InnUrPattern"/>
                         </div>
                         <div class="col-md-6">
                             <label for="inputOgrn" class="form-label">ОГРН</label>
-                            <InputText id="inputOgrn" class="form-control" @bind-Value="_ogrnFromForm" type="text" placeholder="Введите ОГРН" required pattern="@OgrnPattern"/>
+                            <InputText id="inputOgrn" class="form-control" @bind-Value="registrationModel.OGRN" type="text" placeholder="Введите ОГРН" required pattern="@OgrnPattern"/>
                         </div>
                         <div class="col-md-12">
                             <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label>
@@ -84,11 +84,11 @@
                     {
                         <div class="col-md-6">
                             <label for="inputInn" class="form-label">ИНН</label>
-                            <InputText id="inputInn" class="form-control" @bind-Value="_innFromForm" type="text" placeholder="Введите ИНН" required pattern="@InnPattern"/>
+                            <InputText id="inputInn" class="form-control" @bind-Value="registrationModel.INN" type="text" placeholder="Введите ИНН" required pattern="@InnPattern"/>
                         </div>
                         <div class="col-md-6">
                             <label for="inputOgrnIp" class="form-label">ОГРНИП</label>
-                            <InputText id="inputOgrnIp" class="form-control" @bind-Value="_ogrnFromForm" type="text" placeholder="Введите ОГРНИП" required pattern="@OgrnIpPattern"/>
+                            <InputText id="inputOgrnIp" class="form-control" @bind-Value="registrationModel.OGRN" type="text" placeholder="Введите ОГРНИП" required pattern="@OgrnIpPattern"/>
                         </div>
                         <div class="col-md-12">
                             <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label>
@@ -99,7 +99,7 @@
                     {
                         <div class="col-md-6">
                             <label for="inputInn" class="form-label">ИНН</label>
-                            <InputText id="inputInn" class="form-control" @bind-Value="_innFromForm" type="text" placeholder="Введите ИНН" required pattern="@InnPattern"/>
+                            <InputText id="inputInn" class="form-control" @bind-Value="registrationModel.INN" type="text" placeholder="Введите ИНН" required pattern="@InnPattern"/>
                         </div>
                         <div class="col-md-6">
                             <label for="inputOgrn" class="form-label">ОГРН/ОГРНИП</label>
@@ -239,8 +239,6 @@
     private string? _url;
     private int? _inn;
     private int? _ogrn;
-    private string? _innFromForm;
-    private string? _ogrnFromForm;
 
     private RegistrationModel registrationModel = new RegistrationModel();
 
@@ -249,12 +247,10 @@
         public string Name { get; set; }
         public string Mail { get; set; }
         public string? Phone { get; set; }
-        public TypesDto? Specialization { get; set; }
         public string? URL { get; set; }
-        public string? ExecutorType { get; set; }
         public string? CompanyTitle { get; set; }
-        public int? INN { get; set; } 
-        public int? OGRN { get; set; }
+        public string? INN { get; set; } 
+        public string? OGRN { get; set; }
 
         [Required(ErrorMessage = "Поле 'Пароль' обязательно для заполнения")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,20}$",
@@ -291,8 +287,8 @@
             URL = registrationModel.URL,
             ExecutorType = selectedTaxType,
             CompanyTitle = registrationModel.CompanyTitle,
-            INN = Convert.ToInt32(_innFromForm),
-            OGRN =  Convert.ToInt32(_ogrnFromForm),
+            INN = registrationModel.INN,
+            OGRN = registrationModel.OGRN
         };
 
         UserClient userClient = new UserClient();
@@ -307,15 +303,15 @@
     private void CheckExecutor()
     {
         _mail = registrationModel.Mail;
-        // _phone = registrationModel.Phone;
-        // _url = registrationModel.URL;
-        // _inn = registrationModel.INN;
-        // _ogrn = registrationModel.OGRN;
+        _phone = registrationModel.Phone;
+        _url = registrationModel.URL;
+        _inn = registrationModel.INN;
+        _ogrn = registrationModel.OGRN;
 
         UserClient userClient = new UserClient();
         var users = userClient.GetAllUsers();
-        var user = users.Where(u => u.Mail == _mail).FirstOrDefault();
-        // var user = users.Where(u => u.Mail == _mail || u.Phone == _phone || u.URL == _url || u.INN == _inn || u.OGRN == _ogrn).FirstOrDefault();
+        // var user = users.Where(u => u.Mail == _mail).FirstOrDefault();
+        var user = users.Where(u => u.Mail == _mail || u.Phone == _phone || u.URL == _url || u.INN == _inn || u.OGRN == _ogrn).FirstOrDefault();
         if (user != null)
         {
             _checkUser = false;
