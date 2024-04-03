@@ -65,51 +65,51 @@
 
                 @if (selectedTaxType != "0")
                 {
-                    @* @if (selectedTaxType == "Юрлицо") *@
-                    @* { *@
-                    @*     <div class="col-md-6"> *@
-                    @*         <label for="inputInnUr" class="form-label">ИНН</label> *@
-                    @*         <InputNumber id="inputInnUr" class="form-control" @bind-Value="registrationModel.INN" type="number" placeholder="Введите ИНН" required pattern="@InnUrPattern"/> *@
-                    @*     </div> *@
-                    @*     <div class="col-md-6"> *@
-                    @*         <label for="inputOgrn" class="form-label">ОГРН</label> *@
-                    @*         <InputNumber id="inputOgrn" class="form-control" @bind-Value="registrationModel.OGRN" type="number" placeholder="Введите ОГРН" required pattern="@OgrnPattern"/> *@
-                    @*     </div> *@
-                    @*     <div class="col-md-12"> *@
-                    @*         <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label> *@
-                    @*         <InputText id="inputTitle" class="form-control" @bind-Value="registrationModel.CompanyTitle" type="text" placeholder="Введите название" required/> *@
-                    @*     </div> *@
-                    @* } *@
-                    @* else if (selectedTaxType == "ИП") *@
-                    @* { *@
-                    @*     <div class="col-md-6"> *@
-                    @*         <label for="inputInn" class="form-label">ИНН</label> *@
-                    @*         <InputNumber id="inputInn" class="form-control" @bind-Value="registrationModel.INN" type="number" placeholder="Введите ИНН" required pattern="@InnPattern"/> *@
-                    @*     </div> *@
-                    @*     <div class="col-md-6"> *@
-                    @*         <label for="inputOgrnIp" class="form-label">ОГРНИП</label> *@
-                    @*         <InputNumber id="inputOgrnIp" class="form-control" @bind-Value="registrationModel.OGRN" type="number" placeholder="Введите ОГРНИП" required pattern="@OgrnIpPattern"/> *@
-                    @*     </div> *@
-                    @*     <div class="col-md-12"> *@
-                    @*         <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label> *@
-                    @*         <InputText id="inputTitle" class="form-control" @bind-Value="registrationModel.CompanyTitle" type="text" placeholder="Введите название"/> *@
-                    @*     </div> *@
-                    @* } *@
-                    @* else *@
-                    @* { *@
-                    @*     <div class="col-md-6"> *@
-                    @*         <label for="inputInn" class="form-label">ИНН</label> *@
-                    @*         <InputNumber id="inputInn" class="form-control" @bind-Value="registrationModel.INN" type="number" placeholder="Введите ИНН" required pattern="@InnPattern"/> *@
-                    @*     </div> *@
-                    @*     <div class="col-md-6"> *@
-                    @*         <label for="inputOgrn" class="form-label">ОГРН/ОГРНИП</label> *@
-                    @*         <input type="text" class="form-control" id="inputOgrn" placeholder="Введите ОГРН/ОГРНИП" readonly> *@
-                    @*     </div> *@
-                    @*     <div class="col-md-12"> *@
-                    @*         <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label> *@
-                    @*         <InputText id="inputTitle" class="form-control" @bind-Value="registrationModel.CompanyTitle" type="text" placeholder="Введите название"/> *@
-                    @*     </div> *@
-                    @* } *@
+                    @if (selectedTaxType == "Юрлицо")
+                    {
+                        <div class="col-md-6">
+                            <label for="inputInnUr" class="form-label">ИНН</label>
+                            <InputText id="inputInnUr" class="form-control" @bind-Value="_innFromForm" type="text" placeholder="Введите ИНН" required pattern="@InnUrPattern"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputOgrn" class="form-label">ОГРН</label>
+                            <InputText id="inputOgrn" class="form-control" @bind-Value="_ogrnFromForm" type="text" placeholder="Введите ОГРН" required pattern="@OgrnPattern"/>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label>
+                            <InputText id="inputTitle" class="form-control" @bind-Value="registrationModel.CompanyTitle" type="text" placeholder="Введите название" required/>
+                        </div>
+                    }
+                    else if (selectedTaxType == "ИП")
+                    {
+                        <div class="col-md-6">
+                            <label for="inputInn" class="form-label">ИНН</label>
+                            <InputText id="inputInn" class="form-control" @bind-Value="_innFromForm" type="text" placeholder="Введите ИНН" required pattern="@InnPattern"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputOgrnIp" class="form-label">ОГРНИП</label>
+                            <InputText id="inputOgrnIp" class="form-control" @bind-Value="_ogrnFromForm" type="text" placeholder="Введите ОГРНИП" required pattern="@OgrnIpPattern"/>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label>
+                            <InputText id="inputTitle" class="form-control" @bind-Value="registrationModel.CompanyTitle" type="text" placeholder="Введите название"/>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-6">
+                            <label for="inputInn" class="form-label">ИНН</label>
+                            <InputText id="inputInn" class="form-control" @bind-Value="_innFromForm" type="text" placeholder="Введите ИНН" required pattern="@InnPattern"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputOgrn" class="form-label">ОГРН/ОГРНИП</label>
+                            <input type="text" class="form-control" id="inputOgrn" placeholder="Введите ОГРН/ОГРНИП" readonly>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label>
+                            <InputText id="inputTitle" class="form-control" @bind-Value="registrationModel.CompanyTitle" type="text" placeholder="Введите название"/>
+                        </div>
+                    }
 
                     <div class="col-md-6">
                         <label for="inputPassword" class="form-label">Пароль</label>
@@ -228,10 +228,10 @@
     private string EmailPattern => @"^\S+@\S+\.\S{2,10}$";
     private string UrlPattern => @"^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$";
     private string PhonePattern => @"^[7-8]\d{10}$";
-    // private string InnPattern => @"^\d{12}$";
-    // private string OgrnIpPattern => @"^3\d{2}\d{2}\d{9}\d$";
-    // private string InnUrPattern => @"^\d{10}$";
-    // private string OgrnPattern => @"^[15]\d{2}\d{2}\d{7}\d$";
+    private string InnPattern => @"^\d{12}$";
+    private string OgrnIpPattern => @"^3\d{2}\d{2}\d{9}\d$";
+    private string InnUrPattern => @"^\d{10}$";
+    private string OgrnPattern => @"^[15]\d{2}\d{2}\d{7}\d$";
 
     private bool _checkUser = true;
     private string _mail;
@@ -239,6 +239,8 @@
     private string? _url;
     private int? _inn;
     private int? _ogrn;
+    private string? _innFromForm;
+    private string? _ogrnFromForm;
 
     private RegistrationModel registrationModel = new RegistrationModel();
 
@@ -251,7 +253,7 @@
         public string? URL { get; set; }
         public string? ExecutorType { get; set; }
         public string? CompanyTitle { get; set; }
-        public int? INN { get; set; }
+        public int? INN { get; set; } 
         public int? OGRN { get; set; }
 
         [Required(ErrorMessage = "Поле 'Пароль' обязательно для заполнения")]
@@ -283,13 +285,14 @@
             Password = registrationModel.Password,
             Name = registrationModel.Name,
             Phone = registrationModel.Phone,
-            Specialization = typesDto,
+            Mail = registrationModel.Mail,
+            Specialization = SingletoneStorage.GetStorage().Storage.Types.FirstOrDefault(t => t.Id == typesDto.Id),
             IsBlocked = true,
             URL = registrationModel.URL,
             ExecutorType = selectedTaxType,
             CompanyTitle = registrationModel.CompanyTitle,
-            INN = registrationModel.INN,
-            OGRN = registrationModel.OGRN
+            INN = Convert.ToInt32(_innFromForm),
+            OGRN =  Convert.ToInt32(_ogrnFromForm),
         };
 
         UserClient userClient = new UserClient();

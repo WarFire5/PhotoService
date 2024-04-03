@@ -8,18 +8,18 @@ insert into Types (Title, IsDeleted) values('Фотограф', 0),
 ('Предоставление специально оборудованных помещений для проведения съёмки', 0), ('Организация съёмочного процесса', 0)
 
 insert into Users (RoleId, Password, Name, Mail, Phone, SpecializationId, Dossier, Rating, IsBlocked, IsDeleted, URL, ExecutorType, CompanyTitle, INN, OGRN, IsDenied, ReasonDenied)
-values(1, '123455fF', 'Иван Петрович Веселов', 'hsdht@hard.ru', '89663542334', null, null, null, 0, 0, null, null, null, null, null, 0, null),
-    (1, '123456fF', 'Денис Валерьевич Мдень', 'ardh@har.ru', '89568659666', null, null, null, 0, 0, null, null, null, null, null, 0, null),
-    (1, '123457fF', 'Антон Васильевич Грида', 'dqawFD@rgsg.ru', '89342678009', null, null, null, 0, 0, null, null, null, null, null, 0, null),
+values(1, '123455fF', 'Иван Петрович Веселов', 'hsdht@hard.ru', '89663542334', null, null, null, 0, 0, null, null, null, 500100732259, null, 0, null),
+    (1, '123456fF', 'Денис Валерьевич Мдень', 'ardh@har.ru', '89568659666', null, null, null, 0, 0, null, null, null, 500100732258, null, 0, null),
+    (1, '123457fF', 'Антон Васильевич Грида', 'dqawFD@rgsg.ru', '89342678009', null, null, null, 0, 0, null, null, null, 500100732257, null, 0, null),
 
-    (2, '12344fF', 'Ангелина Владиславовна Мнишек', 'afw@hjst.ru', '89895346675', 1, null, null, 0, 0, 'www', 'Юрлицо', 'Шарашкина контора', 132, 123, 0, null),
-    (2, '12345fF', 'Арсений Артемьевич Серебрянников', 'av@vv.ru', '89678003904', 1, null, null, 0, 0, 'как-то так', 'Самозанятый', null, 111, null, 0, null),
-    (2, '12346fF', 'Иванов Иван Иванович', 'dawa@fe.ru', '89356786879', 1, null, null, 0, 0, 'какая-то ссылка', 'ИП', 'ИИИ', 123, 132, 0, null),
-    (2, '12347fF', 'Елизавета Александровна Михеева', 'vdvd@dsejdvDfek.ru', '89233445675', 1, null, null, 0, 0, 'чё-то там', 'Самозанятый', null, 222, null, 0, null),
+    (2, '12344fF', 'Ангелина Владиславовна Мнишек', 'afw@hjst.ru', '89895346675', 1, null, null, 0, 0, 'www', 'Юрлицо', 'Шарашкина контора', 5001007322, 123, 0, null),
+    (2, '12345fF', 'Арсений Артемьевич Серебрянников', 'av@vv.ru', '89678003904', 1, null, null, 0, 0, 'как-то так', 'Самозанятый', null, 500100732256, null, 0, null),
+    (2, '12346fF', 'Иванов Иван Иванович', 'dawa@fe.ru', '89356786879', 1, null, null, 0, 0, 'какая-то ссылка', 'ИП', 'ИИИ', 500100732255, 132, 0, null),
+    (2, '12347fF', 'Елизавета Александровна Михеева', 'vdvd@dsejdvDfek.ru', '89233445675', 1, null, null, 0, 0, 'чё-то там', 'Самозанятый', null, 500100732254, null, 0, null),
 
-    (3, '1233fF', 'Дядя Вася', 'vd@mm.ru', null, null, null, null, 0, 0, null, null, null, null, null, 0, null),
-    (3, '1234fF', 'Баба Саша', 'fzbn@nzgt.ru', null, null, null, null, 0, 0, null, null, null, null, null, 0, null),
-    (3, '1235fF', 'Тётя Клава', 'gdeakueh@dsejdfek.ru', null, null, null, null, 0, 0, null, null, null, null, null, 0, null)
+    (3, '1233fF', 'Дядя Вася', 'vd@mm.ru', null, null, null, null, 0, 0, null, null, null, 500100732253, null, 0, null),
+    (3, '1234fF', 'Баба Саша', 'fzbn@nzgt.ru', null, null, null, null, 0, 0, null, null, null, 500100732253, null, 0, null),
+    (3, '1235fF', 'Тётя Клава', 'gdeakueh@dsejdfek.ru', null, null, null, null, 0, 0, null, null, null, 500100732251, null, 0, null)
 
 insert into Services (ExecutorId, TypeId, Title, Description, Price, IsDeleted) values(4, 1, 'Съёмка Ваших мероприятий', 'Супер-дупер-ультра', 'От 1500 р./ч.', 0),
     (5, 1, 'Портретная съёмка в студии', 'Лучше всех', '5 000р. за 3 часа', 0), (6, 1, 'Свадебный фотограф', 'Ничего не упущу', '15 000 р. за съёмочный день', 0),
