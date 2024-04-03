@@ -1,290 +1,326 @@
-﻿@* @page "/registration-executor" *@
-@* @using System.Security.Claims *@
-@* @using System.ComponentModel.DataAnnotations *@
-@* @using PhotoService.DAL.DTO *@
-@* @inject NavigationManager navManager *@
-@* @rendermode InteractiveServer *@
-@* *@
-@* <div> *@
-@*     <div class="registration-executor-logo-container"> *@
-@*         <img class="registration-executor-logo" src="Resources/logo-photoservice.png"/> *@
-@*     </div> *@
-@*     <div class="container-md container-for-registration-executor-page"> *@
-@*         <h2 class="registration-executor-title">Регистрация</h2> *@
-@*         <div class="btn-group registration-executor-tabs"> *@
-@*             <a href="registration" class="btn btn-primary сustomer-executor-tab" aria-current="page">Заказчик</a> *@
-@*             <a href="registration-executor" class="btn btn-primary active executor-executor-tab">Исполнитель</a> *@
-@*         </div> *@
-@*         <EditForm Model="@registrationModel" class="row g-3 registration-form" OnValidSubmit="Register" FormName="Authentication"> *@
-@*             <DataAnnotationsValidator/> *@
-@*             <div class="col-md-12"> *@
-@*                 <label for="inputTitle" class="form-label registration-form">Какова Ваша специализация?</label> *@
-@*                 <InputSelect id="inputSpecializationId" class="form-select" aria-label="Вид деятельности" @bind-Value="@registrationModel.SpecializationId" @bind="@selectedActivityType"> *@
-@*                     <option value="0" selected>Выберите Ваш основной вид деятельности</option> *@
-@*                     <option value="1">Фотограф</option> *@
-@*                     <option value="2">Видеограф</option> *@
-@*                     <option value="3">Ретушер</option> *@
-@*                     <option value="4">Дизайнер</option> *@
-@*                     <option value="5">Модель</option> *@
-@*                     <option value="6">Визажист</option> *@
-@*                     <option value="7">Стилист</option> *@
-@*                     <option value="8">Предоставление красивых мест для съёмки</option> *@
-@*                     <option value="9">Предоставление специально оборудованных помещений для проведения съёмки</option> *@
-@*                     <option value="10">Организация съёмочного процесса</option> *@
-@*                 </InputSelect> *@
-@*             </div> *@
-@* *@
-@*             @if (selectedActivityType != "0") *@
-@*             { *@
-@*                 <div class="col-md-12"> *@
-@*                     <label for="inputURL" class="form-label">Ссылка на Ваше портфолио</label> *@
-@*                     <input @bind-Value="@registrationModel.SpecializationId" type="url" class="form-control" id="inputURL" placeholder="URL" required pattern="@UrlPattern"> *@
-@*                 </div> *@
-@*                 <div class="col-12"> *@
-@*                     <label for="inputName" class="form-label">Как вас зовут?</label> *@
-@*                     <input type="text" class="form-control" id="inputName" placeholder="Введите ФИО*" required pattern="@NamePattern"> *@
-@*                     <div id="nameHelp" class="form-text" style="font-style: italic;">*три слова кириллицей через пробел.</div> *@
-@*                 </div> *@
-@*                 <div class="col-md-6"> *@
-@*                     <label for="inputEmail" class="form-label">Ваш электронный адрес</label> *@
-@*                     <input type="email" class="form-control" id="inputEmail" placeholder="Введите почту в формате 'user@example.com'" required pattern="@EmailPattern"> *@
-@*                 </div> *@
-@*                 <div class="col-md-6"> *@
-@*                     <label for="inputPhone" class="form-label">Ваш контактный телефон</label> *@
-@*                     <input type="text" class="form-control" id="inputPhone" placeholder="Введите актуальный номер*" required pattern="@PhonePattern"> *@
-@*                     <div id="nameHelp" class="form-text" style="font-style: italic;">*начиная с 7 либо 8 без пробелов и прочих знаков.</div> *@
-@*                 </div> *@
-@*                 <div class="col-md-12"> *@
-@*                     <label for="inputTitle" class="form-label">Ваш тип налогообложения</label> *@
-@*                     <select class="form-select" aria-label="Тип налогообложения" @bind="@selectedTaxType"> *@
-@*                         <option value="0" selected>Выберите тип налогоплательщика</option> *@
-@*                         <option value="1">Самозанятый</option> *@
-@*                         <option value="2">ИП</option> *@
-@*                         <option value="3">Юрлицо</option> *@
-@*                     </select> *@
-@*                 </div> *@
-@* *@
-@*                 @if (selectedTaxType != "0") *@
-@*                 { *@
-@*                     @if (selectedTaxType == "3") *@
-@*                     { *@
-@*                         <div class="col-md-6"> *@
-@*                             <label for="inputInnUr" class="form-label">ИНН</label> *@
-@*                             <input type="text" class="form-control" id="inputInnUr" placeholder="Введите ИНН" required pattern="@InnUrPattern"> *@
-@*                         </div> *@
-@*                         <div class="col-md-6"> *@
-@*                             <label for="inputOgrn" class="form-label">ОГРН</label> *@
-@*                             <input type="text" class="form-control" id="inputOgrn" placeholder="Введите ОГРН" required pattern="@OgrnPattern"> *@
-@*                         </div> *@
-@*                         <div class="col-md-12"> *@
-@*                             <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label> *@
-@*                             <input type="text" class="form-control" id="inputTitle" placeholder="Введите название" required> *@
-@*                         </div> *@
-@*                     } *@
-@*                     else if (selectedTaxType == "2") *@
-@*                     { *@
-@*                         <div class="col-md-6"> *@
-@*                             <label for="inputInn" class="form-label">ИНН</label> *@
-@*                             <input type="text" class="form-control" id="inputInn" placeholder="Введите ИНН" required pattern="@InnPattern"> *@
-@*                         </div> *@
-@*                         <div class="col-md-6"> *@
-@*                             <label for="inputOgrnIp" class="form-label">ОГРНИП</label> *@
-@*                             <input type="text" class="form-control" id="inputOgrnIp" placeholder="Введите ОГРНИП" required pattern="@OgrnIpPattern"> *@
-@*                         </div> *@
-@*                         <div class="col-md-12"> *@
-@*                             <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label> *@
-@*                             <input type="text" class="form-control" id="inputTitle" placeholder="Введите название"> *@
-@*                         </div> *@
-@*                     } *@
-@*                     else *@
-@*                     { *@
-@*                         <div class="col-md-6"> *@
-@*                             <label for="inputInn" class="form-label">ИНН</label> *@
-@*                             <input type="text" class="form-control" id="inputInn" placeholder="Введите ИНН" required pattern="@InnPattern"> *@
-@*                         </div> *@
-@*                         <div class="col-md-6"> *@
-@*                             <label for="inputOgrn" class="form-label">ОГРН/ОГРНИП</label> *@
-@*                             <input type="text" class="form-control" id="inputOgrn" placeholder="Введите ОГРН/ОГРНИП" readonly> *@
-@*                         </div> *@
-@*                         <div class="col-md-12"> *@
-@*                             <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label> *@
-@*                             <input type="text" class="form-control" id="inputTitle" placeholder="Введите название"> *@
-@*                         </div> *@
-@*                     } *@
-@* *@
-@*                     <div class="col-md-6"> *@
-@*                         <label for="inputPassword" class="form-label">Пароль</label> *@
-@*                         <InputText id="inputPassword" class="form-control" @bind-Value="@registrationModel.Password" type="password" placeholder="Задайте пароль*"/> *@
-@*                         <ValidationMessage For="@(() => registrationModel.Password)"/> *@
-@*                     </div> *@
-@*                     <div class="col-md-6"> *@
-@*                         <label for="inputPasswordCheck" class="form-label">Проверка пароля</label> *@
-@*                         <InputText id="inputPasswordCheck" class="form-control" @bind-Value="@registrationModel.PasswordConfirmation" type="password" placeholder="Повторите пароль"/> *@
-@*                         <ValidationMessage For="@(() => registrationModel.PasswordConfirmation)"/> *@
-@*                     </div> *@
-@*                     <div id="passwordHelp" class="form-text" style="font-style: italic;">*в формате 'passWord123' (6-20 символов, как минимум по одной цифре и букве из верхнего и нижнего регистров).</div> *@
-@*                     <div class="d-grid gap-2"> *@
-@*                         <button type="submit" class="btn btn-primary btn-lg registration-executor-button">Зарегистрироваться</button> *@
-@*                     </div> *@
-@*                 } *@
-@*                 else *@
-@*                 { *@
-@*                     <div class="col-md-6"> *@
-@*                         <label for="inputInn" class="form-label">ИНН</label> *@
-@*                         <input type="text" class="form-control" id="inputInn" placeholder="Введите ИНН" readonly> *@
-@*                     </div> *@
-@*                     <div class="col-md-6"> *@
-@*                         <label for="inputOgrn" class="form-label">ОГРН/ОГРНИП</label> *@
-@*                         <input type="text" class="form-control" id="inputOgrn" placeholder="Введите ОГРН/ОГРНИП" readonly> *@
-@*                     </div> *@
-@*                     <div class="col-md-12"> *@
-@*                         <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label> *@
-@*                         <input type="text" class="form-control" id="inputTitle" placeholder="Введите название" readonly> *@
-@*                     </div> *@
-@* *@
-@*                     <div class="col-md-6"> *@
-@*                         <label for="inputPassword" class="form-label">Пароль</label> *@
-@*                         <input type="text" class="form-control" id="inputPassword" placeholder="Введите пароль" readonly> *@
-@*                     </div> *@
-@*                     <div class="col-md-6"> *@
-@*                         <label for="inputPasswordCheck" class="form-label">Проверка пароля</label> *@
-@*                         <input type="text" class="form-control" id="inputPasswordCheck" placeholder="Повторите пароль" readonly> *@
-@*                     </div> *@
-@*                     <div class="d-grid gap-2"> *@
-@*                         <button type="submit" class="btn btn-primary btn-lg registration-executor-button" disabled>Зарегистрироваться</button> *@
-@*                     </div> *@
-@*                 } *@
-@*             } *@
-@*             else *@
-@*             { *@
-@*                 <div class="col-md-12"> *@
-@*                     <label for="inputURL" class="form-label">Ссылка на Ваше портфолио</label> *@
-@*                     <input type="url" class="form-control" id="inputURL" placeholder="URL" readonly> *@
-@*                 </div> *@
-@*                 <div class="col-12"> *@
-@*                     <label for="inputName" class="form-label">Как вас зовут?</label> *@
-@*                     <input type="text" class="form-control" id="inputName" placeholder="Введите ФИО" readonly> *@
-@*                     <div id="nameHelp" class="form-text" style="font-style: italic;">*три слова кириллицей через пробел.</div> *@
-@*                 </div> *@
-@*                 <div class="col-md-6"> *@
-@*                     <label for="inputEmail" class="form-label">Ваш электронный адрес</label> *@
-@*                     <input type="email" class="form-control" id="inputEmail" placeholder="Введите почту в формате 'user@example.com'" readonly> *@
-@*                 </div> *@
-@*                 <div class="col-md-6"> *@
-@*                     <label for="inputPhone" class="form-label">Ваш контактный телефон</label> *@
-@*                     <input type="text" class="form-control" id="inputPhone" placeholder="Введите актуальный номер*" readonly> *@
-@*                     <div id="nameHelp" class="form-text" style="font-style: italic;">*начиная с 7 либо 8 без пробелов и прочих знаков.</div> *@
-@*                 </div> *@
-@*                 <div class="col-md-12"> *@
-@*                     <label for="inputTitle" class="form-label">Ваш тип налогообложения</label> *@
-@*                     <select class="form-select" aria-label="Тип налогообложения" disabled> *@
-@*                         <option selected>Выберите тип налогоплательщика</option> *@
-@*                         <option value="1">Самозанятый</option> *@
-@*                         <option value="2">ИП</option> *@
-@*                         <option value="3">Юрлицо</option> *@
-@*                     </select> *@
-@*                 </div> *@
-@*                 <div class="col-md-6"> *@
-@*                     <label for="inputInn" class="form-label">ИНН</label> *@
-@*                     <input type="text" class="form-control" id="inputInn" placeholder="Введите ИНН" readonly> *@
-@*                 </div> *@
-@*                 <div class="col-md-6"> *@
-@*                     <label for="inputOgrn" class="form-label">ОГРН/ОГРНИП</label> *@
-@*                     <input type="text" class="form-control" id="inputOgrn" placeholder="Введите ОГРН/ОГРНИП" readonly> *@
-@*                 </div> *@
-@* *@
-@*                 <div class="col-md-12"> *@
-@*                     <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label> *@
-@*                     <input type="text" class="form-control" id="inputTitle" placeholder="Введите название" readonly> *@
-@*                 </div> *@
-@*                 <div class="col-md-6"> *@
-@*                     <label for="inputPassword" class="form-label">Пароль</label> *@
-@*                     <input type="text" class="form-control" id="inputPassword" placeholder="Задайте пароль*" readonly> *@
-@*                 </div> *@
-@*                 <div class="col-md-6"> *@
-@*                     <label for="inputPasswordCheck" class="form-label">Проверка пароля</label> *@
-@*                     <input type="text" class="form-control" id="inputPasswordCheck" placeholder="Повторите пароль" readonly> *@
-@*                 </div> *@
-@*                 <div id="passwordHelp" class="form-text" style="font-style: italic;">*в формате 'passWord123' (6-20 символов, как минимум по одной цифре и букве из верхнего и нижнего регистров).</div> *@
-@*                 <div class="d-grid gap-2"> *@
-@*                     <button type="submit" class="btn btn-primary btn-lg registration-executor-button" disabled>Зарегистрироваться</button> *@
-@*                 </div> *@
-@*             } *@
-@*         </EditForm> *@
-@*     </div> *@
-@* </div> *@
-@* *@
-@* @code { *@
-@* *@
-@*     private string selectedActivityType = "0"; *@
-@*     private string selectedTaxType = "0"; *@
-@* *@
-@*     private string NamePattern => @"^([а-яА-ЯёЁ]{2,15}\s){2}[а-яА-ЯёЁ]{2,15}$"; *@
-@*     private string EmailPattern => @"^\S+@\S+\.\S{2,10}$"; *@
-@*     private string UrlPattern => @"^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$"; *@
-@*     private string PhonePattern => @"^[7-8]\d{10}$"; *@
-@*     private string InnPattern => @"^\d{12}$"; *@
-@*     private string OgrnIpPattern => @"^3\d{2}\d{2}\d{9}\d$"; *@
-@*     private string InnUrPattern => @"^\d{10}$"; *@
-@*     private string OgrnPattern => @"^[15]\d{2}\d{2}\d{7}\d$"; *@
-@* *@
-@*     private RegistrationModel registrationModel = new RegistrationModel(); *@
-@* *@
-@*     public class RegistrationModel *@
-@*     { *@
-@*         public int SpecializationId { get; set; } *@
-@*         public string Name { get; set; } *@
-@*         public string Mail { get; set; } *@
-@*          *@
-@*         [Required(ErrorMessage = "Поле 'Пароль' обязательно для заполнения")] *@
-@*         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,20}$", *@
-@*             ErrorMessage = "Должен содержать от 6 до 20 символов, включать арабские цифры, строчные и прописные буквы.")] *@
-@*         public string Password { get; set; } *@
-@* *@
-@*         [Required(ErrorMessage = "Поле 'Подтверждение пароля' обязательно для заполнения")] *@
-@*         [Compare(nameof(Password), ErrorMessage = "Пароли не совпадают")] *@
-@*         public string PasswordConfirmation { get; set; } *@
-@*     } *@
-@* *@
-@*     [SupplyParameterFromForm]  *@
-@*     public UserInputModel userInputModel { get; set; } = new UserInputModel(); *@
-@* *@
-@*     [CascadingParameter]  *@
-@*     public HttpContext httpContext { get; set; } *@
-@* *@
-@*     public async Task StartLogin() *@
-@*     { *@
-@*         var claims = new List<Claim>() *@
-@*         { *@
-@*             new Claim(ClaimTypes.Email, userInputModel.Mail), *@
-@*         }; *@
-@* *@
-@*         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme); *@
-@*         var customer = new ClaimsPrincipal(identity); *@
-@* *@
-@*         await httpContext.SignInAsync(customer); *@
-@* *@
-@*         navManager.NavigateTo("/services"); *@
-@*     } *@
-@* *@
-@*     private void Register() *@
-@*     { *@
-@*         UserInputModel userInputModel = new UserInputModel() *@
-@*         { *@
-@*             Specialization = new TypesDto() *@
-@*             { *@
-@*                 Id = registrationModel.SpecializationId *@
-@*             }, *@
-@*             Name = registrationModel.Name, *@
-@*             Mail = registrationModel.Mail.ToLower(), *@
-@*             Password = registrationModel.Password, *@
-@*              *@
-@*             Role = SingletoneStorage.GetStorage().Storage.Roles.FirstOrDefault(r => r.Id == 2) *@
-@*         }; *@
-@*          *@
-@*         UserClient userClient = new UserClient(); *@
-@*         userClient.AddUser(userInputModel); *@
-@*         StartLogin(); *@
-@*     } *@
-@*      *@
-@* } *@
+﻿@page "/registration-executor"
+@using System.ComponentModel.DataAnnotations
+@using PhotoService.DAL.DTO
+@inject NavigationManager navManager
+@rendermode InteractiveServer
+
+<div>
+    <div class="registration-executor-logo-container">
+        <img class="registration-executor-logo" src="Resources/logo-photoservice.png"/>
+    </div>
+    <div class="container-md container-for-registration-executor-page">
+        <h2 class="registration-executor-title">Регистрация</h2>
+        <div class="btn-group registration-executor-tabs">
+            <a href="registration" class="btn btn-primary сustomer-executor-tab" aria-current="page">Заказчик</a>
+            <a href="registration-executor" class="btn btn-primary active executor-executor-tab">Исполнитель</a>
+        </div>
+        <EditForm Model="@registrationModel" class="row g-3 registration-form" OnValidSubmit="CheckExecutor" FormName="RegistrationExecutor">
+            <DataAnnotationsValidator/>
+            <div class="col-md-12">
+                <label for="inputTitle" class="form-label registration-form">Какова Ваша специализация?</label>
+                <InputSelect id="inputSpecializationTitle" class="form-select" aria-label="Вид деятельности" @bind-Value="selectedActivityType">
+                    <option value="0" selected>Выберите Ваш основной вид деятельности</option>
+                    <option value="Фотограф">Фотограф</option>
+                    <option value="Видеограф">Видеограф</option>
+                    <option value="Ретушер">Ретушер</option>
+                    <option value="Дизайнер">Дизайнер</option>
+                    <option value="Модель">Модель</option>
+                    <option value="Визажист">Визажист</option>
+                    <option value="Стилист">Стилист</option>
+                    <option value="Предоставление красивых мест для съёмки">Предоставление красивых мест для съёмки</option>
+                    <option value="Предоставление специально оборудованных помещений для проведения съёмки">Предоставление специально оборудованных помещений для проведения съёмки</option>
+                    <option value="Организация съёмочного процесса">Организация съёмочного процесса</option>
+                </InputSelect>
+            </div>
+
+            @if (selectedActivityType != "0")
+            {
+                <div class="col-md-12">
+                    <label for="inputURL" class="form-label">Ссылка на Ваше портфолио</label>
+                    <InputText id="inputURL" class="form-control" @bind-Value="registrationModel.URL" type="url" placeholder="URL" required pattern="@UrlPattern"/>
+                </div>
+                <div class="col-12">
+                    <label for="inputName" class="form-label registration-form">Как к Вам обращаться?</label>
+                    <InputText id="inputName" class="form-control" @bind-Value="registrationModel.Name" type="text" placeholder="Введите ФИО*" required pattern="@NamePattern"/>
+                    <div id="nameHelp" class="form-text" style="font-style: italic;">*три слова кириллицей через пробел.</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputEmail" class="form-label">Ваш электронный адрес</label>
+                    <InputText id="inputEmail" class="form-control" @bind-Value="registrationModel.Mail" type="email" placeholder="Введите почту в формате 'user@example.com'" required pattern="@EmailPattern"/>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPhone" class="form-label">Ваш контактный телефон</label>
+                    <InputText id="inputPhone" class="form-control" @bind-Value="registrationModel.Phone" type="text" placeholder="Введите актуальный номер*" required pattern="@PhonePattern"/>
+                    <div id="nameHelp" class="form-text" style="font-style: italic;">*начиная с 7 либо 8 без пробелов и прочих знаков.</div>
+                </div>
+                <div class="col-md-12">
+                    <label for="inputTitle" class="form-label">Ваш тип налогообложения</label>
+                    <InputSelect id="inputSpecializationTitle" class="form-select" aria-label="Тип налогообложения" @bind-Value="selectedTaxType">
+                        <option value="0" selected>Выберите тип налогоплательщика</option>
+                        <option value="Самозанятый">Самозанятый</option>
+                        <option value="ИП">ИП</option>
+                        <option value="Юрлицо">Юрлицо</option>
+                    </InputSelect>
+                </div>
+
+                @if (selectedTaxType != "0")
+                {
+                    @* @if (selectedTaxType == "Юрлицо") *@
+                    @* { *@
+                    @*     <div class="col-md-6"> *@
+                    @*         <label for="inputInnUr" class="form-label">ИНН</label> *@
+                    @*         <InputNumber id="inputInnUr" class="form-control" @bind-Value="registrationModel.INN" type="number" placeholder="Введите ИНН" required pattern="@InnUrPattern"/> *@
+                    @*     </div> *@
+                    @*     <div class="col-md-6"> *@
+                    @*         <label for="inputOgrn" class="form-label">ОГРН</label> *@
+                    @*         <InputNumber id="inputOgrn" class="form-control" @bind-Value="registrationModel.OGRN" type="number" placeholder="Введите ОГРН" required pattern="@OgrnPattern"/> *@
+                    @*     </div> *@
+                    @*     <div class="col-md-12"> *@
+                    @*         <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label> *@
+                    @*         <InputText id="inputTitle" class="form-control" @bind-Value="registrationModel.CompanyTitle" type="text" placeholder="Введите название" required/> *@
+                    @*     </div> *@
+                    @* } *@
+                    @* else if (selectedTaxType == "ИП") *@
+                    @* { *@
+                    @*     <div class="col-md-6"> *@
+                    @*         <label for="inputInn" class="form-label">ИНН</label> *@
+                    @*         <InputNumber id="inputInn" class="form-control" @bind-Value="registrationModel.INN" type="number" placeholder="Введите ИНН" required pattern="@InnPattern"/> *@
+                    @*     </div> *@
+                    @*     <div class="col-md-6"> *@
+                    @*         <label for="inputOgrnIp" class="form-label">ОГРНИП</label> *@
+                    @*         <InputNumber id="inputOgrnIp" class="form-control" @bind-Value="registrationModel.OGRN" type="number" placeholder="Введите ОГРНИП" required pattern="@OgrnIpPattern"/> *@
+                    @*     </div> *@
+                    @*     <div class="col-md-12"> *@
+                    @*         <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label> *@
+                    @*         <InputText id="inputTitle" class="form-control" @bind-Value="registrationModel.CompanyTitle" type="text" placeholder="Введите название"/> *@
+                    @*     </div> *@
+                    @* } *@
+                    @* else *@
+                    @* { *@
+                    @*     <div class="col-md-6"> *@
+                    @*         <label for="inputInn" class="form-label">ИНН</label> *@
+                    @*         <InputNumber id="inputInn" class="form-control" @bind-Value="registrationModel.INN" type="number" placeholder="Введите ИНН" required pattern="@InnPattern"/> *@
+                    @*     </div> *@
+                    @*     <div class="col-md-6"> *@
+                    @*         <label for="inputOgrn" class="form-label">ОГРН/ОГРНИП</label> *@
+                    @*         <input type="text" class="form-control" id="inputOgrn" placeholder="Введите ОГРН/ОГРНИП" readonly> *@
+                    @*     </div> *@
+                    @*     <div class="col-md-12"> *@
+                    @*         <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label> *@
+                    @*         <InputText id="inputTitle" class="form-control" @bind-Value="registrationModel.CompanyTitle" type="text" placeholder="Введите название"/> *@
+                    @*     </div> *@
+                    @* } *@
+
+                    <div class="col-md-6">
+                        <label for="inputPassword" class="form-label">Пароль</label>
+                        <InputText id="inputPassword" class="form-control" @bind-Value="@registrationModel.Password" type="password" placeholder="Задайте пароль*"/>
+                        <ValidationMessage For="@(() => registrationModel.Password)"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPasswordCheck" class="form-label">Проверка пароля</label>
+                        <InputText id="inputPasswordCheck" class="form-control" @bind-Value="@registrationModel.PasswordConfirmation" type="password" placeholder="Повторите пароль"/>
+                        <ValidationMessage For="@(() => registrationModel.PasswordConfirmation)"/>
+                    </div>
+                    <div id="passwordHelp" class="form-text" style="font-style: italic;">*в формате 'passWord123' (6-20 символов, как минимум по одной цифре и букве из верхнего и нижнего регистров).</div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg registration-executor-button">Зарегистрироваться</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-6">
+                        <label for="inputInn" class="form-label">ИНН</label>
+                        <input type="text" class="form-control" id="inputInn" placeholder="Введите ИНН" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputOgrn" class="form-label">ОГРН/ОГРНИП</label>
+                        <input type="text" class="form-control" id="inputOgrn" placeholder="Введите ОГРН/ОГРНИП" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label>
+                        <input type="text" class="form-control" id="inputTitle" placeholder="Введите название" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputPassword" class="form-label">Пароль</label>
+                        <input type="text" class="form-control" id="inputPassword" placeholder="Введите пароль" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPasswordCheck" class="form-label">Проверка пароля</label>
+                        <input type="text" class="form-control" id="inputPasswordCheck" placeholder="Повторите пароль" readonly>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg registration-executor-button" disabled>Зарегистрироваться</button>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-md-12">
+                    <label for="inputURL" class="form-label">Ссылка на Ваше портфолио</label>
+                    <input type="url" class="form-control" id="inputURL" placeholder="URL" readonly>
+                </div>
+                <div class="col-12">
+                    <label for="inputName" class="form-label">Как к Вам обращаться?</label>
+                    <input type="text" class="form-control" id="inputName" placeholder="Введите ФИО*" readonly>
+                    <div id="nameHelp" class="form-text" style="font-style: italic;">*три слова кириллицей через пробел.</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputEmail" class="form-label">Ваш электронный адрес</label>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Введите почту в формате 'user@example.com'" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPhone" class="form-label">Ваш контактный телефон</label>
+                    <input type="text" class="form-control" id="inputPhone" placeholder="Введите актуальный номер*" readonly>
+                    <div id="nameHelp" class="form-text" style="font-style: italic;">*начиная с 7 либо 8 без пробелов и прочих знаков.</div>
+                </div>
+                <div class="col-md-12">
+                    <label for="inputTitle" class="form-label">Ваш тип налогообложения</label>
+                    <select class="form-select" aria-label="Тип налогообложения" disabled>
+                        <option selected>Выберите тип налогоплательщика</option>
+                        <option value="1">Самозанятый</option>
+                        <option value="2">ИП</option>
+                        <option value="3">Юрлицо</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputInn" class="form-label">ИНН</label>
+                    <input type="text" class="form-control" id="inputInn" placeholder="Введите ИНН" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputOgrn" class="form-label">ОГРН/ОГРНИП</label>
+                    <input type="text" class="form-control" id="inputOgrn" placeholder="Введите ОГРН/ОГРНИП" readonly>
+                </div>
+
+                <div class="col-md-12">
+                    <label for="inputTitle" class="form-label">Название компании, представителем которой Вы являетесь</label>
+                    <input type="text" class="form-control" id="inputTitle" placeholder="Введите название" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPassword" class="form-label">Пароль</label>
+                    <input type="text" class="form-control" id="inputPassword" placeholder="Задайте пароль*" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPasswordCheck" class="form-label">Проверка пароля</label>
+                    <input type="text" class="form-control" id="inputPasswordCheck" placeholder="Повторите пароль" readonly>
+                </div>
+                <div id="passwordHelp" class="form-text" style="font-style: italic;">*в формате 'passWord123' (6-20 символов, как минимум по одной цифре и букве из верхнего и нижнего регистров).</div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg registration-executor-button" disabled>Зарегистрироваться</button>
+                </div>
+            }
+        </EditForm>
+        @if (_checkUser == false)
+        {
+            <div class="alert alert-danger" role="alert">
+                Пользователь с указанными данными уже зарегистрирован.
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+
+    private string selectedActivityType = "0";
+    private string selectedTaxType = "0";
+
+    private string NamePattern => @"^([а-яА-ЯёЁ]{2,15}\s){2}[а-яА-ЯёЁ]{2,15}$";
+    private string EmailPattern => @"^\S+@\S+\.\S{2,10}$";
+    private string UrlPattern => @"^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$";
+    private string PhonePattern => @"^[7-8]\d{10}$";
+    // private string InnPattern => @"^\d{12}$";
+    // private string OgrnIpPattern => @"^3\d{2}\d{2}\d{9}\d$";
+    // private string InnUrPattern => @"^\d{10}$";
+    // private string OgrnPattern => @"^[15]\d{2}\d{2}\d{7}\d$";
+
+    private bool _checkUser = true;
+    private string _mail;
+    private string? _phone;
+    private string? _url;
+    private int? _inn;
+    private int? _ogrn;
+
+    private RegistrationModel registrationModel = new RegistrationModel();
+
+    public class RegistrationModel
+    {
+        public string Name { get; set; }
+        public string Mail { get; set; }
+        public string? Phone { get; set; }
+        public TypesDto? Specialization { get; set; }
+        public string? URL { get; set; }
+        public string? ExecutorType { get; set; }
+        public string? CompanyTitle { get; set; }
+        public int? INN { get; set; }
+        public int? OGRN { get; set; }
+
+        [Required(ErrorMessage = "Поле 'Пароль' обязательно для заполнения")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,20}$",
+            ErrorMessage = "Должен содержать от 6 до 20 символов, включать арабские цифры, строчные и прописные буквы.")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Поле 'Подтверждение пароля' обязательно для заполнения")]
+        [Compare(nameof(Password), ErrorMessage = "Пароли не совпадают")]
+        public string PasswordConfirmation { get; set; }
+    }
+
+    private void RegisterExecutor()
+    {
+        TypeClient typeClient = new TypeClient();
+        var specializations = typeClient.GetAllTypes();
+        var specialization = specializations.Where(s => s.Title == selectedActivityType).FirstOrDefault();
+
+        TypesDto typesDto = new TypesDto()
+        {
+            Id = specialization.Id,
+            Title = specialization.Title
+        };
+        
+        
+        UserInputModel userInputModel = new UserInputModel()
+        {
+            Role = SingletoneStorage.GetStorage().Storage.Roles.FirstOrDefault(r => r.Id == 2),
+            Password = registrationModel.Password,
+            Name = registrationModel.Name,
+            Phone = registrationModel.Phone,
+            Specialization = typesDto,
+            IsBlocked = true,
+            URL = registrationModel.URL,
+            ExecutorType = selectedTaxType,
+            CompanyTitle = registrationModel.CompanyTitle,
+            INN = registrationModel.INN,
+            OGRN = registrationModel.OGRN
+        };
+
+        UserClient userClient = new UserClient();
+
+        userClient.GetAllUsers();
+
+        userClient.AddUser(userInputModel);
+
+        navManager.NavigateTo("/authorization");
+    }
+
+    private void CheckExecutor()
+    {
+        _mail = registrationModel.Mail;
+        // _phone = registrationModel.Phone;
+        // _url = registrationModel.URL;
+        // _inn = registrationModel.INN;
+        // _ogrn = registrationModel.OGRN;
+
+        UserClient userClient = new UserClient();
+        var users = userClient.GetAllUsers();
+        var user = users.Where(u => u.Mail == _mail).FirstOrDefault();
+        // var user = users.Where(u => u.Mail == _mail || u.Phone == _phone || u.URL == _url || u.INN == _inn || u.OGRN == _ogrn).FirstOrDefault();
+        if (user != null)
+        {
+            _checkUser = false;
+        }
+        else
+        {
+            RegisterExecutor();
+        }
+    }
+
+}

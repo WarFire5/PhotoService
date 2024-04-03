@@ -13,7 +13,7 @@
             <a href="registration" class="btn btn-primary active сustomer-tab" aria-current="page">Заказчик</a>
             <a href="registration-executor" class="btn btn-primary executor-tab">Исполнитель</a>
         </div>
-        <EditForm Model="registrationModel" class="row g-3 registration-form" OnValidSubmit="CheckUser" FormName="Authentication">
+        <EditForm Model="registrationModel" class="row g-3 registration-form" OnValidSubmit="CheckUser" FormName="Registration">
             <DataAnnotationsValidator/>
             <div class="col-12">
                 <label for="inputName" class="form-label registration-form">Как к Вам обращаться?</label>
@@ -53,6 +53,7 @@
 
     private string NamePattern => @"^([а-яА-ЯёЁ]{2,15}\s){1,2}[а-яА-ЯёЁ]{2,15}$";
     private string EmailPattern => @"^\S+@\S+\.\S{2,10}$";
+    
     private bool _checkUser = true;
     private string _mail;
 
