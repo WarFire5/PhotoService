@@ -112,6 +112,26 @@ public class OrderClient: IOrderClient
             return new List<OrderOutputModel>();
         }
     }
+
+    public List<OrderOutputModel> GetOrdersByExecutor()
+    {
+        var user = SingletoneStorage.GetStorage().UserId;
+        var executorRole = SingletoneStorage.GetStorage().Storage.Roles.FirstOrDefault(r => r.Id == 2);
+    
+        if (executorRole != null)
+        {
+            var orders = SingletoneStorage.GetStorage().Storage.Orders
+                .Include(o => o.Customer)
+                .Include(o => o.Service)
+                .Where(o => o.Service.Executor != null && o.Service.Executor.Id == user)
+                .ToList();
+
+            var orderOutputModels = _mapper.Map<List<OrderOutputModel>>(orders);
+            return orderOutputModels;
+        }
+
+        return new List<OrderOutputModel>();
+    }
     
     public OrderOutputModel AddOrder(int serviceId, OrderInputModel order)
     {

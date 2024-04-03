@@ -24,6 +24,7 @@ public class MappingProfile: Profile
         
         CreateMap<OrderOutputModel,OrdersDto>();
         CreateMap<IOrderClient, OrderClient>();
+        CreateMap<OrdersDto, OrderOutputModel>();
         
         CreateMap<ServicesDto, ServiceOutputModel>();
         CreateMap<ServiceOutputModel, ServicesDto>();
