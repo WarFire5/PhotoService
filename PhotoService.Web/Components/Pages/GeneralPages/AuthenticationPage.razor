@@ -36,6 +36,12 @@
                 Аутентификация не удалась. Проверьте свои учетные данные и повторите попытку.
             </div>
         }
+        @if (authenticationFailedIsBlocked)
+        {
+            <div class="alert alert-info" role="alert">
+                Аутентификация не удалась. Попробуйте зайти позднее.
+            </div>
+        }
     </div>
 </div>
 
@@ -46,6 +52,7 @@
     private string PasswordPattern => @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,20}$";
 
     private bool authenticationFailed = false;
+    private bool authenticationFailedIsBlocked = false;
     
     [SupplyParameterFromForm] 
     public LoginInputModel loginInputModel { get; set; } = new LoginInputModel();
@@ -72,10 +79,16 @@
 
         UserClient userClient = new UserClient();
 
-        bool check = userClient.CheckAuthentication(loginInputModel);
-        if (!check)
+        bool checkAuthentication = userClient.CheckAuthentication(loginInputModel);
+        if (checkAuthentication == false)
         {
             authenticationFailed = true;
+            return;
+        }
+        bool checkIsBlocked = userClient.CheckIsBlocked(loginInputModel);
+        if (checkIsBlocked == false)
+        {
+            authenticationFailedIsBlocked = true;
             return;
         }
 

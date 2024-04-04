@@ -21,6 +21,7 @@ public class UserClient : IUserClient
 
     public bool CheckAuthentication(LoginInputModel loginInputModel)
     {
+        bool result = false;
         using (var context = new Context())
         {
             var usersList = context.Users.ToList();
@@ -29,50 +30,66 @@ public class UserClient : IUserClient
             {
                 if (loginInputModel.Mail == user.Mail && loginInputModel.Password == user.Password)
                 {
-                    return true;
+                    result = true;
                 }
             }
 
-            return false;
+            return result;
+        }
+    }
+    
+    public bool CheckIsBlocked(LoginInputModel loginInputModel)
+    {
+        bool result = false;
+        using (var context = new Context())
+        {
+            var usersList = context.Users.ToList();
+
+            foreach (var user in usersList)
+            {
+                if (loginInputModel.Mail == user.Mail && loginInputModel.Password == user.Password && user.IsBlocked == false)
+                {
+                    result = true;
+                }
+            }
+
+            return result;
         }
     }
 
     public List<UsersOutputModel> GetAllUsers()
     {
-            var users = SingletoneStorage.GetStorage().Storage.Users.ToList();
-            var userOutputModel = _mapper.Map<List<UsersOutputModel>>(users);
-            return userOutputModel;
+        var users = SingletoneStorage.GetStorage().Storage.Users.ToList();
+        var userOutputModel = _mapper.Map<List<UsersOutputModel>>(users);
+        return userOutputModel;
     }
 
     public List<UsersOutputModel> GetAllExecutors()
     {
-        var users = SingletoneStorage.GetStorage().Storage.Users.
-            Where(r => r.Role.Id == 2).
-            Include(s=> s.Specialization).
-            ToList();
-        
+        var users = SingletoneStorage.GetStorage().Storage.Users.Where(r => r.Role.Id == 2)
+            .Include(s => s.Specialization).ToList();
+
         var userOutputModel = _mapper.Map<List<UsersOutputModel>>(users);
-        
+
         foreach (var user in userOutputModel)
         {
-                if (user.Specialization != null)
-                {
-                    user.TypeSpecialization = user.Specialization.Id;
-                }
+            if (user.Specialization != null)
+            {
+                user.TypeSpecialization = user.Specialization.Id;
+            }
         }
-        
+
         return userOutputModel;
     }
 
     public List<UsersOutputModel> GetAllCustomers()
     {
-        var users = SingletoneStorage.GetStorage().Storage.Users.
-            Where(r => r.Role.Id == 3).ToList();
-        
+        var users = SingletoneStorage.GetStorage().Storage.Users.Where(r => r.Role.Id == 3).ToList();
+
         var userOutputModel = _mapper.Map<List<UsersOutputModel>>(users);
         return userOutputModel;
     }
-    
+
     public string GetUserNameByEmail(string email)
     {
         using (var context = new Context())
@@ -80,8 +97,8 @@ public class UserClient : IUserClient
             var user = context.Users.SingleOrDefault(u => u.Mail == email);
             return user != null ? user.Name : null;
         }
-    }    
-    
+    }
+
     public int GetUserIdByEmail(string email)
     {
         using (var context = new Context())
