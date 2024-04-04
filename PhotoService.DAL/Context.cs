@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PhotoService.DAL.DTO;
 using Oracle.EntityFrameworkCore;
+using PhotoService.DAL;
 
 namespace PhotoService
 {
