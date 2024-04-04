@@ -36,7 +36,8 @@ else
 
 @code {
 
-    [CascadingParameter] public Task<AuthenticationState> State { get; set; }
+    [CascadingParameter] 
+    public Task<AuthenticationState> State { get; set; }
 
     private string userName;
     private string userRole;
@@ -61,4 +62,5 @@ else
 
     // [Parameter] 
     // public List<ServiceOutputModel> Services { get; set; }
+
 }

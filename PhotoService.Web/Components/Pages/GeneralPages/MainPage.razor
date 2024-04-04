@@ -1,10 +1,8 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Components.Authorization
-@using System.Security.Claims
-@inject AuthenticationStateProvider AuthenticationStateProvider
 @rendermode InteractiveServer
-
-<PageTitle>MainPage</PageTitle>
+@attribute [StreamRendering]
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <h2>Услуги</h2>
 
@@ -29,30 +27,15 @@
     </div>
 </div>
 
-<div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
-    <ServiceCardsForMainPage/>
-    <ServiceCardsForMainPage/>
-    <ServiceCardsForMainPage/>
-    <ServiceCardsForMainPage/>
-</div>
-
-
-@* @code { *@
-@*      *@
-@*     [CascadingParameter] *@
-@*     public Task<AuthenticationState> State { get; set; } *@
-@* *@
-@*     private List<Claim> claims = new List<Claim>(); *@
-@* *@
-@*     private async Task GetClaimsPrincipalData() *@
-@*     { *@
-@*         var authState = await State; *@
-@*         var user = authState.User; *@
-@* *@
-@*         if (user.Identity is not null && user.Identity.IsAuthenticated) *@
-@*         { *@
-@*             claims = user.Claims.ToList(); *@
-@*         } *@
-@*     } *@
-@*      *@
-@* } *@
+@if (true)
+{
+    <ServiceCardForMainPage/>
+    <ServiceCardForMainPage/>
+    <ServiceCardForMainPage/>
+    <ServiceCardForMainPage/>
+    <ServiceCardForMainPage/>
+}
+else
+{
+    <p style="display: flex; justify-content: center; align-items: center; height: 10rem">По выбранному метоположению предложений услуг не найдено</p>
+}

@@ -4,9 +4,10 @@
 @using PhotoService.BLL.Models
 @using Microsoft.AspNetCore.Components
 @using System.Security.Claims
+@using System.Diagnostics.CodeAnalysis
 @using Microsoft.AspNetCore.Components.Authorization
+@using PhotoService.Web.Components.Layout.Cards
 @using static PhotoService.BLL.IClients.IOrderClient
-@using static PhotoService.Web.Components.Layout.Cards.OrderCards.OrderCardGeneral
 @inject IOrderClient OrderClient
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @rendermode InteractiveServer

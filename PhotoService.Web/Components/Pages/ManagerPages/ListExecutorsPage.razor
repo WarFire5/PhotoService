@@ -1,6 +1,8 @@
 ﻿@page "/list-executors"
+@using Microsoft.AspNetCore.Components.Authorization
 @rendermode InteractiveServer
 @attribute [StreamRendering]
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Список исполнителей</PageTitle>
 <h2>Список исполнителей</h2>

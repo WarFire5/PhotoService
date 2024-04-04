@@ -281,7 +281,6 @@
             Title = specialization.Title
         };
 
-
         UserParametersForRegistrationInputModel userParametersForRegistrationInputModel = new UserParametersForRegistrationInputModel()
         {
             Role = SingletoneStorage.GetStorage().Storage.Roles.FirstOrDefault(r => r.Id == 2),
@@ -318,7 +317,6 @@
 
         UserClient userClient = new UserClient();
         var users = userClient.GetAllUsers();
-        // var user = users.Where(u => u.Mail == _mail).FirstOrDefault();
         var user = users.Where(u => u.Mail == _mail || u.Phone == _phone || u.URL == _url || u.INN == _inn).FirstOrDefault();
         if (user != null)
         {

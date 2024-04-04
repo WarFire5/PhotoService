@@ -1,13 +1,13 @@
 @using IServiceClient = PhotoService.BLL.IClients.IServiceClient
+
 @foreach (var i in _service)
 {
-    <ServiceCardForMainPage Id="@i.Id" Close="@ToggleModal2"></ServiceCardForMainPage>
+    <ServiceCard Id="@i.Id" Close="@ToggleModal2"></ServiceCard>
 }
 <InfoServiceModal Id="@Id" modalClass="@_modalClass" Close="@ToggleModal" displayMode="@_displayMode"></InfoServiceModal>
 
 @code {
 
-    // Open modal
     bool _open = false;
     string _modalClass = "modal fade";
     string _displayMode = "none";
@@ -29,7 +29,8 @@
         StateHasChanged();
     }
 
-    [Parameter] public int Id { get; set; } = 1;
+    [Parameter] 
+    public int Id { get; set; } = 1;
 
     private List<ServiceOutputModel> _service = null!;
     private IServiceClient _serviceClient;

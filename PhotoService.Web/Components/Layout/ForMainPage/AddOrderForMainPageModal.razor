@@ -1,0 +1,38 @@
+@using IServiceClient = PhotoService.BLL.IClients.IServiceClient
+@inject NavigationManager NavigationManager
+
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Новый заказ</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="card">
+                <div class="card-body">
+                    <div class="header-card">
+                        <h5 class="card-title">@Service.Title</h5>
+                        <p class="price">@Service.Price</p>
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-secondary">@Service.ExecutorName</h6>
+                    <p class="card-text">@Service.Description</p>
+                    <div class="footer-card">
+                        <small class="text-body-secondary">@Service.TypeName</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a href="/authorization" class="btn btn-primary btn-sm">Заказать услугу</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@code {
+    
+    [Parameter] 
+    public ServiceOutputModel? Service { get; set; }
+    
+}

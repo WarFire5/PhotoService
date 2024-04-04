@@ -11,6 +11,5 @@ public interface IUserClient
     public List<UsersOutputModel> GetAllCustomers();
     public string GetUserNameByEmail(string email);
     public int GetUserIdByEmail(string email);
-
     public void AddUser(UserParametersForRegistrationInputModel userParametersForRegistrationInputModel);
 }

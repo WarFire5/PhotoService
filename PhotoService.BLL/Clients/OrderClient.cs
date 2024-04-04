@@ -18,16 +18,6 @@ public class OrderClient: IOrderClient
         IConfigurationProvider config = new MapperConfiguration(cfg => { cfg.AddProfile(new MappingProfile()); });
         _mapper = new Mapper(config);
     }
-
-    // public void AddOrderForMock (OrdersOutputModel model)
-    // {
-    //     using (var context = new Context())
-    //     {
-    //         var dto = _mapper.Map<OrdersDto>(model);
-    //         context.Orders.Add(dto);
-    //         context.SaveChanges();
-    //     }
-    // }
     
     OrderOutputModelForMock IOrderClient.GetOrderByIdForMock(int id)
     {
@@ -48,48 +38,6 @@ public class OrderClient: IOrderClient
 
         return model;
     }
-    
-    public List<OrderOutputModelForMock> GetOrdersForMock()
-    {
-        using (var context = new Context())
-        {
-            List<OrdersDto> ordersDto = context.Orders.ToList();
-            var orderOutputModelsForMock  = _mapper.Map<List<OrderOutputModelForMock>>(ordersDto);
-            return orderOutputModelsForMock;
-        }
-    }
-    
-    // public List<OrderOutputModel> GetOrders()
-    // {
-    //     using (var context = new Context())
-    //     {
-    //         List<OrdersDto> ordersDto = context.Orders.Include(o=>o.Customer).Include(o=>o.Service.Executor).ToList();
-    //         var orderOutputModels  = _mapper.Map<List<OrderOutputModel>>(ordersDto);
-    //         return orderOutputModels;
-    //     }
-    // }
-  
-    
-    // public OrderOutputModel GetOrderById(int id)
-    // {
-    //     OrderOutputModel model = new OrderOutputModel();
-    //     using (var context = new Context())
-    //     {
-    //         List<OrdersDto> ordersDto = context.Orders.ToList();
-    //         var orderOutputModels = GetOrders();
-    //         
-    //         foreach (var order in orderOutputModels)
-    //         {
-    //             if (order.Id == id)
-    //             {
-    //                 model = order;
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //
-    //     return model;
-    // }
     
     public List<OrderOutputModel> GetOrdersByCustomerIdAsync(int userId)
     {
@@ -158,7 +106,6 @@ public class OrderClient: IOrderClient
         var orderOutputModel = _mapper.Map<OrderOutputModel>(newOrder);
         SingletoneStorage.GetStorage().Storage.Orders.Add(newOrder);
         SingletoneStorage.GetStorage().Storage.SaveChanges();
-
 
         return orderOutputModel;
     }

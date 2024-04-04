@@ -11,7 +11,6 @@ public class UsersOutputModel
     public string Mail { get; set; }
     public string? Phone { get; set; }
     public TypesDto? Specialization { get; set; }
-    
     public int TypeSpecialization { get; set; }
     public string? Dossier { get; set; }
     public int? Rating { get; set; }

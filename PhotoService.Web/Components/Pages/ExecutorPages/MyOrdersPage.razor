@@ -1,6 +1,8 @@
 ﻿@page "/my-orders"
+@using Microsoft.AspNetCore.Components.Authorization
 @rendermode InteractiveServer
 @attribute [StreamRendering]
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Заказы</PageTitle>
 
